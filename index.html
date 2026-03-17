@@ -6,43 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     html, body { margin:0; height:100% }
     #map { position:absolute; inset:0 }
 
-    /* ===== LOADING SCREEN ===== */
     #loading-screen {
       position:fixed; inset:0; background:#fff;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
       z-index:9999; font-family:Inter,system-ui,sans-serif;
     }
-    #loading-screen .loading-title {
-      font-size:18px; font-weight:800; color:#1E1E1E; margin-bottom:6px;
-    }
-    #loading-screen .loading-sub {
-      font-size:12px; color:#888; margin-bottom:24px;
-    }
-    #loading-bar-wrap {
-      width:220px; height:4px; background:#f0f0f0; border-radius:4px; overflow:hidden;
-    }
-    #loading-bar {
-      height:100%; width:0%; background:#EC2629; border-radius:4px;
-      transition:width 0.2s ease;
-    }
-    #loading-count {
-      margin-top:10px; font-size:11px; color:#aaa;
-    }
+    .loading-title { font-size:18px; font-weight:800; color:#1E1E1E; margin-bottom:6px; }
+    .loading-sub { font-size:12px; color:#888; margin-bottom:24px; }
+    #loading-bar-wrap { width:220px; height:4px; background:#f0f0f0; border-radius:4px; overflow:hidden; }
+    #loading-bar { height:100%; width:0%; background:#EC2629; border-radius:4px; transition:width 0.2s ease; }
+    #loading-count { margin-top:10px; font-size:11px; color:#aaa; }
 
     #search-container {
-      position:absolute; top:14px; left:50%; transform:translateX(-50%);
-      z-index:10; width:280px;
+      position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:10; width:280px;
     }
     #search-input {
-      width:100%; box-sizing:border-box; padding:10px 16px;
-      border-radius:8px; border:none; background:#fff;
-      font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:500;
+      width:100%; box-sizing:border-box; padding:10px 16px; border-radius:8px; border:none;
+      background:#fff; font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:500;
       color:#1E1E1E; box-shadow:0 4px 16px rgba(0,0,0,.22); outline:none;
     }
     #search-input::placeholder { color:#aaa; font-weight:400; }
@@ -53,8 +37,8 @@
     }
     #search-results.visible { display:block; }
     .search-item {
-      padding:9px 16px; font-family:Inter,system-ui,sans-serif; font-size:12px;
-      font-weight:500; color:#1E1E1E; cursor:pointer; border-bottom:1px solid #f0f0f0;
+      padding:9px 16px; font-family:Inter,system-ui,sans-serif; font-size:12px; font-weight:500;
+      color:#1E1E1E; cursor:pointer; border-bottom:1px solid #f0f0f0;
       display:flex; align-items:center; justify-content:space-between;
     }
     .search-item:last-child { border-bottom:none; }
@@ -76,13 +60,13 @@
     }
 
     .popup-card {
-      display:flex; align-items:stretch; background:#fff;
-      border-radius:12px; overflow:hidden; width:fit-content; height:155px; position:relative;
+      display:flex; align-items:stretch; background:#fff; border-radius:12px;
+      overflow:hidden; width:fit-content; height:155px; position:relative; gap:0;
     }
     .img-wrap {
       width:140px; flex:0 0 140px; height:155px;
       border-radius:12px 0 0 12px; overflow:hidden; background:#000;
-      display:block; line-height:0; flex-shrink:0;
+      display:block; line-height:0; flex-shrink:0; margin-right:-1px;
     }
     .img-wrap img { width:100%; height:100%; object-fit:cover; display:block; border:none; outline:none; }
 
@@ -94,9 +78,9 @@
     }
 
     .popup-heading { font-weight:800; font-size:11px; margin:0 0 5px 0; color:#1E1E1E }
-    .specs { font-size:10px; display:flex; flex-direction:column; gap:3px; align-items:center; }
+    .specs { font-size:10px; display:flex; flex-direction:column; gap:3px; align-items:center; margin-top:2px; }
     .stats-group { display:flex; flex-direction:column; gap:3px; align-items:center; }
-    .links-group { display:flex; flex-direction:column; gap:3px; align-items:center; margin-top:3px; width:100%; }
+    .links-group { display:flex; flex-direction:column; gap:3px; align-items:center; margin-top:1px; width:100%; }
     .spec-row { display:flex; align-items:center; justify-content:center; gap:4px }
     .icon { width:13px; height:13px; flex-shrink:0; }
     .icon-red { color:#EC2629 }
@@ -104,10 +88,7 @@
     .spec-value { font-weight:800; color:#EC2629; font-size:10.5px }
     .popup-link { color:#3899EC; font-weight:800; font-size:10.5px; text-decoration:none; display:flex; align-items:center; gap:3px; }
     .popup-link:hover { text-decoration:underline }
-    .popup-note {
-      margin-top:3px; font-size:9px; font-weight:600; color:#1E1E1E;
-      text-transform:none;
-    }
+    .popup-note { margin-top:3px; font-size:9px; font-weight:600; color:#1E1E1E; text-transform:none; }
     .close-btn {
       position:absolute; top:6px; right:6px; background:rgba(0,0,0,.5);
       border:none; border-radius:50%; width:20px; height:20px; cursor:pointer;
@@ -115,6 +96,14 @@
       color:#fff; font-size:11px; line-height:1; z-index:2; padding:0;
     }
     .close-btn:hover { background:rgba(0,0,0,.75); }
+
+    .popup-link, .popup-link:focus, .popup-link:active, .popup-link:focus-visible {
+      background:transparent !important; outline:none !important; border:none !important; box-shadow:none !important;
+    }
+    .popup-link, .popup-link * {
+      -webkit-tap-highlight-color:transparent !important;
+      -webkit-touch-callout:none !important; -webkit-user-select:none !important;
+    }
 
     @media (max-width:440px){
       #search-container { width:calc(100% - 24px); top:10px; }
@@ -126,14 +115,6 @@
       .spec-value { font-size:9px !important }
       .popup-link { font-size:9px !important }
       .icon { width:11px !important; height:11px !important }
-    }
-
-    .popup-link, .popup-link:focus, .popup-link:active, .popup-link:focus-visible {
-      background:transparent !important; outline:none !important; border:none !important; box-shadow:none !important;
-    }
-    .popup-link, .popup-link * {
-      -webkit-tap-highlight-color:transparent !important;
-      -webkit-touch-callout:none !important; -webkit-user-select:none !important;
     }
 
     .mapboxgl-ctrl-bottom-right {
@@ -148,7 +129,7 @@
 <body>
 
 <div id="loading-screen">
-  <div class="loading-title">The 95 Ethels</div>
+  <div class="loading-title">The Ethels</div>
   <div class="loading-sub">Loading map...</div>
   <div id="loading-bar-wrap"><div id="loading-bar"></div></div>
   <div id="loading-count">0 / 95</div>
@@ -156,7 +137,7 @@
 
 <div id="map"></div>
 <div id="search-container">
-  <input id="search-input" type="text" placeholder="Search the 95 Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
+  <input id="search-input" type="text" placeholder="Search Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
   <div id="search-results"></div>
 </div>
 
@@ -164,7 +145,6 @@
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.0/dist/togeojson.umd.js"></script>
 <script>
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
-
 const RED = "#EC2629", BLUE = "#3899EC";
 const ETHELS = [
   {
@@ -1879,36 +1859,33 @@ const ETHELS = [
   }
 ];
 
-// ===== IMAGE PRELOAD =====
 const imageCache = {};
-
 function preloadImages(onComplete) {
   const total = ETHELS.length;
   let loaded = 0;
   const bar = document.getElementById("loading-bar");
   const count = document.getElementById("loading-count");
-
   function update() {
     loaded++;
-    const pct = Math.round((loaded / total) * 100);
-    bar.style.width = pct + "%";
+    bar.style.width = Math.round((loaded/total)*100) + "%";
     count.textContent = loaded + " / " + total;
     if (loaded >= total) onComplete();
   }
-
   ETHELS.forEach(e => {
     const img = new Image();
     imageCache[e.id] = img;
     img.onload = update;
-    img.onerror = update; // count failures too so we don't hang
+    img.onerror = update;
     img.src = e.image;
   });
 }
 
-// ===== MAP INIT =====
 const map = new mapboxgl.Map({
-  container:"map", style:"mapbox://styles/mapbox/satellite-streets-v12",
-  center:[-1.82,53.30], zoom:9, attributionControl:false
+  container:"map",
+  style:"mapbox://styles/mapbox/satellite-streets-v12",
+  center:[-1.82, 53.30],
+  zoom:9,
+  attributionControl:false
 });
 map.addControl(new mapboxgl.NavigationControl({showCompass:true,showZoom:true}),"bottom-right");
 map.addControl(new mapboxgl.FullscreenControl(),"bottom-right");
@@ -1999,17 +1976,14 @@ const icons = {
 function buildPopupHtml(e, locked){
   const closeBtn = locked ? `<button class="close-btn" onclick="closeLocked(event)">&#x2715;</button>` : "";
   const note = e.notes ? `<div class="popup-note">Note: ${e.notes}</div>` : "";
-  const osLink = e.osMapsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.osMapsUrl}" target="_blank" rel="noopener">OS Maps</a></div>` : "";
-  const atLink = e.allTrailsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.allTrailsUrl}" target="_blank" rel="noopener">AllTrails</a></div>` : "";
-  const kmLink = e.komootUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.komootUrl}" target="_blank" rel="noopener">Komoot</a></div>` : "";
-  const buyLink = e.osAffiliateUrl ? `<div class="spec-row">${icons.buy}<a class="popup-link" href="${e.osAffiliateUrl}" target="_blank" rel="noopener">${e.osMap}</a></div>` : "";
-  const dirLink = `<div class="spec-row">${icons.dir}<a class="popup-link" href="${e.googleMaps}" target="_blank" rel="noopener">Directions</a></div>`;
-  // Use cached image src
-  const imgSrc = imageCache[e.id]?.src || e.image;
-  return `
-<div class="popup-card">
+  const osLink = e.osMapsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.osMapsUrl}" target="_blank" rel="noopener">OS Maps ↗</a></div>` : "";
+  const atLink = e.allTrailsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.allTrailsUrl}" target="_blank" rel="noopener">AllTrails ↗</a></div>` : "";
+  const kmLink = e.komootUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.komootUrl}" target="_blank" rel="noopener">Komoot ↗</a></div>` : "";
+  const buyLink = e.osAffiliateUrl ? `<div class="spec-row">${icons.buy}<a class="popup-link" href="${e.osAffiliateUrl}" target="_blank" rel="noopener">${e.osMap} ↗</a></div>` : "";
+  const dirLink = `<div class="spec-row">${icons.dir}<a class="popup-link" href="${e.googleMaps}" target="_blank" rel="noopener">Directions ↗</a></div>`;
+  return `<div class="popup-card">
   ${closeBtn}
-  <div class="img-wrap"><img src="${imgSrc}" alt="${e.displayName}" /></div>
+  <div class="img-wrap"><img src="${imageCache[e.id]?.src||e.image}" alt="${e.displayName}" /></div>
   <div class="popup-body">
     <div class="popup-heading">${e.displayName}</div>
     <div class="specs">
@@ -2017,9 +1991,7 @@ function buildPopupHtml(e, locked){
         <div class="spec-row">${icons.height}<span class="spec-value">${e.height}m</span></div>
         <div class="spec-row">${icons.grid}<span class="spec-value">${e.gridRef}</span></div>
       </div>
-      <div class="links-group">
-        ${dirLink}${osLink}${atLink}${kmLink}${buyLink}
-      </div>
+      <div class="links-group">${dirLink}${osLink}${atLink}${kmLink}${buyLink}</div>
     </div>
     ${note}
   </div>
@@ -2031,7 +2003,8 @@ window.closeLocked = function(evt){
   if(lockedId!==null){
     hideRoute(lockedId);
     if(lockedPopups[lockedId]){ lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
-    setMarkerColor(lockedId,RED); lockedId=null;
+    setMarkerColor(lockedId,RED);
+    lockedId=null;
   }
 };
 
@@ -2060,21 +2033,15 @@ function lockEthel(e){
   lockedPopups[e.id]=p;
 }
 
-// ===== STARTUP: preload images, then show map =====
-preloadImages(() => {
-  document.getElementById("loading-screen").style.display = "none";
-});
+preloadImages(()=>{ document.getElementById("loading-screen").style.display="none"; });
 
-map.on("load", async () => {
+map.on("load", ()=>{
   const bounds=new mapboxgl.LngLatBounds();
   ETHELS.forEach(e=>{
     bounds.extend([e.lng,e.lat]);
     const el=document.createElement("div");
     el.className="marker";
-    el.innerHTML=`<svg width="27" height="41" viewBox="0 0 27 41" xmlns="http://www.w3.org/2000/svg">
-      <path d="M13.5 0C6.044 0 0 6.044 0 13.5c0 9.375 13.5 27.5 13.5 27.5S27 22.875 27 13.5C27 6.044 20.956 0 13.5 0z" fill="${RED}"/>
-      <circle cx="13.5" cy="13.5" r="5" fill="white" opacity="0.9"/>
-    </svg>`;
+    el.innerHTML=`<svg width="27" height="41" viewBox="0 0 27 41" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 0C6.044 0 0 6.044 0 13.5c0 9.375 13.5 27.5 13.5 27.5S27 22.875 27 13.5C27 6.044 20.956 0 13.5 0z" fill="${RED}"/><circle cx="13.5" cy="13.5" r="5" fill="white" opacity="0.9"/></svg>`;
     markerEls[e.id]=el;
     new mapboxgl.Marker({element:el}).setLngLat([e.lng,e.lat]).addTo(map);
     if(!isMobile){
@@ -2088,12 +2055,15 @@ map.on("load", async () => {
   map.on("click",()=>{ if(!isMobile) closeLocked(); });
   const mob=window.innerWidth<600;
   map.fitBounds(bounds,{padding:mob?30:80,maxZoom:11});
-  for(const e of ETHELS){
-    try{ const line=await loadGpx(e.gpx); if(line) addRoute(e,line); }catch(_){}
-  }
+
+  // Load GPX routes in background
+  (async()=>{
+    for(const e of ETHELS){
+      try{ const line=await loadGpx(e.gpx); if(line) addRoute(e,line); }catch(_){}
+    }
+  })();
 });
 
-// ===== SEARCH =====
 const searchInput=document.getElementById("search-input");
 const searchResults=document.getElementById("search-results");
 searchInput.addEventListener("input",()=>{
