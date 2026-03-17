@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The 95 Ethels | The Lost Peak</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    html, body { margin:0; height:100% }
+    #map { position:absolute; inset:0 }
+
+    /* ===== SEARCH ===== */
+    #search-container {
+      position:absolute;
+      top:14px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:10;
+      width:280px;
+    }
+    #search-input {
+      width:100%;
+      box-sizing:border-box;
+      padding:10px 16px;
+      border-radius:8px;
+      border:none;
+      background:#fff;
+      font-family:Inter,system-ui,sans-serif;
+      font-size:13px;
+      font-weight:500;
+      color:#1E1E1E;
+      box-shadow:0 4px 16px rgba(0,0,0,.22);
+      outline:none;
+    }
+    #search-input::placeholder { color:#aaa; font-weight:400; }
+    #search-results {
+      display:none;
+      position:absolute;
+      top:calc(100% + 4px);
+      left:0; right:0;
+      background:#fff;
+      border-radius:8px;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+      overflow:hidden;
+      max-height:280px;
+      overflow-y:auto;
+    }
+    #search-results.visible { display:block; }
+    .search-item {
+      padding:9px 16px;
+      font-family:Inter,system-ui,sans-serif;
+      font-size:12px;
+      font-weight:500;
+      color:#1E1E1E;
+      cursor:pointer;
+      border-bottom:1px solid #f0f0f0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .search-item:last-child { border-bottom:none; }
+    .search-item:hover { background:#f7f7f7; }
+    .search-item-height { color:#EC2629; font-weight:700; font-size:11px; }
+    .search-no-results {
+      padding:10px 16px;
+      font-family:Inter,system-ui,sans-serif;
+      font-size:12px;
+      color:#888;
+    }
+
+    /* ===== MARKERS ===== */
+    .marker { cursor:pointer !important }
+    .marker svg { transform:scale(0.85); transform-origin:center }
+
+    /* ===== POPUPS — exact template match ===== */
+    .mapboxgl-popup { filter:drop-shadow(0 14px 28px rgba(0,0,0,.45)); }
+    .mapboxgl-popup-tip { display:none !important; }
+    .mapboxgl-popup-content {
+      background:transparent !important;
+      border:none !important;
+      padding:0 !important;
+      box-shadow:none !important;
+      width:auto !important;
+      overflow:visible !important;
+      display:block;
+      box-sizing:border-box;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
+      text-transform:capitalize;
+    }
+
+    .popup-card {
+      display:flex;
+      align-items:stretch;
+      background:#fff;
+      border-radius:12px;
+      overflow:hidden;
+      width:fit-content;
+      height:130px;
+      position:relative;
+    }
+    .img-wrap {
+      width:140px; flex:0 0 140px; height:100%;
+      border-radius:12px 0 0 12px;
+      overflow:hidden; background:#000;
+    }
+    .img-wrap img { width:100%; height:100%; object-fit:cover; display:block }
+
+    .popup-body {
+      box-sizing:border-box;
+      padding:8px 12px 10px 10px;
+      flex:0 0 140px;
+      min-width:140px; max-width:140px;
+      text-align:center;
+      display:flex; flex-direction:column;
+      justify-content:center;
+      line-height:1.2;
+      transform:translateY(-1px);
+    }
+
+    .popup-heading { font-weight:800; font-size:11px; margin:2px 0 6px 0; color:#1E1E1E }
+    .specs { font-size:10px; display:flex; flex-direction:column; gap:3px; align-items:center; margin-top:2px; transform:translateY(1px); }
+    .stats-group { display:flex; flex-direction:column; gap:3px; align-items:center; transform:translateY(-2px); }
+    .links-group { display:flex; flex-direction:column; gap:3px; align-items:center; }
+    .spec-row { display:flex; align-items:center; justify-content:center; gap:4px }
+
+    .icon { width:16px; height:16px }
+    .icon-red { color:#EC2629 }
+    .icon-blue { color:#3899EC }
+
+    .spec-value { font-weight:800; color:#EC2629; font-size:11px }
+    .spec-label { font-weight:600; color:#555; font-size:10px }
+    .popup-link { color:#3899EC; font-weight:800; font-size:11px; text-decoration:none }
+    .popup-link:hover { text-decoration:underline }
+    .hike-gap { margin-top:2px }
+
+    .close-btn {
+      position:absolute;
+      top:6px; right:6px;
+      background:rgba(0,0,0,.5);
+      border:none; border-radius:50%;
+      width:20px; height:20px;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-size:11px; line-height:1;
+      z-index:2; padding:0;
+    }
+    .close-btn:hover { background:rgba(0,0,0,.75); }
+
+    .private-badge {
+      margin-top:3px;
+      display:inline-block;
+      background:#fff3cd;
+      color:#856404;
+      font-size:9px;
+      font-weight:700;
+      padding:1px 5px;
+      border-radius:3px;
+      letter-spacing:0.3px;
+      text-transform:uppercase;
+    }
+
+    /* ===== MOBILE — exact template match ===== */
+    @media (max-width:440px){
+      #search-container { width:calc(100% - 24px); top:10px; }
+      .popup-card{ height:115px !important }
+      .img-wrap{ width:105px !important; flex-basis:105px !important; height:115px !important }
+      .popup-body{
+        flex:0 0 105px !important;
+        min-width:105px !important; max-width:105px !important;
+        padding:4px 6px !important;
+      }
+      .popup-heading{ font-size:9.5px !important }
+      .specs{ font-size:8.5px !important }
+      .spec-value{ font-size:9.5px !important }
+      .popup-link{ font-size:10px !important }
+      .icon{ width:11px !important; height:11px !important }
+    }
+
+    /* ===== REMOVE TAP HIGHLIGHTS — exact template match ===== */
+    .popup-link,
+    .popup-link:focus,
+    .popup-link:active,
+    .popup-link:focus-visible {
+      background:transparent !important;
+      outline:none !important;
+      border:none !important;
+      box-shadow:none !important;
+    }
+    .popup-link, .popup-link * {
+      -webkit-tap-highlight-color:transparent !important;
+      -webkit-touch-callout:none !important;
+      -webkit-user-select:none !important;
+    }
+
+    /* ===== BOTTOM RIGHT STACK — exact template match ===== */
+    .mapboxgl-ctrl-bottom-right {
+      display:flex !important;
+      flex-direction:column !important;
+      align-items:flex-end !important;
+      gap:6px !important;
+    }
+    .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-group,
+    .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-fullscreen { order:1; }
+    .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib { order:2; }
+    .mapboxgl-ctrl-attrib { transform:translate(-1px,3px); }
+
+    /* ===== COUNTER ===== */
+    #ethel-counter {
+      position:absolute;
+      bottom:52px; left:14px;
+      background:#fff;
+      border-radius:6px;
+      padding:5px 10px;
+      font-family:Inter,system-ui,sans-serif;
+      font-size:11px; font-weight:700;
+      color:#1E1E1E;
+      box-shadow:0 2px 8px rgba(0,0,0,.2);
+      z-index:5;
+      letter-spacing:0.3px;
+      pointer-events:none;
+    }
+    #ethel-counter span { color:#EC2629; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<div id="search-container">
+  <input id="search-input" type="text" placeholder="Search the 95 Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
+  <div id="search-results"></div>
+</div>
+
+<div id="ethel-counter">The <span>95</span> Ethels</div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+<script src="https://unpkg.com/@tmcw/togeojson@5.8.0/dist/togeojson.umd.js"></script>
+<script>
+mapboxgl.accessToken = "YOUR_MAPBOX_TOKEN_HERE";
+
+const RED = "#EC2629", BLUE = "#3899EC";
+
+const ETHELS = [
+  {
+    "id": "1",
+    "name": "Aleck Low",
+    "height": "398",
+    "lat": 53.132697,
+    "lng": -1.741885,
+    "gridRef": "SK173595",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.132697,-1.741885",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Aleck Low.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Aleck Low.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "2",
+    "name": "Alphin Pike",
+    "height": "469",
+    "lat": 53.522014,
+    "lng": -1.996965,
+    "gridRef": "SE002028",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.522014,-1.996965",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Alphin Pike.jpeg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Alphin Pike & Ashway Moss.gpx",
+    "notes": ""
+  },
+  {
+    "id": "3",
+    "name": "Alport Moor",
+    "height": "535",
+    "lat": 53.447795,
+    "lng": -1.820413,
+    "gridRef": "SK120945",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.447795,-1.820413",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Alport Moor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Alport Moor & Featherbed Top.gpx",
+    "notes": ""
+  },
+  {
+    "id": "4",
+    "name": "Ashway Moss",
+    "height": "497",
+    "lat": 53.537788,
+    "lng": -1.95126,
+    "gridRef": "SE033045",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.537788,-1.95126",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Ashway Moss.jpeg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Alphin Pike & Ashway Moss.gpx",
+    "notes": ""
+  },
+  {
+    "id": "5",
+    "name": "Axe Edge Moor",
+    "height": "551",
+    "lat": 53.232574,
+    "lng": -1.948986,
+    "gridRef": "SK035706",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.232574,-1.948986",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Axe Edge Moor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Cheeks Hill & Axe Edge Moor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "6",
+    "name": "Back Tor (Derwent Edge)",
+    "height": "538",
+    "lat": 53.415411,
+    "lng": -1.704127,
+    "gridRef": "SK197909",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.415411,-1.704127",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Back Tor.JPG",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lost Lad & Back Tor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "7",
+    "name": "Black Chew Head",
+    "height": "542",
+    "lat": 53.514327,
+    "lng": -1.916828,
+    "gridRef": "SE056019",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.514327,-1.916828",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Black Chew Head.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Black Chew Head & Featherbed Moss.gpx",
+    "notes": ""
+  },
+  {
+    "id": "8",
+    "name": "Black Edge (Combs Moss)",
+    "height": "507",
+    "lat": 53.291318,
+    "lng": -1.907181,
+    "gridRef": "SK062771",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.291318,-1.907181",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Black Edge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Corbar Hill, Combs Head & Black Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "9",
+    "name": "Black Hill (Holme Moss)",
+    "height": "582",
+    "lat": 53.539539,
+    "lng": -1.883446,
+    "gridRef": "SE078047",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.539539,-1.883446",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Black Hill (Holme Moss).png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Black Hill (Holme Moss).gpx",
+    "notes": ""
+  },
+  {
+    "id": "10",
+    "name": "Black Hill (Whaley Moor)",
+    "height": "410",
+    "lat": 53.335806,
+    "lng": -2.0179812,
+    "gridRef": "SJ989821",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.335806,-2.0179812",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Black Hill (Whaley Moor).jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Sponds Hill & Black Hill (Whaley Moor).gpx",
+    "notes": ""
+  },
+  {
+    "id": "11",
+    "name": "Blakelow Hill (Bonsall Moor)",
+    "height": "367",
+    "lat": 53.130263,
+    "lng": -1.62184,
+    "gridRef": "SK254593",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.130263,-1.621840",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Blakelow Hill (Bonsall Moor).png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Blakelow Hill & Harboro Rocks.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "12",
+    "name": "Bleaklow Head",
+    "height": "633",
+    "lat": 53.460666,
+    "lng": -1.8598922,
+    "gridRef": "SK094960",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.460666,-1.8598922",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Bleaklow Head.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Higher Shelf Stones & Bleaklow Head.gpx",
+    "notes": ""
+  },
+  {
+    "id": "13",
+    "name": "Bole Hill (Burton Moor)",
+    "height": "356",
+    "lat": 53.206061,
+    "lng": -1.7289707,
+    "gridRef": "SK182677",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.206061,-1.7289707",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Bole Hill (Burton Moor).png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Bole Hill.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "14",
+    "name": "Bolehill (Cromford Moor)",
+    "height": "323",
+    "lat": 53.09457,
+    "lng": -1.56264,
+    "gridRef": "SK293553",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.09457,-1.56264",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Bolehill (Cromford Moor).png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Bolehill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "15",
+    "name": "Bradwell Moor",
+    "height": "471",
+    "lat": 53.31798,
+    "lng": -1.80358,
+    "gridRef": "SK131801",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.31798,-1.80358",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Bradwell Moor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Bradwell Moor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "16",
+    "name": "Britland Edge Hill",
+    "height": "523",
+    "lat": 53.519068,
+    "lng": -1.8416017,
+    "gridRef": "SE106025",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.519068,-1.8416017",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Britland Edge Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Dead Edge End, Britland Edge Hill & Snailsden Pike End.gpx",
+    "notes": ""
+  },
+  {
+    "id": "17",
+    "name": "Brown Knoll",
+    "height": "569",
+    "lat": 53.36271,
+    "lng": -1.8767424,
+    "gridRef": "SK083851",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.36271,-1.8767424",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Brown Knoll.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Grindslow Knoll, Kinder Low (For Kinder Scout) & Brown Knoll.gpx",
+    "notes": ""
+  },
+  {
+    "id": "18",
+    "name": "Burbage Edge (Goyt’s Moss)",
+    "height": "500",
+    "lat": 53.2558,
+    "lng": -1.9579906,
+    "gridRef": "SK029732",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.25580,-1.9579906",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Burbage Edge (Goyt's Moss).png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Burbage Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "19",
+    "name": "Burton Bole (Shatton Moor)",
+    "height": "417",
+    "lat": 53.322875,
+    "lng": -1.7117179,
+    "gridRef": "SK193807",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.322875,-1.7117179",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Burton Bole (Shatton Moor).png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Sir William Hill, Durham Edge & Burton Bole.gpx",
+    "notes": ""
+  },
+  {
+    "id": "20",
+    "name": "Carder Low",
+    "height": "380",
+    "lat": 53.16037,
+    "lng": -1.807029,
+    "gridRef": "SK130626",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.160370,-1.8070290",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Carder Low.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/High Wheeldon, Pilsbury Hill & Carder Low.gpx",
+    "notes": ""
+  },
+  {
+    "id": "21",
+    "name": "Cats Tor",
+    "height": "518",
+    "lat": 53.279178,
+    "lng": -2.0104584,
+    "gridRef": "SJ994758",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.279178,-2.0104584",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Cats Tor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Cats Tor, Shining Tor & Foxlow Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "22",
+    "name": "Cheeks Hill",
+    "height": "520",
+    "lat": 53.226139,
+    "lng": -1.9625131,
+    "gridRef": "SK026699",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.226139,-1.9625131",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Cheeks Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Cheeks Hill & Axe Edge Moor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "23",
+    "name": "Chelmorton Low",
+    "height": "446",
+    "lat": 53.232317,
+    "lng": -1.8306756,
+    "gridRef": "SK114706",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.232317,-1.8306756",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Chelmorton Low.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Chelmorton Low & Sough Top.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "24",
+    "name": "Chinley Churn",
+    "height": "457",
+    "lat": 53.355571,
+    "lng": -1.9473763,
+    "gridRef": "SK036843",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.355571,-1.9473763",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Chinley Churn.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Chinley Churn.gpx",
+    "notes": ""
+  },
+  {
+    "id": "25",
+    "name": "Chrome Hill",
+    "height": "425",
+    "lat": 53.202729,
+    "lng": -1.8966627,
+    "gridRef": "SK070673",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.202729,-1.8966627",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Chrome Hill.PNG",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Hollins Hill, Chrome Hill & Parkhouse Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "26",
+    "name": "Combs Head",
+    "height": "503",
+    "lat": 53.278265,
+    "lng": -1.941472,
+    "gridRef": "SK040757",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.278265,-1.9414720",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Combs Head.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Corbar Hill, Combs Head & Black Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "27",
+    "name": "Corbar Hill",
+    "height": "437",
+    "lat": 53.264773,
+    "lng": -1.9249989,
+    "gridRef": "SK051742",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.264773,-1.9249989",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Corbar Hill.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Corbar Hill, Combs Head & Black Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "28",
+    "name": "Cown Edge",
+    "height": "411",
+    "lat": 53.42479,
+    "lng": -1.9698641,
+    "gridRef": "SK021920",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.424790,-1.9698641",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Cown Edge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Cown Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "29",
+    "name": "Croker Hill",
+    "height": "402",
+    "lat": 53.205426,
+    "lng": -2.1017664,
+    "gridRef": "SJ933676",
+    "osMap": "268: Wilmslow, Macclesfield & Congleton",
+    "googleMaps": "https://www.google.com/maps?q=53.205426,-2.1017664",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Crocker Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Croker Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "30",
+    "name": "Crook Hill",
+    "height": "382",
+    "lat": 53.380444,
+    "lng": -1.7293691,
+    "gridRef": "SK181871",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.380444,-1.7293691",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Crook Hill",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Crook Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "31",
+    "name": "Dead Edge End",
+    "height": "499",
+    "lat": 53.511839,
+    "lng": -1.8144858,
+    "gridRef": "SE124017",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.511839,-1.8144858",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Dead Edge End.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Dead Edge End, Britland Edge Hill & Snailsden Pike End.gpx",
+    "notes": ""
+  },
+  {
+    "id": "32",
+    "name": "Durham Edge (Abney Moor)",
+    "height": "416",
+    "lat": 53.311236,
+    "lng": -1.7313074,
+    "gridRef": "SK180794",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.311236,-1.7313074",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Durham Edge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Sir William Hill, Durham Edge & Burton Bole.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "33",
+    "name": "Eccles Pike",
+    "height": "370",
+    "lat": 53.327706,
+    "lng": -1.9489119,
+    "gridRef": "SK035812",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.327706,-1.9489119",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Eccles Pike.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Eccles Pike.gpx",
+    "notes": ""
+  },
+  {
+    "id": "34",
+    "name": "Ecton Hill",
+    "height": "369",
+    "lat": 53.119087,
+    "lng": -1.8535324,
+    "gridRef": "SK099580",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.119087,-1.8535324",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Ecton Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Ecton Hill & Wetton Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "35",
+    "name": "Eldon Hill",
+    "height": "470",
+    "lat": 53.326696,
+    "lng": -1.8288013,
+    "gridRef": "SK115811",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.326696,-1.8288013",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Eldon Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lord's Seat, Gautries Hill, Eldon Hill & Slitherstone Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "36",
+    "name": "Featherbed Moss",
+    "height": "541",
+    "lat": 53.50657,
+    "lng": -1.932113,
+    "gridRef": "SE046011",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.506570,-1.9321130",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Featherbed Moss.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Black Chew Head & Featherbed Moss.gpx",
+    "notes": ""
+  },
+  {
+    "id": "37",
+    "name": "Featherbed Top",
+    "height": "544",
+    "lat": 53.424719,
+    "lng": -1.8660296,
+    "gridRef": "SK090920",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.424719,-1.8660296",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Featherbed Top.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Alport Moor & Featherbed Top.gpx",
+    "notes": ""
+  },
+  {
+    "id": "38",
+    "name": "Fin Cop",
+    "height": "327",
+    "lat": 53.234852,
+    "lng": -1.7407745,
+    "gridRef": "SK174709",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.234852,-1.7407745",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Fin Cop.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Fin Cop.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "39",
+    "name": "Foxlow Edge",
+    "height": "452",
+    "lat": 53.27738,
+    "lng": -1.9954613,
+    "gridRef": "SK004756",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.277380,-1.9954613",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Foxlow Edge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Cats Tor, Shining Tor & Foxlow Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "40",
+    "name": "Gautries Hill",
+    "height": "410",
+    "lat": 53.324932,
+    "lng": -1.8543311,
+    "gridRef": "SK098809",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.324932,-1.8543311",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Gautries Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lord's Seat, Gautries Hill, Eldon Hill & Slitherstone Hill.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "41",
+    "name": "Grin Low",
+    "height": "430",
+    "lat": 53.242299,
+    "lng": -1.9220412,
+    "gridRef": "SK053717",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.242299,-1.9220412",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Grin Low.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Grin Low.gpx",
+    "notes": ""
+  },
+  {
+    "id": "42",
+    "name": "Grindslow Knoll",
+    "height": "601",
+    "lat": 53.377943,
+    "lng": -1.8376154,
+    "gridRef": "SK109868",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.377943,-1.8376154",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Grindslow Knoll.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Grindslow Knoll, Kinder Low (For Kinder Scout) & Brown Knoll.gpx",
+    "notes": ""
+  },
+  {
+    "id": "43",
+    "name": "Gun",
+    "height": "385",
+    "lat": 53.150629,
+    "lng": -2.0463123,
+    "gridRef": "SJ970615",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.150629,-2.0463123",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Gun.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Gun.gpx",
+    "notes": ""
+  },
+  {
+    "id": "44",
+    "name": "Harboro Rocks",
+    "height": "379",
+    "lat": 53.094363,
+    "lng": -1.6400742,
+    "gridRef": "SK242553",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.094363,-1.6400742",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Harboro Rocks.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Blakelow Hill & Harboro Rocks.gpx",
+    "notes": ""
+  },
+  {
+    "id": "45",
+    "name": "Harland Edge (Beeley Moor)",
+    "height": "371",
+    "lat": 53.213658,
+    "lng": -1.5627059,
+    "gridRef": "SK293686",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.213658,-1.5627059",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Harland Edge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Harland Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "46",
+    "name": "Harthill Moor",
+    "height": "272",
+    "lat": 53.161198,
+    "lng": -1.687721,
+    "gridRef": "SK209627",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.161198,-1.687721",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Harthill Moor.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Harthill Moor.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "47",
+    "name": "Hen Cloud",
+    "height": "410",
+    "lat": 53.151296,
+    "lng": -1.988723,
+    "gridRef": "SK008615",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.151296,-1.988723",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Hen Cloud.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Hen Cloud, The Roaches & Ramshaw Rocks.gpx",
+    "notes": ""
+  },
+  {
+    "id": "48",
+    "name": "Higger Tor",
+    "height": "434",
+    "lat": 53.333791,
+    "lng": -1.615132,
+    "gridRef": "SK257819",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.333791,-1.615132",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Higger Tor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Higger Tor, White Path Moss, High Neb & Stanedge Pole.gpx",
+    "notes": ""
+  },
+  {
+    "id": "49",
+    "name": "High Edge",
+    "height": "472",
+    "lat": 53.216036,
+    "lng": -1.907179,
+    "gridRef": "SK062687",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.216036,-1.907179",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/High Edge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/High Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "50",
+    "name": "High Neb (Stanage Edge)",
+    "height": "458",
+    "lat": 53.364684,
+    "lng": -1.65911,
+    "gridRef": "SK227853",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.364684,-1.65911",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/High Neb.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Higger Tor, White Path Moss, High Neb & Stanedge Pole.gpx",
+    "notes": ""
+  },
+  {
+    "id": "51",
+    "name": "High Stones (Howden Edge)",
+    "height": "550",
+    "lat": 53.445603,
+    "lng": -1.718567,
+    "gridRef": "SK187943",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.445603,-1.718567",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/High Stones.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/High Stones & Margery Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "52",
+    "name": "High Wheeldon",
+    "height": "422",
+    "lat": 53.192059,
+    "lng": -1.851238,
+    "gridRef": "SK100661",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.192059,-1.851238",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/High Wheeldon.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/High Wheeldon, Pilsbury Hill & Carder Low.gpx",
+    "notes": ""
+  },
+  {
+    "id": "53",
+    "name": "Higher Shelf Stones",
+    "height": "622",
+    "lat": 53.449816,
+    "lng": -1.86761,
+    "gridRef": "SK088947",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.449816,-1.86761",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Higher Shelf Stones.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Higher Shelf Stones & Bleaklow Head.gpx",
+    "notes": ""
+  },
+  {
+    "id": "54",
+    "name": "Hollins Hill",
+    "height": "451",
+    "lat": 53.208236,
+    "lng": -1.911029,
+    "gridRef": "SK060679",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.208236,-1.911029",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Hollins Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Hollins Hill, Chrome Hill & Parkhouse Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "55",
+    "name": "Kinder Scout (Kinder Low)",
+    "height": "636",
+    "lat": 53.384808,
+    "lng": -1.87391,
+    "gridRef": "SK084875",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.384808,-1.87391",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Kinder Scout.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Grindslow Knoll, Kinder Low (For Kinder Scout) & Brown Knoll.gpx",
+    "notes": ""
+  },
+  {
+    "id": "56",
+    "name": "Lantern Pike",
+    "height": "373",
+    "lat": 53.390432,
+    "lng": -1.962195,
+    "gridRef": "SK026881",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.390432,-1.962195",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Lantern Pike.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Mill Hill & Lantern Pike.gpx",
+    "notes": ""
+  },
+  {
+    "id": "57",
+    "name": "Lees Moor",
+    "height": "304",
+    "lat": 53.203591,
+    "lng": -1.628336,
+    "gridRef": "SK249674",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.203591,-1.628336",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Lees Moor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lees Moor.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "58",
+    "name": "Longstone Moor",
+    "height": "395",
+    "lat": 53.256325,
+    "lng": -1.718387,
+    "gridRef": "SK188732",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.256325,-1.718387",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Longstone Moor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Longstone Moor & Wardlow Hay Cop.gpx",
+    "notes": ""
+  },
+  {
+    "id": "59",
+    "name": "Lord’s Seat (Rushup Edge)",
+    "height": "550",
+    "lat": 53.348039,
+    "lng": -1.833361,
+    "gridRef": "SK111834",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.348039,-1.833361",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Lord's Seat.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lord's Seat, Gautries Hill, Eldon Hill & Slitherstone Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "60",
+    "name": "Lose Hill",
+    "height": "476",
+    "lat": 53.364907,
+    "lng": -1.771441,
+    "gridRef": "SK153853",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.364907,-1.771441",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Lose Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lose Hill & Mam Tor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "61",
+    "name": "Lost Lad",
+    "height": "518",
+    "lat": 53.417404,
+    "lng": -1.710523,
+    "gridRef": "SK193912",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.417404,-1.710523",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Lost Lad.JPG",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lost Lad & Back Tor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "62",
+    "name": "Mam Tor",
+    "height": "517",
+    "lat": 53.349262,
+    "lng": -1.809666,
+    "gridRef": "SK127836",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.349262,-1.809666",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Mam Tor.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lose Hill & Mam Tor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "63",
+    "name": "Margery Hill",
+    "height": "546",
+    "lat": 53.457724,
+    "lng": -1.716664,
+    "gridRef": "SK189956",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.457724,-1.716664",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Margery Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/High Stones & Margery Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "64",
+    "name": "Merryton Low (Blake Mere)",
+    "height": "489",
+    "lat": 53.146131,
+    "lng": -1.939639,
+    "gridRef": "SK041609",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.146131,-1.939639",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Merryton Low.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Merryton Low.gpx",
+    "notes": ""
+  },
+  {
+    "id": "65",
+    "name": "Mill Hill",
+    "height": "544",
+    "lat": 53.410664,
+    "lng": -1.909178,
+    "gridRef": "SK061904",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.410664,-1.909178",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Mill Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Mill Hill & Lantern Pike.gpx",
+    "notes": ""
+  },
+  {
+    "id": "66",
+    "name": "Minninglow",
+    "height": "372",
+    "lat": 53.112326,
+    "lng": -1.688478,
+    "gridRef": "SK209572",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.112326,-1.688478",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Minninglow.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Minninglow.gpx",
+    "notes": ""
+  },
+  {
+    "id": "67",
+    "name": "Mount Famine",
+    "height": "473",
+    "lat": 53.361259,
+    "lng": -1.916916,
+    "gridRef": "SK056849",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.361259,-1.916916",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Mount Famine.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Mount Famine & South Head.gpx",
+    "notes": ""
+  },
+  {
+    "id": "68",
+    "name": "Musden Low",
+    "height": "361",
+    "lat": 53.047864,
+    "lng": -1.824765,
+    "gridRef": "SK118500",
+    "osMap": "259: Derby",
+    "googleMaps": "https://www.google.com/maps?q=53.047864,-1.824765",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Musden Low.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Musden Low.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "69",
+    "name": "Oliver Hill",
+    "height": "513",
+    "lat": 53.205288,
+    "lng": -1.960771,
+    "gridRef": "SK027675",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.205288,-1.960771",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Oliver Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Oliver Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "70",
+    "name": "Parkhouse Hill",
+    "height": "375",
+    "lat": 53.199771,
+    "lng": -1.882304,
+    "gridRef": "SK079669",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.199771,-1.882304",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Parkhouse Hill.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Hollins Hill, Chrome Hill & Parkhouse Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "71",
+    "name": "Pilsbury Hill",
+    "height": "395",
+    "lat": 53.172565,
+    "lng": -1.820831,
+    "gridRef": "SK120639",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.172565,-1.820831",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Pilsbury Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/High Wheeldon, Pilsbury Hill & Carder Low.gpx",
+    "notes": ""
+  },
+  {
+    "id": "72",
+    "name": "Ramshaw Rocks",
+    "height": "460",
+    "lat": 53.159204,
+    "lng": -1.971521,
+    "gridRef": "SK020624",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.159204,-1.971521",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Ramshaw Rocks.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Hen Cloud, The Roaches & Ramshaw Rocks.gpx",
+    "notes": ""
+  },
+  {
+    "id": "73",
+    "name": "Revidge",
+    "height": "400",
+    "lat": 53.136347,
+    "lng": -1.885766,
+    "gridRef": "SK077599",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.136347,-1.885766",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Revidge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Revidge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "74",
+    "name": "Shining Tor",
+    "height": "559",
+    "lat": 53.260729,
+    "lng": -2.009472,
+    "gridRef": "SJ994737",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.260729,-2.009472",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Shining Tor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Cats Tor, Shining Tor & Foxlow Edge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "75",
+    "name": "Shutlingsloe",
+    "height": "506",
+    "lat": 53.22332,
+    "lng": -2.036663,
+    "gridRef": "SJ976695",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.22332,-2.036663",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Shutlingsloe.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Shutlingsloe.gpx",
+    "notes": ""
+  },
+  {
+    "id": "76",
+    "name": "Sir William Hill",
+    "height": "429",
+    "lat": 53.29751,
+    "lng": -1.678355,
+    "gridRef": "SK215778",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.29751,-1.678355",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Sir William Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Sir William Hill, Durham Edge & Burton Bole.gpx",
+    "notes": ""
+  },
+  {
+    "id": "77",
+    "name": "Slitherstone Hill",
+    "height": "477",
+    "lat": 53.334389,
+    "lng": -1.817616,
+    "gridRef": "SK122819",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.334389,-1.817616",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Slitherstone Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Lord's Seat, Gautries Hill, Eldon Hill & Slitherstone Hill.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "78",
+    "name": "Snailsden Pike End",
+    "height": "477",
+    "lat": 53.52633,
+    "lng": -1.80248,
+    "gridRef": "SE128034",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.52633, -1.80248",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Snailsden Pike End.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Dead Edge End, Britland Edge Hill & Snailsden Pike End.gpx",
+    "notes": ""
+  },
+  {
+    "id": "79",
+    "name": "Sough Top",
+    "height": "438",
+    "lat": 53.234919,
+    "lng": -1.802053,
+    "gridRef": "SK133708",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.234919,-1.802053",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Sough Top.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Chelmorton Low & Sough Top.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "80",
+    "name": "South Head",
+    "height": "494",
+    "lat": 53.357847,
+    "lng": -1.909816,
+    "gridRef": "SK061845",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.357847,-1.909816",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/South Head.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Mount Famine & South Head.gpx",
+    "notes": ""
+  },
+  {
+    "id": "81",
+    "name": "Sponds Hill",
+    "height": "413",
+    "lat": 53.316353,
+    "lng": -2.044489,
+    "gridRef": "SJ971799",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.316353,-2.044489",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Sponds Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Sponds Hill & Black Hill (Whaley Moor).gpx",
+    "notes": ""
+  },
+  {
+    "id": "82",
+    "name": "Stanedge Pole",
+    "height": "438",
+    "lat": 53.356177,
+    "lng": -1.630601,
+    "gridRef": "SK246844",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.356177,-1.630601",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Stanedge Pole.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Higger Tor, White Path Moss, High Neb & Stanedge Pole.gpx",
+    "notes": ""
+  },
+  {
+    "id": "83",
+    "name": "Stanton Moor",
+    "height": "323",
+    "lat": 53.162657,
+    "lng": -1.635121,
+    "gridRef": "SK244628",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.162657,-1.635121",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Stanton Moor.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Stanton Moor.gpx",
+    "notes": ""
+  },
+  {
+    "id": "84",
+    "name": "The Cloud",
+    "height": "343",
+    "lat": 53.170212,
+    "lng": -2.144402,
+    "gridRef": "SJ904636",
+    "osMap": "268: Wilmslow, Macclesfield & Congleton",
+    "googleMaps": "https://www.google.com/maps?q=53.170212,-2.144402",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/The Cloud.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/The Cloud.gpx",
+    "notes": ""
+  },
+  {
+    "id": "85",
+    "name": "The Roaches",
+    "height": "505",
+    "lat": 53.172124,
+    "lng": -1.999862,
+    "gridRef": "SK001638",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.172124,-1.999862",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/The Roaches.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Hen Cloud, The Roaches & Ramshaw Rocks.gpx",
+    "notes": ""
+  },
+  {
+    "id": "86",
+    "name": "Thorpe Cloud",
+    "height": "287",
+    "lat": 53.055924,
+    "lng": -1.77478,
+    "gridRef": "SK151509",
+    "osMap": "259: Derby",
+    "googleMaps": "https://www.google.com/maps?q=53.055924,-1.77478",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Thorpe Cloud.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Thorpe Cloud.gpx",
+    "notes": ""
+  },
+  {
+    "id": "87",
+    "name": "Tissington Hill",
+    "height": "369",
+    "lat": 53.071145,
+    "lng": -1.775984,
+    "gridRef": "SK151526",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.071145,-1.775984",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Tissington Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Tissington Hill.gpx",
+    "notes": "On Private Land"
+  },
+  {
+    "id": "88",
+    "name": "Wardlow Hay Cop",
+    "height": "370",
+    "lat": 53.262482,
+    "lng": -1.733833,
+    "gridRef": "SK178739",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.262482,-1.733833",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Wardlow Hay Cop.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Longstone Moor & Wardlow Hay Cop.gpx",
+    "notes": ""
+  },
+  {
+    "id": "89",
+    "name": "West Nab",
+    "height": "500",
+    "lat": 53.575577,
+    "lng": -1.886141,
+    "gridRef": "SE076087",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.575577,-1.886141",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/West Nab.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/West Nab.gpx",
+    "notes": ""
+  },
+  {
+    "id": "90",
+    "name": "Wetton Hill",
+    "height": "371",
+    "lat": 53.10644,
+    "lng": -1.832742,
+    "gridRef": "SK112565",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.10644,-1.832742",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Wetton Hill.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Ecton Hill & Wetton Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "91",
+    "name": "Whetstone Ridge",
+    "height": "547",
+    "lat": 53.234877,
+    "lng": -1.998559,
+    "gridRef": "SK001708",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.234877,-1.998559",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Whetstone Ridge.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Whetstone Ridge.gpx",
+    "notes": ""
+  },
+  {
+    "id": "92",
+    "name": "White Low",
+    "height": "530",
+    "lat": 53.516335,
+    "lng": -1.870434,
+    "gridRef": "SE086021",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.516335,-1.870434",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/White Low.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/White Low.gpx",
+    "notes": ""
+  },
+  {
+    "id": "93",
+    "name": "White Path Moss",
+    "height": "457",
+    "lat": 53.343384,
+    "lng": -1.624253,
+    "gridRef": "SK251830",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.343384,-1.624253",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/White Path Moss.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Higger Tor, White Path Moss, High Neb & Stanedge Pole.gpx",
+    "notes": ""
+  },
+  {
+    "id": "94",
+    "name": "Win Hill",
+    "height": "462",
+    "lat": 53.362373,
+    "lng": -1.720964,
+    "gridRef": "SK186850",
+    "osMap": "OL1: Dark Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.362373,-1.720964",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Win Hill.png",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Win Hill.gpx",
+    "notes": ""
+  },
+  {
+    "id": "95",
+    "name": "Wolfscote Hill",
+    "height": "388",
+    "lat": 53.121944,
+    "lng": -1.79667,
+    "gridRef": "SK137583",
+    "osMap": "OL24: White Peak",
+    "googleMaps": "https://www.google.com/maps?q=53.121944,-1.79667",
+    "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Wolfscote Hill.jpg",
+    "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Wolfscote Hill.gpx",
+    "notes": ""
+  }
+];
+
+const map = new mapboxgl.Map({
+  container: "map",
+  style: "mapbox://styles/mapbox/satellite-streets-v12",
+  center: [-1.82, 53.30],
+  zoom: 9,
+  attributionControl: false
+});
+
+map.addControl(new mapboxgl.NavigationControl({ showCompass:true, showZoom:true }), "bottom-right");
+map.addControl(new mapboxgl.FullscreenControl(), "bottom-right");
+map.addControl(new mapboxgl.AttributionControl({ compact:true }), "bottom-right");
+
+const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+
+const markerEls = {};
+const lockedPopups = {};
+const routeLayers = {};
+const routeAnims = {};
+let lockedId = null;
+let hoverPopupObj = null;
+
+function setMarkerColor(id, color) {
+  const el = markerEls[id];
+  if (!el) return;
+  const path = el.querySelector("path");
+  if (path) path.setAttribute("fill", color);
+}
+
+async function loadGpx(url) {
+  const res = await fetch(url);
+  const xml = new DOMParser().parseFromString(await res.text(), "text/xml");
+  const gj = toGeoJSON.gpx(xml);
+  return gj.features.find(f => f.geometry?.type === "LineString") || null;
+}
+
+function addRoute(ethel, lineFeature) {
+  const id = ethel.id;
+  const coords = lineFeature.geometry.coordinates;
+  let dists = [0];
+  for (let i = 1; i < coords.length; i++) {
+    const dx = coords[i][0]-coords[i-1][0], dy = coords[i][1]-coords[i-1][1];
+    dists.push(dists[i-1] + Math.sqrt(dx*dx+dy*dy));
+  }
+  const total = dists[dists.length-1];
+  const srcBase=`rb-${id}`, srcAnim=`ra-${id}`, lyrBase=`rl-${id}`, lyrAnim=`la-${id}`;
+  map.addSource(srcBase, { type:"geojson", data:lineFeature });
+  map.addLayer({ id:lyrBase, type:"line", source:srcBase, paint:{ "line-color":RED, "line-width":3.5, "line-opacity":0 }});
+  map.addSource(srcAnim, { type:"geojson", data:{ type:"Feature", geometry:{ type:"LineString", coordinates:[] }}});
+  map.addLayer({ id:lyrAnim, type:"line", source:srcAnim, paint:{ "line-color":BLUE, "line-width":3.5, "line-opacity":0 }});
+  routeLayers[id] = { srcBase, srcAnim, lyrBase, lyrAnim, coords, dists, total };
+}
+
+function showRoute(id) {
+  const r = routeLayers[id]; if (!r) return;
+  map.setPaintProperty(r.lyrBase, "line-opacity", 0.85);
+  map.setPaintProperty(r.lyrAnim, "line-opacity", 1);
+  startAnim(id);
+}
+
+function hideRoute(id) {
+  const r = routeLayers[id]; if (!r) return;
+  stopAnim(id);
+  map.setPaintProperty(r.lyrBase, "line-opacity", 0);
+  map.setPaintProperty(r.lyrAnim, "line-opacity", 0);
+}
+
+function startAnim(id) {
+  stopAnim(id);
+  const r = routeLayers[id]; if (!r) return;
+  const DURATION = 5500;
+  let t0 = null;
+  function frame(ts) {
+    if (!routeAnims[id]?.active) return;
+    if (!t0) t0 = ts;
+    const prog = ((ts-t0) % DURATION) / DURATION;
+    const dist = prog * r.total;
+    const pts = [];
+    for (let i = 0; i < r.coords.length; i++) {
+      if (r.dists[i] <= dist) { pts.push(r.coords[i]); }
+      else {
+        if (pts.length > 0 && i > 0) {
+          const seg = r.dists[i]-r.dists[i-1];
+          const t = seg > 0 ? (dist-r.dists[i-1])/seg : 0;
+          const p=r.coords[i-1], q=r.coords[i];
+          pts.push([p[0]+t*(q[0]-p[0]), p[1]+t*(q[1]-p[1])]);
+        }
+        break;
+      }
+    }
+    if (pts.length >= 2) {
+      const src = map.getSource(r.srcAnim);
+      if (src) src.setData({ type:"Feature", geometry:{ type:"LineString", coordinates:pts }});
+    }
+    routeAnims[id].raf = requestAnimationFrame(frame);
+  }
+  routeAnims[id] = { active:true, raf:requestAnimationFrame(frame) };
+}
+
+function stopAnim(id) {
+  if (routeAnims[id]) {
+    routeAnims[id].active = false;
+    cancelAnimationFrame(routeAnims[id].raf);
+    delete routeAnims[id];
+  }
+  const r = routeLayers[id];
+  if (r) { const src = map.getSource(r.srcAnim); if (src) src.setData({ type:"Feature", geometry:{ type:"LineString", coordinates:[] }}); }
+}
+
+const icons = {
+  height: `<svg class="icon icon-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18"/><path d="M6 18l4-5 4 3 5-8"/></svg>`,
+  grid:   `<svg class="icon icon-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-5.5-8-11.5a8 8 0 0 1 16 0C20 16.5 12 22 12 22z"/><circle cx="12" cy="10.5" r="2.5"/></svg>`,
+  map:    `<svg class="icon icon-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>`,
+  dir:    `<svg class="icon icon-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-5.5-8-11.5a8 8 0 0 1 16 0C20 16.5 12 22 12 22z"/><circle cx="12" cy="10.5" r="2.5"/></svg>`
+};
+
+function buildPopupHtml(e, locked) {
+  const closeBtn = locked ? `<button class="close-btn" onclick="closeLocked(event)" title="Close">&#x2715;</button>` : "";
+  const badge = e.notes === "On Private Land" ? `<div class="private-badge">Private Land</div>` : "";
+  return `
+<div class="popup-card">
+  ${closeBtn}
+  <div class="img-wrap"><img src="${e.image}" alt="${e.name}" loading="lazy" /></div>
+  <div class="popup-body">
+    <div class="popup-heading">${e.name}</div>
+    <div class="specs">
+      <div class="stats-group">
+        <div class="spec-row">${icons.height}<span class="spec-value">${e.height}m</span></div>
+        <div class="spec-row">${icons.grid}<span class="spec-value">${e.gridRef}</span></div>
+        <div class="spec-row">${icons.map}<span class="spec-value">${e.osMap}</span></div>
+      </div>
+      <div class="links-group">
+        <div class="spec-row hike-gap">${icons.dir}<a class="popup-link" href="${e.googleMaps}" target="_blank" rel="noopener">Directions</a></div>
+      </div>
+    </div>
+    ${badge}
+  </div>
+</div>`;
+}
+
+window.closeLocked = function(evt) {
+  if (evt) evt.stopPropagation();
+  if (lockedId !== null) {
+    hideRoute(lockedId);
+    if (lockedPopups[lockedId]) { lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
+    setMarkerColor(lockedId, RED);
+    lockedId = null;
+  }
+};
+
+function showHoverPopup(e) {
+  if (hoverPopupObj) { hoverPopupObj.remove(); hoverPopupObj = null; }
+  setMarkerColor(e.id, BLUE);
+  showRoute(e.id);
+  hoverPopupObj = new mapboxgl.Popup({ offset:22, closeButton:false, closeOnClick:false, anchor:"bottom" })
+    .setLngLat([e.lng, e.lat]).setHTML(buildPopupHtml(e, false)).addTo(map);
+}
+
+function hideHoverPopup(id) {
+  if (lockedId === id) return;
+  if (hoverPopupObj) { hoverPopupObj.remove(); hoverPopupObj = null; }
+  hideRoute(id);
+  setMarkerColor(id, RED);
+}
+
+function lockEthel(e) {
+  if (hoverPopupObj) { hoverPopupObj.remove(); hoverPopupObj = null; }
+  if (lockedId !== null && lockedId !== e.id) {
+    hideRoute(lockedId);
+    if (lockedPopups[lockedId]) { lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
+    setMarkerColor(lockedId, RED);
+  }
+  if (lockedId === e.id) { closeLocked(); return; }
+  lockedId = e.id;
+  setMarkerColor(e.id, BLUE);
+  showRoute(e.id);
+  const p = new mapboxgl.Popup({ offset:22, closeButton:false, closeOnClick:false, anchor:"bottom" })
+    .setLngLat([e.lng, e.lat]).setHTML(buildPopupHtml(e, true)).addTo(map);
+  lockedPopups[e.id] = p;
+}
+
+map.on("load", async () => {
+  const bounds = new mapboxgl.LngLatBounds();
+  ETHELS.forEach(e => {
+    bounds.extend([e.lng, e.lat]);
+    const el = document.createElement("div");
+    el.className = "marker";
+    el.innerHTML = `<svg width="27" height="41" viewBox="0 0 27 41" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13.5 0C6.044 0 0 6.044 0 13.5c0 9.375 13.5 27.5 13.5 27.5S27 22.875 27 13.5C27 6.044 20.956 0 13.5 0z" fill="${RED}"/>
+      <circle cx="13.5" cy="13.5" r="5" fill="white" opacity="0.9"/>
+    </svg>`;
+    markerEls[e.id] = el;
+    new mapboxgl.Marker({ element:el }).setLngLat([e.lng, e.lat]).addTo(map);
+
+    if (!isMobile) {
+      el.addEventListener("mouseenter", () => { if (lockedId !== e.id) showHoverPopup(e); });
+      el.addEventListener("mouseleave", () => { if (lockedId !== e.id) hideHoverPopup(e.id); });
+      el.addEventListener("click", evt => { evt.stopPropagation(); lockEthel(e); });
+    } else {
+      el.addEventListener("click", evt => { evt.stopPropagation(); lockEthel(e); });
+    }
+  });
+
+  map.on("click", () => { if (!isMobile) closeLocked(); });
+  const mob = window.innerWidth < 600;
+  map.fitBounds(bounds, { padding: mob ? 30 : 80, maxZoom:11 });
+
+  for (const e of ETHELS) {
+    try { const line = await loadGpx(e.gpx); if (line) addRoute(e, line); } catch (_) {}
+  }
+});
+
+const searchInput = document.getElementById("search-input");
+const searchResults = document.getElementById("search-results");
+
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.trim().toLowerCase();
+  if (!q) { searchResults.classList.remove("visible"); return; }
+  const hits = ETHELS.filter(e => e.name.toLowerCase().includes(q)).slice(0, 9);
+  if (!hits.length) {
+    searchResults.innerHTML = `<div class="search-no-results">No results for "${q}"</div>`;
+    searchResults.classList.add("visible"); return;
+  }
+  searchResults.innerHTML = hits.map(e =>
+    `<div class="search-item" data-id="${e.id}"><span>${e.name}</span><span class="search-item-height">${e.height}m</span></div>`
+  ).join("");
+  searchResults.classList.add("visible");
+});
+
+searchResults.addEventListener("click", evt => {
+  const item = evt.target.closest(".search-item"); if (!item) return;
+  const e = ETHELS.find(x => x.id === item.dataset.id); if (!e) return;
+  searchInput.value = ""; searchResults.classList.remove("visible");
+  map.flyTo({ center:[e.lng, e.lat], zoom:14, duration:1000 });
+  setTimeout(() => lockEthel(e), 1050);
+});
+
+document.addEventListener("click", e => { if (!e.target.closest("#search-container")) searchResults.classList.remove("visible"); });
+searchInput.addEventListener("keydown", e => {
+  if (e.key === "Escape") { searchResults.classList.remove("visible"); searchInput.blur(); }
+  if (e.key === "Enter") { const first = searchResults.querySelector(".search-item"); if (first) first.click(); }
+});
+</script>
+</body>
+</html>
