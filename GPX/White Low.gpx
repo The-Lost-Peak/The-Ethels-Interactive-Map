@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx version="1.1" creator="OS Maps - Web" xmlns="http://www.topografix.com/GPX/1/1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+xmlns:gs="http://www.topografix.com/GPX/gpx_style/0/2"
+xmlns:gh="https://graphhopper.com/public/schema/gpx/1.1"
+xmlns:os="https://ordnancesurvey.co.uk/public/schema/route/0.1">
+    <metadata>
+        <name>White Low (Ethel) - There &amp; Back (www.thelostpeak.co.uk)</name>
+        <desc>www.thelostpeak.co.uk</desc>
+        <bounds minlat="53.4892300" minlon="-1.8940400" maxlat="53.5168300" maxlon="-1.8706200"/>
+        <extensions>
+            <os:version>2.0</os:version>
+            <os:point lat="53.4899930" lon="-1.8922710" type="start"/>
+            <os:point lat="53.4899930" lon="-1.8922710" type="end"/>
+            <os:activity>ON_FOOT_WALKING</os:activity>
+            <os:difficulty>MODERATE</os:difficulty>
+            <os:paths/>
+            <os:distance>8407.1784386</os:distance>
+            <os:elevation_ascent>347.0300000</os:elevation_ascent>
+        </extensions>
+    </metadata>
+    <wpt lat="53.4899930" lon="-1.8922710"/>
+    <wpt lat="53.4893100" lon="-1.8930500"/>
+    <wpt lat="53.4900000" lon="-1.8936300"/>
+    <wpt lat="53.4913700" lon="-1.8933300"/>
+    <wpt lat="53.4923600" lon="-1.8940400"/>
+    <wpt lat="53.4926900" lon="-1.8938800"/>
+    <wpt lat="53.4925600" lon="-1.8922700"/>
+    <wpt lat="53.4938500" lon="-1.8909900"/>
+    <wpt lat="53.4963000" lon="-1.8894000"/>
+    <wpt lat="53.4962900" lon="-1.8876500"/>
+    <wpt lat="53.4956600" lon="-1.8870700"/>
+    <wpt lat="53.4957200" lon="-1.8860700"/>
+    <wpt lat="53.4964300" lon="-1.8839100"/>
+    <wpt lat="53.4976200" lon="-1.8824100"/>
+    <wpt lat="53.5002700" lon="-1.8816300"/>
+    <wpt lat="53.5055400" lon="-1.8809100"/>
+    <wpt lat="53.5109700" lon="-1.8783300"/>
+    <wpt lat="53.5147500" lon="-1.8785300"/>
+    <wpt lat="53.5157900" lon="-1.8766600"/>
+    <wpt lat="53.5162600" lon="-1.8739800"/>
+    <wpt lat="53.5168300" lon="-1.8729700"/>
+    <wpt lat="53.5162900" lon="-1.8706200"/>
+    <wpt lat="53.5167900" lon="-1.8728000"/>
+    <wpt lat="53.5164900" lon="-1.8733100"/>
+    <wpt lat="53.5159000" lon="-1.8765300"/>
+    <wpt lat="53.5148100" lon="-1.8785100"/>
+    <wpt lat="53.5109600" lon="-1.8785200"/>
+    <wpt lat="53.5087300" lon="-1.8793100"/>
+    <wpt lat="53.5055900" lon="-1.8809000"/>
+    <wpt lat="53.4976000" lon="-1.8823700"/>
+    <wpt lat="53.4963300" lon="-1.8839500"/>
+    <wpt lat="53.4955400" lon="-1.8870500"/>
+    <wpt lat="53.4962800" lon="-1.8876500"/>
+    <wpt lat="53.4962800" lon="-1.8893200"/>
+    <wpt lat="53.4941600" lon="-1.8905300"/>
+    <wpt lat="53.4926200" lon="-1.8922000"/>
+    <wpt lat="53.4926000" lon="-1.8939200"/>
+    <wpt lat="53.4913000" lon="-1.8934100"/>
+    <wpt lat="53.4899800" lon="-1.8936900"/>
+    <wpt lat="53.4892300" lon="-1.8929100"/>
+    <wpt lat="53.4899930" lon="-1.8922710"/>
+    <trk>
+        <name>White Low (Ethel) - There &amp; Back (www.thelostpeak.co.uk)</name>
+        <trkseg>
+            <trkpt lat="53.4899930" lon="-1.8922710"/>
+            <trkpt lat="53.4893100" lon="-1.8930500"/>
+            <trkpt lat="53.4900000" lon="-1.8936300"/>
+            <trkpt lat="53.4913700" lon="-1.8933300"/>
+            <trkpt lat="53.4923600" lon="-1.8940400"/>
+            <trkpt lat="53.4926900" lon="-1.8938800"/>
+            <trkpt lat="53.4925600" lon="-1.8922700"/>
+            <trkpt lat="53.4938500" lon="-1.8909900"/>
+            <trkpt lat="53.4952200" lon="-1.8900100"/>
+            <trkpt lat="53.4963000" lon="-1.8894000"/>
+            <trkpt lat="53.4962900" lon="-1.8876500"/>
+            <trkpt lat="53.4956600" lon="-1.8870700"/>
+            <trkpt lat="53.4957200" lon="-1.8860700"/>
+            <trkpt lat="53.4964300" lon="-1.8839100"/>
+            <trkpt lat="53.4976200" lon="-1.8824100"/>
+            <trkpt lat="53.5002700" lon="-1.8816300"/>
+            <trkpt lat="53.5055400" lon="-1.8809100"/>
+            <trkpt lat="53.5067400" lon="-1.8802800"/>
+            <trkpt lat="53.5109700" lon="-1.8783300"/>
+            <trkpt lat="53.5129300" lon="-1.8785800"/>
+            <trkpt lat="53.5147500" lon="-1.8785300"/>
+            <trkpt lat="53.5157900" lon="-1.8766600"/>
+            <trkpt lat="53.5161900" lon="-1.8746200"/>
+            <trkpt lat="53.5162600" lon="-1.8739800"/>
+            <trkpt lat="53.5168300" lon="-1.8729700"/>
+            <trkpt lat="53.5162900" lon="-1.8706200"/>
+            <trkpt lat="53.5167900" lon="-1.8728000"/>
+            <trkpt lat="53.5164900" lon="-1.8733100"/>
+            <trkpt lat="53.5159000" lon="-1.8765300"/>
+            <trkpt lat="53.5148100" lon="-1.8785100"/>
+            <trkpt lat="53.5131200" lon="-1.8784700"/>
+            <trkpt lat="53.5109600" lon="-1.8785200"/>
+            <trkpt lat="53.5087300" lon="-1.8793100"/>
+            <trkpt lat="53.5055900" lon="-1.8809000"/>
+            <trkpt lat="53.4976000" lon="-1.8823700"/>
+            <trkpt lat="53.4963300" lon="-1.8839500"/>
+            <trkpt lat="53.4958100" lon="-1.8860800"/>
+            <trkpt lat="53.4955400" lon="-1.8870500"/>
+            <trkpt lat="53.4962800" lon="-1.8876500"/>
+            <trkpt lat="53.4962800" lon="-1.8893200"/>
+            <trkpt lat="53.4941600" lon="-1.8905300"/>
+            <trkpt lat="53.4926200" lon="-1.8922000"/>
+            <trkpt lat="53.4926000" lon="-1.8939200"/>
+            <trkpt lat="53.4913000" lon="-1.8934100"/>
+            <trkpt lat="53.4899800" lon="-1.8936900"/>
+            <trkpt lat="53.4892300" lon="-1.8929100"/>
+            <trkpt lat="53.4899930" lon="-1.8922710"/>
+        </trkseg>
+    </trk>
+</gpx>

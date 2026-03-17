@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx version="1.1" creator="OS Maps - Web" xmlns="http://www.topografix.com/GPX/1/1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+xmlns:gs="http://www.topografix.com/GPX/gpx_style/0/2"
+xmlns:gh="https://graphhopper.com/public/schema/gpx/1.1"
+xmlns:os="https://ordnancesurvey.co.uk/public/schema/route/0.1">
+    <metadata>
+        <name>Longstone Moor &amp; Wardlow Hay Cop (Ethels) - Circular (www.thelostpeak.co.uk) </name>
+        <desc></desc>
+        <bounds minlat="53.2558391" minlon="-1.7405410" maxlat="53.2678097" maxlon="-1.7138326"/>
+        <extensions>
+            <os:version>2.0</os:version>
+            <os:point lat="53.2676937" lon="-1.7285946" type="start"/>
+            <os:point lat="53.2677609" lon="-1.7285192" type="end"/>
+            <os:activity>ON_FOOT_WALKING</os:activity>
+            <os:difficulty>MODERATE</os:difficulty>
+            <os:paths/>
+            <os:distance>6803.4762418</os:distance>
+            <os:elevation_ascent>252.1000000</os:elevation_ascent>
+        </extensions>
+    </metadata>
+    <wpt lat="53.2676937" lon="-1.7285946"/>
+    <wpt lat="53.2676049" lon="-1.7290825"/>
+    <wpt lat="53.2678097" lon="-1.7302058"/>
+    <wpt lat="53.2675094" lon="-1.7365428"/>
+    <wpt lat="53.2672632" lon="-1.7369941"/>
+    <wpt lat="53.2670184" lon="-1.7380827"/>
+    <wpt lat="53.2659201" lon="-1.7393639"/>
+    <wpt lat="53.2638328" lon="-1.7405386"/>
+    <wpt lat="53.2634508" lon="-1.7405410"/>
+    <wpt lat="53.2626586" lon="-1.7379970"/>
+    <wpt lat="53.2624243" lon="-1.7336507"/>
+    <wpt lat="53.2584103" lon="-1.7374610"/>
+    <wpt lat="53.2573083" lon="-1.7370930"/>
+    <wpt lat="53.2561621" lon="-1.7370251"/>
+    <wpt lat="53.2558668" lon="-1.7356029"/>
+    <wpt lat="53.2558391" lon="-1.7332421"/>
+    <wpt lat="53.2560163" lon="-1.7321167"/>
+    <wpt lat="53.2563964" lon="-1.7312524"/>
+    <wpt lat="53.2586158" lon="-1.7289148"/>
+    <wpt lat="53.2598504" lon="-1.7283447"/>
+    <wpt lat="53.2607687" lon="-1.7269896"/>
+    <wpt lat="53.2620437" lon="-1.7244328"/>
+    <wpt lat="53.2595039" lon="-1.7242618"/>
+    <wpt lat="53.2581986" lon="-1.7234082"/>
+    <wpt lat="53.2559052" lon="-1.7228610"/>
+    <wpt lat="53.2564600" lon="-1.7180200"/>
+    <wpt lat="53.2560207" lon="-1.7147280"/>
+    <wpt lat="53.2593288" lon="-1.7166923"/>
+    <wpt lat="53.2610073" lon="-1.7138326"/>
+    <wpt lat="53.2624736" lon="-1.7161841"/>
+    <wpt lat="53.2637576" lon="-1.7174500"/>
+    <wpt lat="53.2651191" lon="-1.7230635"/>
+    <wpt lat="53.2650813" lon="-1.7261374"/>
+    <wpt lat="53.2661636" lon="-1.7277422"/>
+    <wpt lat="53.2677609" lon="-1.7285192"/>
+    <trk>
+        <name>Longstone Moor &amp; Wardlow Hay Cop (Ethels) - Circular (www.thelostpeak.co.uk) </name>
+        <trkseg>
+            <trkpt lat="53.2676937" lon="-1.7285946"/>
+            <trkpt lat="53.2676049" lon="-1.7290825"/>
+            <trkpt lat="53.2678097" lon="-1.7302058"/>
+            <trkpt lat="53.2675746" lon="-1.7355677"/>
+            <trkpt lat="53.2675524" lon="-1.7356803"/>
+            <trkpt lat="53.2675094" lon="-1.7365428"/>
+            <trkpt lat="53.2672632" lon="-1.7369941"/>
+            <trkpt lat="53.2670184" lon="-1.7380827"/>
+            <trkpt lat="53.2664353" lon="-1.7386111"/>
+            <trkpt lat="53.2659201" lon="-1.7393639"/>
+            <trkpt lat="53.2638328" lon="-1.7405386"/>
+            <trkpt lat="53.2634508" lon="-1.7405410"/>
+            <trkpt lat="53.2632919" lon="-1.7398298"/>
+            <trkpt lat="53.2626586" lon="-1.7379970"/>
+            <trkpt lat="53.2624499" lon="-1.7350748"/>
+            <trkpt lat="53.2624243" lon="-1.7336507"/>
+            <trkpt lat="53.2601368" lon="-1.7357638"/>
+            <trkpt lat="53.2584103" lon="-1.7374610"/>
+            <trkpt lat="53.2573083" lon="-1.7370930"/>
+            <trkpt lat="53.2565216" lon="-1.7369854"/>
+            <trkpt lat="53.2561621" lon="-1.7370251"/>
+            <trkpt lat="53.2558668" lon="-1.7356029"/>
+            <trkpt lat="53.2559319" lon="-1.7345532"/>
+            <trkpt lat="53.2558391" lon="-1.7332421"/>
+            <trkpt lat="53.2560163" lon="-1.7321167"/>
+            <trkpt lat="53.2563964" lon="-1.7312524"/>
+            <trkpt lat="53.2586158" lon="-1.7289148"/>
+            <trkpt lat="53.2598504" lon="-1.7283447"/>
+            <trkpt lat="53.2607687" lon="-1.7269896"/>
+            <trkpt lat="53.2620437" lon="-1.7244328"/>
+            <trkpt lat="53.2602681" lon="-1.7243318"/>
+            <trkpt lat="53.2595039" lon="-1.7242618"/>
+            <trkpt lat="53.2581986" lon="-1.7234082"/>
+            <trkpt lat="53.2570293" lon="-1.7230785"/>
+            <trkpt lat="53.2559052" lon="-1.7228610"/>
+            <trkpt lat="53.2561468" lon="-1.7204985"/>
+            <trkpt lat="53.2564600" lon="-1.7180200"/>
+            <trkpt lat="53.2560207" lon="-1.7147280"/>
+            <trkpt lat="53.2593288" lon="-1.7166923"/>
+            <trkpt lat="53.2610073" lon="-1.7138326"/>
+            <trkpt lat="53.2624736" lon="-1.7161841"/>
+            <trkpt lat="53.2625860" lon="-1.7161834"/>
+            <trkpt lat="53.2637576" lon="-1.7174500"/>
+            <trkpt lat="53.2645528" lon="-1.7211180"/>
+            <trkpt lat="53.2651191" lon="-1.7230635"/>
+            <trkpt lat="53.2650813" lon="-1.7261374"/>
+            <trkpt lat="53.2661636" lon="-1.7277422"/>
+            <trkpt lat="53.2677609" lon="-1.7285192"/>
+        </trkseg>
+    </trk>
+</gpx>

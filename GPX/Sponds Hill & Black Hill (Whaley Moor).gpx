@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx version="1.1" creator="OS Maps - Web" xmlns="http://www.topografix.com/GPX/1/1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+xmlns:gs="http://www.topografix.com/GPX/gpx_style/0/2"
+xmlns:gh="https://graphhopper.com/public/schema/gpx/1.1"
+xmlns:os="https://ordnancesurvey.co.uk/public/schema/route/0.1">
+    <metadata>
+        <name>Sponds Hill &amp; Black Hill - There &amp; Back (www.thelostpeak.co.uk)</name>
+        <desc></desc>
+        <bounds minlat="53.3091969" minlon="-2.0465824" maxlat="53.3388107" maxlon="-2.0128901"/>
+        <extensions>
+            <os:version>2.0</os:version>
+            <os:point lat="53.3091969" lon="-2.0418690" type="start"/>
+            <os:point lat="53.3092004" lon="-2.0422982" type="end"/>
+            <os:activity>ON_FOOT_WALKING</os:activity>
+            <os:difficulty>EASY</os:difficulty>
+            <os:paths/>
+            <os:distance>11536.3400361</os:distance>
+            <os:elevation_ascent>304.2200000</os:elevation_ascent>
+        </extensions>
+    </metadata>
+    <wpt lat="53.3091969" lon="-2.0418690"/>
+    <wpt lat="53.3095414" lon="-2.0465773"/>
+    <wpt lat="53.3117560" lon="-2.0465824"/>
+    <wpt lat="53.3162816" lon="-2.0447176"/>
+    <wpt lat="53.3192722" lon="-2.0448460"/>
+    <wpt lat="53.3194527" lon="-2.0465447"/>
+    <wpt lat="53.3193166" lon="-2.0449285"/>
+    <wpt lat="53.3224473" lon="-2.0446491"/>
+    <wpt lat="53.3284082" lon="-2.0408652"/>
+    <wpt lat="53.3298698" lon="-2.0372331"/>
+    <wpt lat="53.3297918" lon="-2.0361954"/>
+    <wpt lat="53.3321947" lon="-2.0336234"/>
+    <wpt lat="53.3329301" lon="-2.0323017"/>
+    <wpt lat="53.3348130" lon="-2.0325712"/>
+    <wpt lat="53.3340094" lon="-2.0291580"/>
+    <wpt lat="53.3337590" lon="-2.0211742"/>
+    <wpt lat="53.3329768" lon="-2.0172969"/>
+    <wpt lat="53.3328936" lon="-2.0136460"/>
+    <wpt lat="53.3356186" lon="-2.0133174"/>
+    <wpt lat="53.3388107" lon="-2.0142835"/>
+    <wpt lat="53.3386491" lon="-2.0176830"/>
+    <wpt lat="53.3387045" lon="-2.0141043"/>
+    <wpt lat="53.3357242" lon="-2.0128901"/>
+    <wpt lat="53.3329767" lon="-2.0139113"/>
+    <wpt lat="53.3327574" lon="-2.0172752"/>
+    <wpt lat="53.3336790" lon="-2.0211580"/>
+    <wpt lat="53.3339575" lon="-2.0291704"/>
+    <wpt lat="53.3346285" lon="-2.0330450"/>
+    <wpt lat="53.3329916" lon="-2.0322103"/>
+    <wpt lat="53.3321723" lon="-2.0334986"/>
+    <wpt lat="53.3297961" lon="-2.0360054"/>
+    <wpt lat="53.3298766" lon="-2.0373216"/>
+    <wpt lat="53.3282736" lon="-2.0409898"/>
+    <wpt lat="53.3224261" lon="-2.0444875"/>
+    <wpt lat="53.3193290" lon="-2.0446457"/>
+    <wpt lat="53.3161790" lon="-2.0444939"/>
+    <wpt lat="53.3119626" lon="-2.0465457"/>
+    <wpt lat="53.3095202" lon="-2.0464291"/>
+    <wpt lat="53.3092004" lon="-2.0422982"/>
+    <trk>
+        <name>Sponds Hill &amp; Black Hill - There &amp; Back (www.thelostpeak.co.uk)</name>
+        <trkseg>
+            <trkpt lat="53.3091969" lon="-2.0418690"/>
+            <trkpt lat="53.3095414" lon="-2.0465773"/>
+            <trkpt lat="53.3110150" lon="-2.0464759"/>
+            <trkpt lat="53.3117560" lon="-2.0465824"/>
+            <trkpt lat="53.3130612" lon="-2.0460410"/>
+            <trkpt lat="53.3144187" lon="-2.0454382"/>
+            <trkpt lat="53.3162816" lon="-2.0447176"/>
+            <trkpt lat="53.3180266" lon="-2.0448215"/>
+            <trkpt lat="53.3192722" lon="-2.0448460"/>
+            <trkpt lat="53.3194527" lon="-2.0465447"/>
+            <trkpt lat="53.3193166" lon="-2.0449285"/>
+            <trkpt lat="53.3224473" lon="-2.0446491"/>
+            <trkpt lat="53.3284082" lon="-2.0408652"/>
+            <trkpt lat="53.3298698" lon="-2.0372331"/>
+            <trkpt lat="53.3297918" lon="-2.0361954"/>
+            <trkpt lat="53.3321947" lon="-2.0336234"/>
+            <trkpt lat="53.3329301" lon="-2.0323017"/>
+            <trkpt lat="53.3348130" lon="-2.0325712"/>
+            <trkpt lat="53.3340094" lon="-2.0291580"/>
+            <trkpt lat="53.3337590" lon="-2.0211742"/>
+            <trkpt lat="53.3329768" lon="-2.0172969"/>
+            <trkpt lat="53.3328936" lon="-2.0136460"/>
+            <trkpt lat="53.3356186" lon="-2.0133174"/>
+            <trkpt lat="53.3388107" lon="-2.0142835"/>
+            <trkpt lat="53.3386491" lon="-2.0176830"/>
+            <trkpt lat="53.3387045" lon="-2.0141043"/>
+            <trkpt lat="53.3357242" lon="-2.0128901"/>
+            <trkpt lat="53.3329767" lon="-2.0139113"/>
+            <trkpt lat="53.3327574" lon="-2.0172752"/>
+            <trkpt lat="53.3336790" lon="-2.0211580"/>
+            <trkpt lat="53.3339575" lon="-2.0291704"/>
+            <trkpt lat="53.3346285" lon="-2.0330450"/>
+            <trkpt lat="53.3329916" lon="-2.0322103"/>
+            <trkpt lat="53.3321723" lon="-2.0334986"/>
+            <trkpt lat="53.3297961" lon="-2.0360054"/>
+            <trkpt lat="53.3298766" lon="-2.0373216"/>
+            <trkpt lat="53.3282736" lon="-2.0409898"/>
+            <trkpt lat="53.3224261" lon="-2.0444875"/>
+            <trkpt lat="53.3193290" lon="-2.0446457"/>
+            <trkpt lat="53.3161790" lon="-2.0444939"/>
+            <trkpt lat="53.3119626" lon="-2.0465457"/>
+            <trkpt lat="53.3095202" lon="-2.0464291"/>
+            <trkpt lat="53.3092004" lon="-2.0422982"/>
+        </trkseg>
+    </trk>
+</gpx>
