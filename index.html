@@ -122,6 +122,7 @@
       pointer-events:none;
     }
     .marker-eye-overlay > div { pointer-events:auto; cursor:pointer; }
+    .marker.info-hidden .marker-eye-overlay { pointer-events:auto; }
     .marker.info-hidden .marker-eye-overlay { display:block; }
 
     .popup-link, .popup-link:focus, .popup-link:active, .popup-link:focus-visible {
@@ -1945,8 +1946,15 @@ function addRoute(ethel,lineFeature){
   const srcBase=`rb-${id}`,srcAnim=`ra-${id}`,lyrBase=`rl-${id}`,lyrAnim=`la-${id}`;
   map.addSource(srcBase,{type:"geojson",data:lineFeature});
   map.addLayer({id:lyrBase,type:"line",source:srcBase,paint:{"line-color":RED,"line-width":3.5,"line-opacity":0}});
-  map.addSource(srcAnim,{type:"geojson",data:{type:"Feature",geometry:{type:"LineString",coordinates:[]}}});
-  map.addLayer({id:lyrAnim,type:"line",source:srcAnim,paint:{"line-color":BLUE,"line-width":3.5,"line-opacity":0}});
+  map.addSource(srcAnim,{type:"geojson",lineMetrics:true,data:{type:"Feature",geometry:{type:"LineString",coordinates:[]}}});
+  map.addLayer({id:lyrAnim,type:"line",source:srcAnim,layout:{"line-cap":"round","line-join":"round"},paint:{
+      "line-width":3.5,
+      "line-opacity":0,
+      "line-gradient":["interpolate",["linear"],["line-progress"],
+        0,"#3899EC",
+        1,"#FF8C00"
+      ]
+    }});
   routeLayers[id]={srcBase,srcAnim,lyrBase,lyrAnim,coords,dists,total};
 }
 
@@ -2058,7 +2066,7 @@ function lockEthel(e){
     infoHiddenIds.delete(lockedId);
     if(markerEls[lockedId]) markerEls[lockedId].classList.remove("info-hidden");
   }
-  if(lockedId===e.id){ closeLocked(); return; }
+  if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
   const p=new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
     .setLngLat([e.lng,e.lat]).setHTML(buildPopupHtml(e,true)).addTo(map);
@@ -2112,7 +2120,8 @@ const infoHiddenIds = new Set();
 window.toggleInfo = function(id, evt) {
   if(evt) evt.stopPropagation();
   const el = markerEls[id];
-  // If info is hidden, restore it
+
+  // Restore if hidden
   if(infoHiddenIds.has(id)){
     infoHiddenIds.delete(id);
     const popup = lockedPopups[id];
@@ -2123,12 +2132,27 @@ window.toggleInfo = function(id, evt) {
     if(el) el.classList.remove("info-hidden");
     return;
   }
-  // If only hover popup exists, lock it first then hide
+
+  // Lock first if not already locked (converts hover popup to locked)
   const ethel = ETHELS.find(e=>e.id===id);
   if(!ethel) return;
   if(!lockedPopups[id]){
-    lockEthel(ethel);
+    // Remove hover popup silently before locking
+    if(hoverPopupObj){ hoverPopupObj.remove(); hoverPopupObj=null; }
+    // Create locked popup
+    if(lockedId!==null && lockedId!==id){
+      hideRoute(lockedId);
+      if(lockedPopups[lockedId]){ lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
+      setMarkerColor(lockedId,RED);
+      infoHiddenIds.delete(lockedId);
+      if(markerEls[lockedId]) markerEls[lockedId].classList.remove("info-hidden");
+    }
+    lockedId = id;
+    const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
+      .setLngLat([ethel.lng,ethel.lat]).setHTML(buildPopupHtml(ethel,true)).addTo(map);
+    lockedPopups[id] = p;
   }
+
   // Now hide
   const popup = lockedPopups[id];
   if(!popup) return;
