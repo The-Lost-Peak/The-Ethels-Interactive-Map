@@ -88,7 +88,18 @@
     .spec-value { font-weight:800; color:#EC2629; font-size:10.5px }
     .popup-link { color:#3899EC; font-weight:800; font-size:10.5px; text-decoration:none; display:flex; align-items:center; gap:3px; }
     .popup-link:hover { text-decoration:underline }
-    .popup-note { margin-top:3px; font-size:9px; font-weight:600; color:#1E1E1E; text-transform:none; }
+    .popup-note {
+      position:absolute;
+      bottom:5px; left:0; width:140px;
+      text-align:center;
+      font-family:Inter,system-ui,sans-serif;
+      font-size:9px; font-weight:700; color:#fff;
+      text-transform:none;
+      display:flex; align-items:center; justify-content:center; gap:3px;
+      text-shadow:0 1px 3px rgba(0,0,0,.7);
+      pointer-events:none;
+    }
+    .popup-note svg { flex-shrink:0; }
     .close-btn {
       position:absolute; top:6px; right:6px; background:rgba(0,0,0,.5);
       border:none; border-radius:50%; width:20px; height:20px; cursor:pointer;
@@ -1975,7 +1986,7 @@ const icons = {
 
 function buildPopupHtml(e, locked){
   const closeBtn = locked ? `<button class="close-btn" onclick="closeLocked(event)">&#x2715;</button>` : "";
-  const note = e.notes ? `<div class="popup-note">Note: ${e.notes}</div>` : "";
+  const note = e.notes ? `<div class="popup-note"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 22s-8-5.5-8-11.5a8 8 0 0 1 16 0C20 16.5 12 22 12 22z"/><circle cx="12" cy="10.5" r="2.5"/></svg>${e.notes}</div>` : "";
   const osLink = e.osMapsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.osMapsUrl}" target="_blank" rel="noopener">OS Maps ↗</a></div>` : "";
   const atLink = e.allTrailsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.allTrailsUrl}" target="_blank" rel="noopener">AllTrails ↗</a></div>` : "";
   const kmLink = e.komootUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.komootUrl}" target="_blank" rel="noopener">Komoot ↗</a></div>` : "";
@@ -1993,8 +2004,8 @@ function buildPopupHtml(e, locked){
       </div>
       <div class="links-group">${dirLink}${osLink}${atLink}${kmLink}${buyLink}</div>
     </div>
-    ${note}
   </div>
+  ${note}
 </div>`;
 }
 
