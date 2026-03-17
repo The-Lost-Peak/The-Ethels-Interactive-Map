@@ -77,17 +77,17 @@
 
     .popup-card {
       display:flex; align-items:stretch; background:#fff;
-      border-radius:12px; overflow:hidden; width:fit-content; height:170px; position:relative;
+      border-radius:12px; overflow:hidden; width:fit-content; height:155px; position:relative;
     }
     .img-wrap {
-      width:140px; flex:0 0 140px; height:170px;
+      width:140px; flex:0 0 140px; height:155px;
       border-radius:12px 0 0 12px; overflow:hidden; background:#000;
       display:block; line-height:0; flex-shrink:0;
     }
     .img-wrap img { width:100%; height:100%; object-fit:cover; display:block; border:none; outline:none; }
 
     .popup-body {
-      box-sizing:border-box; padding:4px 10px 4px 10px;
+      box-sizing:border-box; padding:2px 10px 2px 10px;
       flex:0 0 155px; min-width:155px; max-width:155px;
       text-align:center; display:flex; flex-direction:column;
       justify-content:center; line-height:1.2; transform:translateY(-1px);
@@ -118,8 +118,8 @@
 
     @media (max-width:440px){
       #search-container { width:calc(100% - 24px); top:10px; }
-      .popup-card { height:160px !important }
-      .img-wrap { width:105px !important; flex-basis:105px !important; height:160px !important }
+      .popup-card { height:155px !important }
+      .img-wrap { width:105px !important; flex-basis:105px !important; height:155px !important }
       .popup-body { flex:0 0 120px !important; min-width:120px !important; max-width:120px !important; padding:4px 6px !important; }
       .popup-heading { font-size:9.5px !important }
       .specs { font-size:8.5px !important }
@@ -2002,7 +2002,7 @@ function buildPopupHtml(e, locked){
   const osLink = e.osMapsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.osMapsUrl}" target="_blank" rel="noopener">OS Maps</a></div>` : "";
   const atLink = e.allTrailsUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.allTrailsUrl}" target="_blank" rel="noopener">AllTrails</a></div>` : "";
   const kmLink = e.komootUrl ? `<div class="spec-row">${icons.trail}<a class="popup-link" href="${e.komootUrl}" target="_blank" rel="noopener">Komoot</a></div>` : "";
-  const buyLink = e.osAffiliateUrl ? `<div class="spec-row">${icons.buy}<a class="popup-link" href="${e.osAffiliateUrl}" target="_blank" rel="noopener">Buy ${e.osMap}</a></div>` : "";
+  const buyLink = e.osAffiliateUrl ? `<div class="spec-row">${icons.buy}<a class="popup-link" href="${e.osAffiliateUrl}" target="_blank" rel="noopener">${e.osMap}</a></div>` : "";
   const dirLink = `<div class="spec-row">${icons.dir}<a class="popup-link" href="${e.googleMaps}" target="_blank" rel="noopener">Directions</a></div>`;
   // Use cached image src
   const imgSrc = imageCache[e.id]?.src || e.image;
