@@ -61,10 +61,10 @@
 
     .popup-card {
       display:flex; align-items:stretch; background:#fff; border-radius:12px;
-      overflow:hidden; width:fit-content; height:155px; position:relative; gap:0;
+      overflow:hidden; width:fit-content; height:185px; position:relative; gap:0;
     }
     .img-wrap {
-      width:140px; flex:0 0 140px; height:155px;
+      width:150px; flex:0 0 150px; height:185px;
       border-radius:12px 0 0 12px; overflow:hidden; background:#000;
       display:block; line-height:0; flex-shrink:0; margin-right:-1px;
     }
@@ -72,12 +72,12 @@
 
     .popup-body {
       box-sizing:border-box; padding:2px 10px 2px 10px;
-      flex:0 0 155px; min-width:155px; max-width:155px;
+      flex:0 0 165px; min-width:165px; max-width:165px;
       text-align:center; display:flex; flex-direction:column;
       justify-content:center; line-height:1.2; transform:translateY(-1px);
     }
 
-    .popup-heading { font-weight:800; font-size:11px; margin:0 0 5px 0; color:#1E1E1E }
+    .popup-heading { font-weight:800; font-size:12px; margin:0 0 5px 0; color:#1E1E1E }
     .specs { font-size:10px; display:flex; flex-direction:column; gap:3px; align-items:center; margin-top:2px; }
     .stats-group { display:flex; flex-direction:column; gap:3px; align-items:center; }
     .links-group { display:flex; flex-direction:column; gap:3px; align-items:center; margin-top:1px; width:100%; }
@@ -136,8 +136,8 @@
     @media (max-width:440px){
       .marker svg { transform:scale(0.612) !important; }
       #search-container { width:calc(100% - 24px); top:10px; }
-      .popup-card { height:155px !important }
-      .img-wrap { width:105px !important; flex-basis:105px !important; height:155px !important }
+      .popup-card { height:185px !important }
+      .img-wrap { width:105px !important; flex-basis:105px !important; height:185px !important }
       .popup-body { flex:0 0 120px !important; min-width:120px !important; max-width:120px !important; padding:4px 6px !important; }
       .popup-heading { font-size:9.5px !important }
       .specs { font-size:8.5px !important }
@@ -192,7 +192,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30880555/aleck-low-ethel--minninglow-quarry--circular-wwwthelostpeakcouk?lat=53.12099&lon=-1.73351&zoom=13.5627&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/explore/custom-routes/gpx-download-minninglow-quarry-and-crane-minninglow-neolithic-tomb-loop-from-minninglow-hill-83356bd?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830217478?share_token=aVVTlG8HKqdBTCNsCG7Bb8O5XxuVlcZh3IbAqp3KDft3NnxmDg&ref=wtd",
-    "displayName": "Aleck Low"
+    "displayName": "Aleck Low",
+    "routeDist": "6.98 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "2",
@@ -210,7 +212,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31032513/alphin-pike--ashway-moss-ethels--circular-wwwthelostpeakcouk?lat=53.52602&lon=-1.99344&zoom=13.3513&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/alphin-pike-ashway-moss-ethels-circular-www-thelostpeak-co-uk-b405db4?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830750144?share_token=aZMzA32JpaYb34isoC9cDCrT2WNVPLvLVp1c9QJH4yK5j6QGOJ&ref=wtd",
-    "displayName": "Alphin Pike"
+    "displayName": "Alphin Pike",
+    "routeDist": "9.35 mi",
+    "routeTime": "4h 40m"
   },
   {
     "id": "3",
@@ -228,7 +232,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31032650/alport-moor--featherbed-top-ethels--there--back-wwwthelostpeakcouk?lat=53.43868&lon=-1.85690&zoom=13.5852&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/alport-moor-featherbed-top-ethels-there-back-www-thelostpeak-co-uk-70a49d0?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830755759?share_token=aMzWSyny6fLJO0nub4wMmOlu1i344byM1krQor7QCCAqv485Yl&ref=wtd",
-    "displayName": "Alport Moor"
+    "displayName": "Alport Moor",
+    "routeDist": "7.25 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "4",
@@ -246,7 +252,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31032513/alphin-pike--ashway-moss-ethels--circular-wwwthelostpeakcouk?lat=53.52602&lon=-1.99344&zoom=13.3513&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/alphin-pike-ashway-moss-ethels-circular-www-thelostpeak-co-uk-b405db4?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830750144?share_token=aZMzA32JpaYb34isoC9cDCrT2WNVPLvLVp1c9QJH4yK5j6QGOJ&ref=wtd",
-    "displayName": "Ashway Moss"
+    "displayName": "Ashway Moss",
+    "routeDist": "9.35 mi",
+    "routeTime": "4h 40m"
   },
   {
     "id": "5",
@@ -264,7 +272,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31037921/cheeks-hill--axe-edge-moor-ethels--circular-wwwthelostpeakcouk?lat=53.23229&lon=-1.99016&zoom=13.2211&style=Aerial&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/cheeks-hill-axe-edge-moor-ethels-circular-www-thelostpeak-co-uk-daee9bd?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831231735?share_token=acCjZy6F7wpmuXdfutJ2bDGBZVMgAn1Mx47jQ3kB2KnDTMvHvr&ref=wtd",
-    "displayName": "Axe Edge Moor"
+    "displayName": "Axe Edge Moor",
+    "routeDist": "9.25 mi",
+    "routeTime": "4h 40m"
   },
   {
     "id": "6",
@@ -282,7 +292,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31033490/lost-lad--back-tor-ethels--circular-wwwthelostpeakcouk?lat=53.40527&lon=-1.73427&zoom=13.2605&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/lost-lad-back-tor-ethels-circular-www-thelostpeak-co-uk-dbab4f1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830792247?share_token=agbYn0QWh5RPBpar70uQ255aZjjB5Ya4c1clEh4U19Pc9elBQg&ref=wtd",
-    "displayName": "Back Tor"
+    "displayName": "Back Tor",
+    "routeDist": "7.48 mi",
+    "routeTime": "3h 45m"
   },
   {
     "id": "7",
@@ -300,7 +312,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/20407062/black-chew-head--featherbed-moss--there--back-wwwthelostpeakcouk?lat=53.50698&lon=-1.92355&zoom=12.482&overlays=os-obstacles-layer&style=Standard&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/black-chew-head-featherbed-moss-there-back-www-thelostpeak-co-uk-c1a399f?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2823719299?share_token=ankiPvfcvB2yoa53WN5cg2ZKeW7my5TgMV4V2ArgX0CFz7k2Ip&ref=wtd",
-    "displayName": "Black Chew Head"
+    "displayName": "Black Chew Head",
+    "routeDist": "6.55 mi",
+    "routeTime": "3h 15m"
   },
   {
     "id": "8",
@@ -318,7 +332,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30961551/corbar-hill-combs-head--black-edge-ethels--circular-wwwthelostpeakcouk?lat=53.27993&lon=-1.94431&zoom=13.0324&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/corbar-hill-combs-head-black-edge-ethels-circular-www-thelostpeak-co-uk-99d767c?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822645511?share_token=aZb6xC9ch5shvFsKHe4u5mcHjvLFJs8COcSPQuwcc4CTg6svRl&ref=wtd",
-    "displayName": "Black Edge"
+    "displayName": "Black Edge",
+    "routeDist": "8.11 mi",
+    "routeTime": "4h 0m"
   },
   {
     "id": "9",
@@ -336,7 +352,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30889685/black-hill-ethel--there--back-wwwthelostpeakcouk?lat=53.55091&lon=-1.89345&zoom=13.6986&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/black-hill-ethel-there-back-www-thelostpeak-co-uk-d781b8a?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831248632?share_token=aq8Em6PqpWrQnhHw5z5KHrsZyzfGgI7lEAWzuklvmqsjIxMkbx&ref=wtd",
-    "displayName": "Black Hill"
+    "displayName": "Black Hill",
+    "routeDist": "3.64 mi",
+    "routeTime": "1h 50m"
   },
   {
     "id": "10",
@@ -354,7 +372,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/19557452/sponds-hill--black-hill--there--back-wwwthelostpeakcouk?lat=53.32524&lon=-2.04424&zoom=13.3138&style=Standard&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/explore/custom-routes/sponds-hill-black-hill-there-back-www-thelostpeak-co-uk-e594a6d?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2812811455?share_token=abRJYH7UzCX87v1tt1FFgyCEOgnlsy6BeWFdDkQszIXrTQeVLi&ref=wtd",
-    "displayName": "Black Hill"
+    "displayName": "Black Hill",
+    "routeDist": "7.15 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "11",
@@ -372,7 +392,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30890653/blakelow-hill-ethel---harboro-rocks-ethel--circular-wwwthelostpeakcouk?lat=53.11754&lon=-1.66751&zoom=12.6649&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/explore/custom-routes/gpx-download-harboro-rocks-harboro-rocks-trig-point-loop-from-brassington-cp-e5a07fc?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831194144?share_token=aps3pKs8gUufMnMs1Fr8Jph9eKI0J80zpN9zTgltIl9agp8kLL&ref=wtd",
-    "displayName": "Blakelow Hill"
+    "displayName": "Blakelow Hill",
+    "routeDist": "11.20 mi",
+    "routeTime": "5h 35m"
   },
   {
     "id": "12",
@@ -390,7 +412,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30934817/higher-shelf-stones-ethel--bleaklow-head-ethel--circular-wwwthelostpeakcouk?lat=53.44828&lon=-1.87479&zoom=13.3709&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/higher-shelf-stones-bleaklow-head-ethels-circular-www-thelostpeak-co-uk-230c04f?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831191435?share_token=aK4MvdDFXRrmkvYtG2RQ7Pne4011LvD5QJ6x4JKJhftCrRj1D3&ref=wtd",
-    "displayName": "Bleaklow Head"
+    "displayName": "Bleaklow Head",
+    "routeDist": "5.11 mi",
+    "routeTime": "2h 35m"
   },
   {
     "id": "13",
@@ -408,7 +432,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30937329/lathkill-head-near-bole-hill-ethel--circular-wwwthelostpeakcouk?lat=53.2001&lon=-1.7515&zoom=13.2787&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/gpx-download-upper-lathkill-dale-lathkill-head-cave-loop-from-over-haddon-cp-8f8c165?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831246303?share_token=aGscLm47x1NZM01N86tHc5O1Z5ujM357v4KjOHkciol9WtItNI&ref=wtd",
-    "displayName": "Bole Hill"
+    "displayName": "Bole Hill",
+    "routeDist": "8.57 mi",
+    "routeTime": "4h 15m"
   },
   {
     "id": "14",
@@ -426,7 +452,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30945288/bolehill-ethel--circular-wwwthelostpeakcouk?lat=53.10242&lon=-1.57146&zoom=13.7982&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/gpx-download-cromford-canal-black-rocks-middleton-loop-from-cromford-88ec268?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831244257?share_token=a0SmDgLEU7wLIGJ6DcCrnksFgAamgb7x25vYmpS3Kb00NTJT4G&ref=wtd",
-    "displayName": "Bolehill"
+    "displayName": "Bolehill",
+    "routeDist": "6.97 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "15",
@@ -444,7 +472,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30945333/bradwell-moor-ethel--circular-wwwthelostpeakcouk?lat=53.32988&lon=-1.80948&zoom=13.2588&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/gpx-download-view-of-peveril-castle-winnats-pass-entrance-loop-from-peak-forest-bb94a1e?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831239832?share_token=a3QKatkNnjgv4kjrPL3Yf5Hi9F8DuX2DEWHCsMyFOYDYLm9pSn&ref=wtd",
-    "displayName": "Bradwell Moor"
+    "displayName": "Bradwell Moor",
+    "routeDist": "7.36 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "16",
@@ -462,7 +492,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946071/dead-edge-end-britland-edge-hill-snailsden-pike-end-ethels--circular-wwwthelostpeakcouk?lat=53.52061&lon=-1.82125&zoom=13.4054&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/dead-edge-end-britland-edge-hill-snailsden-pike-end-ethels-circular-www-thelostpeak-co-uk-cf6684a?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820814132?share_token=a2XmUKWDwOqNf0ic61ytk5euDX7NXxvOsHe111HCrDhQwHz9ew&ref=wtd",
-    "displayName": "Britland Edge Hill"
+    "displayName": "Britland Edge Hill",
+    "routeDist": "9.18 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "17",
@@ -480,7 +512,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946151/grindslow-knoll-kinder-low--brown-knoll--circular-wwwthelostpeakcouk?lat=53.36432&lon=-1.86671&zoom=12.9111&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/grindslow-knoll-kinder-low-for-kinder-scout-brown-knoll-ethels-circular-172d74b?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820824791?share_token=aH4OTkFg7odglYc0TyBtG3Znzky8IWwEW3UF6kXEXk9Tq0HcYZ&ref=wtd",
-    "displayName": "Brown Knoll"
+    "displayName": "Brown Knoll",
+    "routeDist": "9.87 mi",
+    "routeTime": "4h 55m"
   },
   {
     "id": "18",
@@ -498,7 +532,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946232/burbage-edge-ethel--circular-wwwthelostpeakcouk?lat=53.25767&lon=-1.96895&zoom=13.4514&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/burbage-edge-ethel-circular-www-thelostpeak-co-uk-241ba3c?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820836571?share_token=anru1wLml3z4YKyupNGkBpOCgHvTzidihfB34Bb4WXJfgotmRm&ref=wtd",
-    "displayName": "Burbage Edge"
+    "displayName": "Burbage Edge",
+    "routeDist": "8.52 mi",
+    "routeTime": "4h 15m"
   },
   {
     "id": "19",
@@ -516,7 +552,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946298/sir-william-hill-durham-edge--burton-bole-ethels--circular-wwwthelostpeakcouk?lat=53.30778&lon=-1.72068&zoom=13.0773&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/sir-william-hill-durham-edge-burton-bole-ethels-circular-www-thelostpeak-co-uk-e4b05a0?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820871707?share_token=arxYuPGnSavcHcTyrHE1N2PWzBL6kZ68KeeQCS9XisPRTBPu12&ref=wtd",
-    "displayName": "Burton Bole"
+    "displayName": "Burton Bole",
+    "routeDist": "10.25 mi",
+    "routeTime": "5h 10m"
   },
   {
     "id": "20",
@@ -534,7 +572,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30959720/high-wheeldon-pilsbury-hill--carder-low-ethels--circular-wwwthelostpeakcouk?lat=53.17879&lon=-1.84776&zoom=13.1413&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/high-wheeldon-pilsbury-hill-carder-low-ethels-circular-www-thelostpeak-co-uk-2cba739?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822443525?share_token=aCX6K1nEv3oQcKCtdxcDG24tm7fyto1jXWj8A9Hrtni3p3TUtL&ref=wtd",
-    "displayName": "Carder Low"
+    "displayName": "Carder Low",
+    "routeDist": "7.16 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "21",
@@ -552,7 +592,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30934904/cats-tor-ethel-shining-tor-ethel--foxlow-edge-ethel--circular-wwwthelostpeakcouk?lat=53.2718&lon=-2.00359&zoom=13.1228&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/cats-tor-ethel-shining-tor-ethel-foxlow-edge-ethel-circular-www-thelostpeak-co-uk-4a78107?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2819523280?share_token=apr5n9QqTYpnuMdfWxTEZRRb56bLsYhIcNfs6c9ZOfHlT8iD1P&ref=wtd",
-    "displayName": "Cats Tor"
+    "displayName": "Cats Tor",
+    "routeDist": "9.15 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "22",
@@ -570,7 +612,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31037921/cheeks-hill--axe-edge-moor-ethels--circular-wwwthelostpeakcouk?lat=53.23229&lon=-1.99016&zoom=13.2211&style=Aerial&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/cheeks-hill-axe-edge-moor-ethels-circular-www-thelostpeak-co-uk-daee9bd?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831231735?share_token=acCjZy6F7wpmuXdfutJ2bDGBZVMgAn1Mx47jQ3kB2KnDTMvHvr&ref=wtd",
-    "displayName": "Cheeks Hill"
+    "displayName": "Cheeks Hill",
+    "routeDist": "9.25 mi",
+    "routeTime": "4h 40m"
   },
   {
     "id": "23",
@@ -588,7 +632,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30960222/chelmorton-low--sough-top-ethels--circular-wwwthelostpeakcouk?lat=53.23245&lon=-1.82207&zoom=14.7195&style=Aerial&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/chelmorton-low-sough-top-ethels-circular-www-thelostpeak-co-uk-198d2ab?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822494485?share_token=aoksZiImcQjiNsno4OROaMa2hL3rY2Gb7u4ClnKt5a0q0WtIV9&ref=wtd",
-    "displayName": "Chelmorton Low"
+    "displayName": "Chelmorton Low",
+    "routeDist": "3.07 mi",
+    "routeTime": "1h 35m"
   },
   {
     "id": "24",
@@ -606,7 +652,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30960491/chinley-churn-ethel--circular-wwwthelostpeakcouk?lat=53.35261&lon=-1.96432&zoom=14.2798&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/chinley-churn-ethel-circular-www-thelostpeak-co-uk-fd5e3f5?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822530111?share_token=a5Rpx176oFhhPsYVqOXQ7GKesovITe1fLtPXCfYvcbpKElo6gH&ref=wtd",
-    "displayName": "Chinley Churn"
+    "displayName": "Chinley Churn",
+    "routeDist": "3.67 mi",
+    "routeTime": "1h 50m"
   },
   {
     "id": "25",
@@ -624,7 +672,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30960574/hollins-hill-chrome-hill--parkhouse-hill-ethels--circular-wwwthelostpeakcouk?lat=53.20412&lon=-1.90388&zoom=14.2106&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/hollins-hill-chrome-hill-parkhouse-hill-ethels-circular-www-thelostpeak-co-uk-91c260e?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822538131?share_token=a31eqoo5P5PHRFiLGqOAg62n1lBtzbZpOoKVe6PBu2WFfMhDB6&ref=wtd",
-    "displayName": "Chrome Hill"
+    "displayName": "Chrome Hill",
+    "routeDist": "4.70 mi",
+    "routeTime": "2h 20m"
   },
   {
     "id": "26",
@@ -642,7 +692,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30961551/corbar-hill-combs-head--black-edge-ethels--circular-wwwthelostpeakcouk?lat=53.27993&lon=-1.94431&zoom=13.0324&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/corbar-hill-combs-head-black-edge-ethels-circular-www-thelostpeak-co-uk-99d767c?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822645511?share_token=aZb6xC9ch5shvFsKHe4u5mcHjvLFJs8COcSPQuwcc4CTg6svRl&ref=wtd",
-    "displayName": "Combs Head"
+    "displayName": "Combs Head",
+    "routeDist": "8.11 mi",
+    "routeTime": "4h 0m"
   },
   {
     "id": "27",
@@ -660,7 +712,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30961551/corbar-hill-combs-head--black-edge-ethels--circular-wwwthelostpeakcouk?lat=53.27993&lon=-1.94431&zoom=13.0324&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/corbar-hill-combs-head-black-edge-ethels-circular-www-thelostpeak-co-uk-99d767c?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822645511?share_token=aZb6xC9ch5shvFsKHe4u5mcHjvLFJs8COcSPQuwcc4CTg6svRl&ref=wtd",
-    "displayName": "Corbar Hill"
+    "displayName": "Corbar Hill",
+    "routeDist": "8.11 mi",
+    "routeTime": "4h 0m"
   },
   {
     "id": "28",
@@ -678,7 +732,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30965786/lantern-pike--cown-edge-ethels--circular-wwwthelostpeakcouk?lat=53.41015&lon=-1.99058&zoom=12.9975&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/lantern-pike-cown-edge-ethels-circular-www-thelostpeak-co-uk-21eb52e?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2823078622?share_token=ahd96TlrROxHoBVoc4723FfBvHath1UP21mq0X7m7VmeKquD2T&ref=wtd",
-    "displayName": "Cown Edge"
+    "displayName": "Cown Edge",
+    "routeDist": "6.67 mi",
+    "routeTime": "3h 25m"
   },
   {
     "id": "29",
@@ -687,7 +743,7 @@ const ETHELS = [
     "lat": 53.205426,
     "lng": -2.1017664,
     "gridRef": "SJ933676",
-    "osMap": "Explorer 268",
+    "osMap": "268: Wilmslow, Macclesfield & Congleton",
     "googleMaps": "https://www.google.com/maps?q=53.205426,-2.1017664",
     "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/Croker Hill.webp",
     "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/Croker Hill.gpx",
@@ -696,7 +752,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30965860/croker-hill-ethel--bosley-reservoir--circular-wwwthelostpeakcouk?lat=53.19770&lon=-2.12182&zoom=13.7068&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/croker-hill-ethel-bosley-reservoir-circular-www-thelostpeak-co-uk-deaa0a8?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831202636?share_token=ac3b6pqU4UCifNlWroMMvZc62ffxg5CvD3FqIY4vrY3l6yYIZ8&ref=wtd",
-    "displayName": "Croker Hill"
+    "displayName": "Croker Hill",
+    "routeDist": "5.35 mi",
+    "routeTime": "2h 45m"
   },
   {
     "id": "30",
@@ -714,7 +772,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30969271/crook-hill-ethel--circular-wwwthelostpeakcouk?lat=53.38917&lon=-1.74283&zoom=13.0929&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/crook-hill-ethel-circular-www-thelostpeak-co-uk-401dc33?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2823538902?share_token=apGtrQ5myZCNe8uONo8K4xuWpjysjzi9p4ENO7ofbsVMn9I6QQ&ref=wtd",
-    "displayName": "Crook Hill"
+    "displayName": "Crook Hill",
+    "routeDist": "8.67 mi",
+    "routeTime": "4h 25m"
   },
   {
     "id": "31",
@@ -732,7 +792,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946071/dead-edge-end-britland-edge-hill-snailsden-pike-end-ethels--circular-wwwthelostpeakcouk?lat=53.52061&lon=-1.82125&zoom=13.4054&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/dead-edge-end-britland-edge-hill-snailsden-pike-end-ethels-circular-www-thelostpeak-co-uk-cf6684a?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820814132?share_token=a2XmUKWDwOqNf0ic61ytk5euDX7NXxvOsHe111HCrDhQwHz9ew&ref=wtd",
-    "displayName": "Dead Edge End"
+    "displayName": "Dead Edge End",
+    "routeDist": "9.18 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "32",
@@ -750,7 +812,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946298/sir-william-hill-durham-edge--burton-bole-ethels--circular-wwwthelostpeakcouk?lat=53.30778&lon=-1.72068&zoom=13.0773&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/sir-william-hill-durham-edge-burton-bole-ethels-circular-www-thelostpeak-co-uk-e4b05a0?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820871707?share_token=arxYuPGnSavcHcTyrHE1N2PWzBL6kZ68KeeQCS9XisPRTBPu12&ref=wtd",
-    "displayName": "Durham Edge"
+    "displayName": "Durham Edge",
+    "routeDist": "10.25 mi",
+    "routeTime": "5h 10m"
   },
   {
     "id": "33",
@@ -768,7 +832,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30969335/eccles-pike-ethel--circular-wwwthelostpeakcouk?lat=53.32747&lon=-1.97239&zoom=13.7490&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/eccles-pike-ethel-circular-www-thelostpeak-co-uk-8dfcfdb?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2823549466?share_token=aSGPZZha4Gx4uia06QHuG1pt4J4yIXmlPQ2Gi5Ccqwel5f4vEW&ref=wtd",
-    "displayName": "Eccles Pike"
+    "displayName": "Eccles Pike",
+    "routeDist": "6.59 mi",
+    "routeTime": "3h 15m"
   },
   {
     "id": "34",
@@ -786,7 +852,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30970646/ecton-hill--wetton-hill-ethels--circular-wwwthelostpeakcouk?lat=53.10885&lon=-1.86775&zoom=13.1905&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/gpx-download-ecton-hill-and-manifold-valley-circular-3c6caf8?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830220122?share_token=aq8vmMEBzvYs9X9XtfDwX6idUqrKuVBduirX8RpJQ3bzBHn0bp&ref=wtd",
-    "displayName": "Ecton Hill"
+    "displayName": "Ecton Hill",
+    "routeDist": "7.02 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "35",
@@ -804,7 +872,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30945860/mam-tor-lords-seat-gautries-hill-eldon-hole--slitherstone-hill-ethels--circular?lat=53.33404&lon=-1.85357&zoom=13.1499&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mam-tor-lord-s-seat-gautries-hill-eldon-hole-slitherstone-hill-ethels-circular-d911912?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820793251?share_token=aOP9LP3mPRp57OPICuDulPJfdcDDmmU3hmzx6IS24QTg2rpSA4&ref=wtd",
-    "displayName": "Eldon Hill"
+    "displayName": "Eldon Hill",
+    "routeDist": "9.63 mi",
+    "routeTime": "4h 50m"
   },
   {
     "id": "36",
@@ -822,7 +892,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/20407062/black-chew-head--featherbed-moss--there--back-wwwthelostpeakcouk?lat=53.50698&lon=-1.92355&zoom=12.482&overlays=os-obstacles-layer&style=Standard&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/black-chew-head-featherbed-moss-there-back-www-thelostpeak-co-uk-c1a399f?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2823719299?share_token=ankiPvfcvB2yoa53WN5cg2ZKeW7my5TgMV4V2ArgX0CFz7k2Ip&ref=wtd",
-    "displayName": "Featherbed Moss"
+    "displayName": "Featherbed Moss",
+    "routeDist": "6.55 mi",
+    "routeTime": "3h 15m"
   },
   {
     "id": "37",
@@ -840,7 +912,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31032650/alport-moor--featherbed-top-ethels--there--back-wwwthelostpeakcouk?lat=53.43868&lon=-1.85690&zoom=13.5852&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/alport-moor-featherbed-top-ethels-there-back-www-thelostpeak-co-uk-70a49d0?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830755759?share_token=aMzWSyny6fLJO0nub4wMmOlu1i344byM1krQor7QCCAqv485Yl&ref=wtd",
-    "displayName": "Featherbed Top"
+    "displayName": "Featherbed Top",
+    "routeDist": "7.25 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "38",
@@ -858,7 +932,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30973474/fin-cop-ethel--circular-wwwthelostpeakcouk?lat=53.22985&lon=-1.72107&zoom=13.6457&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/fin-cop-ethel-circular-www-thelostpeak-co-uk-3a7124c?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824119701?share_token=atLICaXVpuQQ10X1BUiKK16itK21uy0ztoKLdM5DxKjK8u9iJY&ref=wtd",
-    "displayName": "Fin Cop"
+    "displayName": "Fin Cop",
+    "routeDist": "7.60 mi",
+    "routeTime": "3h 45m"
   },
   {
     "id": "39",
@@ -876,7 +952,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30934904/cats-tor-ethel-shining-tor-ethel--foxlow-edge-ethel--circular-wwwthelostpeakcouk?lat=53.2718&lon=-2.00359&zoom=13.1228&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/cats-tor-ethel-shining-tor-ethel-foxlow-edge-ethel-circular-www-thelostpeak-co-uk-4a78107?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2819523280?share_token=apr5n9QqTYpnuMdfWxTEZRRb56bLsYhIcNfs6c9ZOfHlT8iD1P&ref=wtd",
-    "displayName": "Foxlow Edge"
+    "displayName": "Foxlow Edge",
+    "routeDist": "9.15 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "40",
@@ -894,7 +972,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30945860/mam-tor-lords-seat-gautries-hill-eldon-hole--slitherstone-hill-ethels--circular?lat=53.33404&lon=-1.85357&zoom=13.1499&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mam-tor-lord-s-seat-gautries-hill-eldon-hole-slitherstone-hill-ethels-circular-d911912?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820793251?share_token=aOP9LP3mPRp57OPICuDulPJfdcDDmmU3hmzx6IS24QTg2rpSA4&ref=wtd",
-    "displayName": "Gautries Hill"
+    "displayName": "Gautries Hill",
+    "routeDist": "9.63 mi",
+    "routeTime": "4h 50m"
   },
   {
     "id": "41",
@@ -912,7 +992,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30974462/grin-low--corbar-hill-ethels--circular-wwwthelostpeakcouk?lat=53.25689&lon=-1.93773&zoom=13.4950&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/grin-low-gadley-wood-and-corbar-hill-circular-b862727?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824274186?share_token=aWrP0PgxELCH1UiE6Ryew3125DFTdErzK39QWhhM1UJETj5zLs&ref=wtd",
-    "displayName": "Grin Low"
+    "displayName": "Grin Low",
+    "routeDist": "9.13 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "42",
@@ -930,7 +1012,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946151/grindslow-knoll-kinder-low--brown-knoll--circular-wwwthelostpeakcouk?lat=53.36432&lon=-1.86671&zoom=12.9111&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/grindslow-knoll-kinder-low-for-kinder-scout-brown-knoll-ethels-circular-172d74b?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820824791?share_token=aH4OTkFg7odglYc0TyBtG3Znzky8IWwEW3UF6kXEXk9Tq0HcYZ&ref=wtd",
-    "displayName": "Grindslow Knoll"
+    "displayName": "Grindslow Knoll",
+    "routeDist": "9.87 mi",
+    "routeTime": "4h 55m"
   },
   {
     "id": "43",
@@ -948,7 +1032,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30977234/gun-ethel--circular-wwwthelostpeakcouk?lat=53.13541&lon=-2.05522&zoom=12.7063&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/gun-ethel-circular-www-thelostpeak-co-uk-4aec3f6?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824533699?share_token=aPepkhlvUe6qys17cuW1uNQl8GghZ1w7NSm4tvjGW4JWJjhteW&ref=wtd",
-    "displayName": "Gun"
+    "displayName": "Gun",
+    "routeDist": "7.93 mi",
+    "routeTime": "4h 0m"
   },
   {
     "id": "44",
@@ -966,7 +1052,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30890653/blakelow-hill-ethel---harboro-rocks-ethel--circular-wwwthelostpeakcouk?lat=53.11754&lon=-1.66751&zoom=12.6649&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/explore/custom-routes/gpx-download-harboro-rocks-harboro-rocks-trig-point-loop-from-brassington-cp-e5a07fc?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831194144?share_token=aps3pKs8gUufMnMs1Fr8Jph9eKI0J80zpN9zTgltIl9agp8kLL&ref=wtd",
-    "displayName": "Harboro Rocks"
+    "displayName": "Harboro Rocks",
+    "routeDist": "11.20 mi",
+    "routeTime": "5h 35m"
   },
   {
     "id": "45",
@@ -984,7 +1072,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30977405/harland-edge-ethel--circular-wwwthelostpeakcouk?lat=53.21102&lon=-1.55444&zoom=15.7831&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/harland-edge-ethel-circular-www-thelostpeak-co-uk-be49ff9?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824540461?share_token=aO2Gd88nhPYP68qRp05Xtlq69kK3K75yYme59jR1PgMt6HWrh4&ref=wtd",
-    "displayName": "Harland Edge"
+    "displayName": "Harland Edge",
+    "routeDist": "10.10 mi",
+    "routeTime": "5h 5m"
   },
   {
     "id": "46",
@@ -1002,7 +1092,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30977514/harthill-moor-ethel--circular-wwwthelostpeakcouk?lat=53.16697&lon=-1.69614&zoom=14.3443&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/harthill-moor-ethel-circular-www-thelostpeak-co-uk-f8212a0?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824550393?share_token=aFmbVSzfapeVpIwNYzHkk84xawfq6RLdoGUL9Ts2p5XZpBOZ0x&ref=wtd",
-    "displayName": "Harthill Moor"
+    "displayName": "Harthill Moor",
+    "routeDist": "3.71 mi",
+    "routeTime": "1h 50m"
   },
   {
     "id": "47",
@@ -1020,7 +1112,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30981061/hen-cloud-the-roaches--ramshaw-rocks-ethels--circular-wwwthelostpeakcouk?lat=53.16683&lon=-2.00386&zoom=13.2971&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/hen-cloud-the-roaches-ramshaw-rocks-ethels-circular-www-thelostpeak-co-uk-f69c9a7?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824972687?share_token=apRJqWFp7vX96qjG72IWDtFJv6mHebmWz1HYEjqHeV62neF0Mv&ref=wtd",
-    "displayName": "Hen Cloud"
+    "displayName": "Hen Cloud",
+    "routeDist": "6.91 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "48",
@@ -1038,7 +1132,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30981121/higger-tor-white-path-moss-high-neb--stanedge-pole-ethels--circular-wwwthelostpeakcouk?lat=53.35127&lon=-1.63075&zoom=12.9957&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/higger-tor-white-path-moss-high-neb-stanedge-pole-ethels-circular-www-thelostpeak-co-uk-ac1e1a1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824980436?share_token=a1vEErU88FZQ0twVGVoZj7MydugJd7EkP8n1CyuUNlWSJIlHGf&ref=wtd",
-    "displayName": "Higger Tor"
+    "displayName": "Higger Tor",
+    "routeDist": "11.10 mi",
+    "routeTime": "5h 35m"
   },
   {
     "id": "49",
@@ -1056,7 +1152,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30982131/high-edge-ethel--circular-wwwthelostpeakcouk?lat=53.22753&lon=-1.91709&zoom=13.7945&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/high-edge-ethel-circular-www-thelostpeak-co-uk-6212303?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825106331?share_token=aqmq46yTIsY4Gzn7CJIoBkqIC58LUjfDMlck5Ld5QfD70gXLq5&ref=wtd",
-    "displayName": "High Edge"
+    "displayName": "High Edge",
+    "routeDist": "4.07 mi",
+    "routeTime": "2h 5m"
   },
   {
     "id": "50",
@@ -1074,7 +1172,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30981121/higger-tor-white-path-moss-high-neb--stanedge-pole-ethels--circular-wwwthelostpeakcouk?lat=53.35127&lon=-1.63075&zoom=12.9957&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/higger-tor-white-path-moss-high-neb-stanedge-pole-ethels-circular-www-thelostpeak-co-uk-ac1e1a1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824980436?share_token=a1vEErU88FZQ0twVGVoZj7MydugJd7EkP8n1CyuUNlWSJIlHGf&ref=wtd",
-    "displayName": "High Neb"
+    "displayName": "High Neb",
+    "routeDist": "11.10 mi",
+    "routeTime": "5h 35m"
   },
   {
     "id": "51",
@@ -1092,7 +1192,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30982573/high-stones--margery-hill-ethels--there--back-wwwthelostpeakcouk?lat=53.43135&lon=-1.75937&zoom=12.3542&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/high-stones-margery-hill-ethels-there-back-www-thelostpeak-co-uk-febf1d8?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825165033?share_token=aerXCGuPNt13cMmadqTErVjnqIWiXLD0PZ5Z41t3z2V11yTTxL&ref=wtd",
-    "displayName": "High Stones"
+    "displayName": "High Stones",
+    "routeDist": "10.28 mi",
+    "routeTime": "5h 10m"
   },
   {
     "id": "52",
@@ -1110,7 +1212,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30959720/high-wheeldon-pilsbury-hill--carder-low-ethels--circular-wwwthelostpeakcouk?lat=53.17879&lon=-1.84776&zoom=13.1413&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/high-wheeldon-pilsbury-hill-carder-low-ethels-circular-www-thelostpeak-co-uk-2cba739?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822443525?share_token=aCX6K1nEv3oQcKCtdxcDG24tm7fyto1jXWj8A9Hrtni3p3TUtL&ref=wtd",
-    "displayName": "High Wheeldon"
+    "displayName": "High Wheeldon",
+    "routeDist": "7.16 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "53",
@@ -1128,7 +1232,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30934817/higher-shelf-stones-ethel--bleaklow-head-ethel--circular-wwwthelostpeakcouk?lat=53.44828&lon=-1.87479&zoom=13.3709&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/higher-shelf-stones-bleaklow-head-ethels-circular-www-thelostpeak-co-uk-230c04f?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2831191435?share_token=aK4MvdDFXRrmkvYtG2RQ7Pne4011LvD5QJ6x4JKJhftCrRj1D3&ref=wtd",
-    "displayName": "Higher Shelf Stones"
+    "displayName": "Higher Shelf Stones",
+    "routeDist": "5.11 mi",
+    "routeTime": "2h 35m"
   },
   {
     "id": "54",
@@ -1146,7 +1252,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30960574/hollins-hill-chrome-hill--parkhouse-hill-ethels--circular-wwwthelostpeakcouk?lat=53.20412&lon=-1.90388&zoom=14.2106&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/hollins-hill-chrome-hill-parkhouse-hill-ethels-circular-www-thelostpeak-co-uk-91c260e?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822538131?share_token=a31eqoo5P5PHRFiLGqOAg62n1lBtzbZpOoKVe6PBu2WFfMhDB6&ref=wtd",
-    "displayName": "Hollins Hill"
+    "displayName": "Hollins Hill",
+    "routeDist": "4.70 mi",
+    "routeTime": "2h 20m"
   },
   {
     "id": "55",
@@ -1164,7 +1272,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946151/grindslow-knoll-kinder-low--brown-knoll--circular-wwwthelostpeakcouk?lat=53.36432&lon=-1.86671&zoom=12.9111&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/grindslow-knoll-kinder-low-for-kinder-scout-brown-knoll-ethels-circular-172d74b?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820824791?share_token=aH4OTkFg7odglYc0TyBtG3Znzky8IWwEW3UF6kXEXk9Tq0HcYZ&ref=wtd",
-    "displayName": "Kinder Scout"
+    "displayName": "Kinder Scout",
+    "routeDist": "9.87 mi",
+    "routeTime": "4h 55m"
   },
   {
     "id": "56",
@@ -1182,7 +1292,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31001377/mill-hill--lantern-pike-ethels--circular-wwwthelostpeakcouk?lat=53.39641&lon=-1.95858&zoom=12.7003&style=Standard&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mill-hill-lantern-pike-ethels-circular-www-thelostpeak-co-uk-1843d58?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2827201300?share_token=ae74IPgiYeB5H9DsyBEn6wsBCTFOTERAinWO9Wk5AChuuxuiSE&ref=wtd",
-    "displayName": "Lantern Pike"
+    "displayName": "Lantern Pike",
+    "routeDist": "9.36 mi",
+    "routeTime": "4h 40m"
   },
   {
     "id": "57",
@@ -1200,7 +1312,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30983980/lees-moor-ethel--circular-wwwthelostpeakcouk?lat=53.20513&lon=-1.66702&zoom=13.6331&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/lees-moor-ethel-circular-www-thelostpeak-co-uk-7487734?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825344025?share_token=aWy2m2KVmiZMx3r52Hro68RJkMi4o96KGC1KU8Wa3cUW1j9iBn&ref=wtd",
-    "displayName": "Lees Moor"
+    "displayName": "Lees Moor",
+    "routeDist": "8.59 mi",
+    "routeTime": "4h 15m"
   },
   {
     "id": "58",
@@ -1218,7 +1332,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30990699/longstone-moor--wardlow-hay-cop-ethels--circular-wwwthelostpeakcouk-?lat=53.26232&lon=-1.73304&zoom=14.6227&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/longstone-moor-wardlow-hay-cop-ethels-circular-www-thelostpeak-co-uk-c056ca7?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825940883?share_token=asi2qsG15kI87MCkzJHcIl82I09tHKBl8Vioky1Ebw5yirdugY&ref=wtd",
-    "displayName": "Longstone Moor"
+    "displayName": "Longstone Moor",
+    "routeDist": "4.21 mi",
+    "routeTime": "2h 5m"
   },
   {
     "id": "59",
@@ -1236,7 +1352,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30945860/mam-tor-lords-seat-gautries-hill-eldon-hole--slitherstone-hill-ethels--circular?lat=53.33404&lon=-1.85357&zoom=13.1499&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mam-tor-lord-s-seat-gautries-hill-eldon-hole-slitherstone-hill-ethels-circular-d911912?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820793251?share_token=aOP9LP3mPRp57OPICuDulPJfdcDDmmU3hmzx6IS24QTg2rpSA4&ref=wtd",
-    "displayName": "Lord’s Seat"
+    "displayName": "Lord’s Seat",
+    "routeDist": "9.63 mi",
+    "routeTime": "4h 50m"
   },
   {
     "id": "60",
@@ -1254,7 +1372,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30990806/lose-hill--mam-tor-ethels--circular-wwwthelostpeakcouk?lat=53.35592&lon=-1.80111&zoom=13.9237&overlays=os-obstacles-layer&style=TopoAuto&type=2d&droppedPin=53.34741%2C-1.81605",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/lose-hill-mam-tor-ethels-circular-www-thelostpeak-co-uk-baa59b6?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825946197?share_token=aRSykhLvK90bqxeI2B0TReace6ZSmWhxAsDoCwHXCFltfEv6df&ref=wtd",
-    "displayName": "Lose Hill"
+    "displayName": "Lose Hill",
+    "routeDist": "5.42 mi",
+    "routeTime": "2h 45m"
   },
   {
     "id": "61",
@@ -1272,7 +1392,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31033490/lost-lad--back-tor-ethels--circular-wwwthelostpeakcouk?lat=53.40527&lon=-1.73427&zoom=13.2605&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/lost-lad-back-tor-ethels-circular-www-thelostpeak-co-uk-dbab4f1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830792247?share_token=agbYn0QWh5RPBpar70uQ255aZjjB5Ya4c1clEh4U19Pc9elBQg&ref=wtd",
-    "displayName": "Lost Lad"
+    "displayName": "Lost Lad",
+    "routeDist": "7.48 mi",
+    "routeTime": "3h 45m"
   },
   {
     "id": "62",
@@ -1290,7 +1412,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30945860/mam-tor-lords-seat-gautries-hill-eldon-hole--slitherstone-hill-ethels--circular?lat=53.33404&lon=-1.85357&zoom=13.1499&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mam-tor-lord-s-seat-gautries-hill-eldon-hole-slitherstone-hill-ethels-circular-d911912?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820793251?share_token=aOP9LP3mPRp57OPICuDulPJfdcDDmmU3hmzx6IS24QTg2rpSA4&ref=wtd",
-    "displayName": "Mam Tor"
+    "displayName": "Mam Tor",
+    "routeDist": "5.42 mi",
+    "routeTime": "2h 45m"
   },
   {
     "id": "63",
@@ -1308,7 +1432,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30982573/high-stones--margery-hill-ethels--there--back-wwwthelostpeakcouk?lat=53.43135&lon=-1.75937&zoom=12.3542&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/high-stones-margery-hill-ethels-there-back-www-thelostpeak-co-uk-febf1d8?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825165033?share_token=aerXCGuPNt13cMmadqTErVjnqIWiXLD0PZ5Z41t3z2V11yTTxL&ref=wtd",
-    "displayName": "Margery Hill"
+    "displayName": "Margery Hill",
+    "routeDist": "10.28 mi",
+    "routeTime": "5h 10m"
   },
   {
     "id": "64",
@@ -1326,7 +1452,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30990829/merryton-low-ethel--circular-wwwthelostpeakcouk?lat=53.13932&lon=-1.92848&zoom=13.4194&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/merryton-low-ethel-circular-www-thelostpeak-co-uk-c26aa12?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825950527?share_token=afTAufDyTQqCQvwIIBX7YxSV7eDwIPCxvBQp5vPUHTfASBRffj&ref=wtd",
-    "displayName": "Merryton Low"
+    "displayName": "Merryton Low",
+    "routeDist": "8.99 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "65",
@@ -1344,7 +1472,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31001377/mill-hill--lantern-pike-ethels--circular-wwwthelostpeakcouk?lat=53.39641&lon=-1.95858&zoom=12.7003&style=Standard&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mill-hill-lantern-pike-ethels-circular-www-thelostpeak-co-uk-1843d58?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2827201300?share_token=ae74IPgiYeB5H9DsyBEn6wsBCTFOTERAinWO9Wk5AChuuxuiSE&ref=wtd",
-    "displayName": "Mill Hill"
+    "displayName": "Mill Hill",
+    "routeDist": "9.36 mi",
+    "routeTime": "4h 40m"
   },
   {
     "id": "66",
@@ -1362,7 +1492,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31008740/minninglow-ethel--circular-wwwthelostpeakcouk?lat=53.10582&lon=-1.71048&zoom=12.724&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/minninglow-ethel-circular-www-thelostpeak-co-uk-11fecc5?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2829476491?share_token=a1s0lCbg3dvoj3E0WfvUYeb4Mb6G8O8zzydB74E6WEOi3Xtgz4&ref=wtd",
-    "displayName": "Minninglow"
+    "displayName": "Minninglow",
+    "routeDist": "8.40 mi",
+    "routeTime": "4h 10m"
   },
   {
     "id": "67",
@@ -1380,7 +1512,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30990879/mount-famine-south-head-and-brown-knoll-from-hayfield?lat=53.37461&lon=-1.91844&zoom=13.247&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mount-famine-south-head-and-brown-knoll-from-hayfield-e1ef68c?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825953546?share_token=ay5kFBsSvkgkkOgFIHcN3670Kx9gnQopRocbVNnIyosOMj6oZv&ref=wtd",
-    "displayName": "Mount Famine"
+    "displayName": "Mount Famine",
+    "routeDist": "8.47 mi",
+    "routeTime": "4h 15m"
   },
   {
     "id": "68",
@@ -1398,7 +1532,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31018008/musden-low-ethel--circular-wwwthelostpeakcouk?lat=53.06589&lon=-1.85235&zoom=12.5953&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/musden-low-ethel-circular-www-thelostpeak-co-uk-5eba31a?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2829508966?share_token=aCViVR46jzfKUT1UIYvHRbAtgbEJJmxNVmHnGNorSX2iZdLYgm&ref=wtd",
-    "displayName": "Musden Low"
+    "displayName": "Musden Low",
+    "routeDist": "8.79 mi",
+    "routeTime": "4h 25m"
   },
   {
     "id": "69",
@@ -1416,7 +1552,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31018363/oliver-hill-ethel--circular-wwwthelostpeakcouk?lat=53.20775&lon=-1.98234&zoom=13.9086&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/oliver-hill-ethel-circular-www-thelostpeak-co-uk-099bdbf?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2829521061?share_token=aKNwnWGtsui21jtFyXe2rssyodOrIw52To8UD74wJTZlrgzW4j&ref=wtd",
-    "displayName": "Oliver Hill"
+    "displayName": "Oliver Hill",
+    "routeDist": "5.21 mi",
+    "routeTime": "2h 35m"
   },
   {
     "id": "70",
@@ -1434,7 +1572,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30960574/hollins-hill-chrome-hill--parkhouse-hill-ethels--circular-wwwthelostpeakcouk?lat=53.20412&lon=-1.90388&zoom=14.2106&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/hollins-hill-chrome-hill-parkhouse-hill-ethels-circular-www-thelostpeak-co-uk-91c260e?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822538131?share_token=a31eqoo5P5PHRFiLGqOAg62n1lBtzbZpOoKVe6PBu2WFfMhDB6&ref=wtd",
-    "displayName": "Parkhouse Hill"
+    "displayName": "Parkhouse Hill",
+    "routeDist": "4.70 mi",
+    "routeTime": "2h 20m"
   },
   {
     "id": "71",
@@ -1452,7 +1592,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30959720/high-wheeldon-pilsbury-hill--carder-low-ethels--circular-wwwthelostpeakcouk?lat=53.17879&lon=-1.84776&zoom=13.1413&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/high-wheeldon-pilsbury-hill-carder-low-ethels-circular-www-thelostpeak-co-uk-2cba739?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822443525?share_token=aCX6K1nEv3oQcKCtdxcDG24tm7fyto1jXWj8A9Hrtni3p3TUtL&ref=wtd",
-    "displayName": "Pilsbury Hill"
+    "displayName": "Pilsbury Hill",
+    "routeDist": "7.16 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "72",
@@ -1470,7 +1612,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30981061/hen-cloud-the-roaches--ramshaw-rocks-ethels--circular-wwwthelostpeakcouk?lat=53.16683&lon=-2.00386&zoom=13.2971&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/hen-cloud-the-roaches-ramshaw-rocks-ethels-circular-www-thelostpeak-co-uk-f69c9a7?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824972687?share_token=apRJqWFp7vX96qjG72IWDtFJv6mHebmWz1HYEjqHeV62neF0Mv&ref=wtd",
-    "displayName": "Ramshaw Rocks"
+    "displayName": "Ramshaw Rocks",
+    "routeDist": "6.91 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "73",
@@ -1488,7 +1632,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31018699/revidge-ethel--circular-wwwthelostpeakcouk?lat=53.13959&lon=-1.92672&zoom=13.0615&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/revidge-ethel-circular-www-thelostpeak-co-uk-e6f2066?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2829529076?share_token=abN4U0PNp2SG7jJJOatkzdk9TEgkWrGKLaeHMBK9xW0DTy5CXL&ref=wtd",
-    "displayName": "Revidge"
+    "displayName": "Revidge",
+    "routeDist": "10.58 mi",
+    "routeTime": "5h 20m"
   },
   {
     "id": "74",
@@ -1506,7 +1652,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30934904/cats-tor-ethel-shining-tor-ethel--foxlow-edge-ethel--circular-wwwthelostpeakcouk?lat=53.2718&lon=-2.00359&zoom=13.1228&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/cats-tor-ethel-shining-tor-ethel-foxlow-edge-ethel-circular-www-thelostpeak-co-uk-4a78107?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2819523280?share_token=apr5n9QqTYpnuMdfWxTEZRRb56bLsYhIcNfs6c9ZOfHlT8iD1P&ref=wtd",
-    "displayName": "Shining Tor"
+    "displayName": "Shining Tor",
+    "routeDist": "9.15 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "75",
@@ -1524,7 +1672,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30990925/shutlingsloe-ethel--circular-wwwthelostpeakcouk?lat=53.22677&lon=-2.06765&zoom=13.2642&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/shutlingsloe-ethel-circular-www-thelostpeak-co-uk-7309cfe?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825959130?share_token=a3CwFiY6KTdWMG6VYfd0A48Egn2Fo9TSXqCPhrgvfKge7AMCvx&ref=wtd",
-    "displayName": "Shutlingsloe"
+    "displayName": "Shutlingsloe",
+    "routeDist": "7.44 mi",
+    "routeTime": "3h 45m"
   },
   {
     "id": "76",
@@ -1542,7 +1692,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946298/sir-william-hill-durham-edge--burton-bole-ethels--circular-wwwthelostpeakcouk?lat=53.30778&lon=-1.72068&zoom=13.0773&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/sir-william-hill-durham-edge-burton-bole-ethels-circular-www-thelostpeak-co-uk-e4b05a0?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820871707?share_token=arxYuPGnSavcHcTyrHE1N2PWzBL6kZ68KeeQCS9XisPRTBPu12&ref=wtd",
-    "displayName": "Sir William Hill"
+    "displayName": "Sir William Hill",
+    "routeDist": "10.25 mi",
+    "routeTime": "5h 10m"
   },
   {
     "id": "77",
@@ -1560,7 +1712,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30945860/mam-tor-lords-seat-gautries-hill-eldon-hole--slitherstone-hill-ethels--circular?lat=53.33404&lon=-1.85357&zoom=13.1499&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mam-tor-lord-s-seat-gautries-hill-eldon-hole-slitherstone-hill-ethels-circular-d911912?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820793251?share_token=aOP9LP3mPRp57OPICuDulPJfdcDDmmU3hmzx6IS24QTg2rpSA4&ref=wtd",
-    "displayName": "Slitherstone Hill"
+    "displayName": "Slitherstone Hill",
+    "routeDist": "9.63 mi",
+    "routeTime": "4h 50m"
   },
   {
     "id": "78",
@@ -1578,7 +1732,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30946071/dead-edge-end-britland-edge-hill-snailsden-pike-end-ethels--circular-wwwthelostpeakcouk?lat=53.52061&lon=-1.82125&zoom=13.4054&overlays=os-obstacles-layer&style=Leisure&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/dead-edge-end-britland-edge-hill-snailsden-pike-end-ethels-circular-www-thelostpeak-co-uk-cf6684a?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2820814132?share_token=a2XmUKWDwOqNf0ic61ytk5euDX7NXxvOsHe111HCrDhQwHz9ew&ref=wtd",
-    "displayName": "Snailsden Pike End"
+    "displayName": "Snailsden Pike End",
+    "routeDist": "9.18 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "79",
@@ -1596,7 +1752,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30960222/chelmorton-low--sough-top-ethels--circular-wwwthelostpeakcouk?lat=53.23245&lon=-1.82207&zoom=14.7195&style=Aerial&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/chelmorton-low-sough-top-ethels-circular-www-thelostpeak-co-uk-198d2ab?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2822494485?share_token=aoksZiImcQjiNsno4OROaMa2hL3rY2Gb7u4ClnKt5a0q0WtIV9&ref=wtd",
-    "displayName": "Sough Top"
+    "displayName": "Sough Top",
+    "routeDist": "3.07 mi",
+    "routeTime": "1h 35m"
   },
   {
     "id": "80",
@@ -1614,7 +1772,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30990879/mount-famine-south-head-and-brown-knoll-from-hayfield?lat=53.37461&lon=-1.91844&zoom=13.247&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/mount-famine-south-head-and-brown-knoll-from-hayfield-e1ef68c?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825953546?share_token=ay5kFBsSvkgkkOgFIHcN3670Kx9gnQopRocbVNnIyosOMj6oZv&ref=wtd",
-    "displayName": "South Head"
+    "displayName": "South Head",
+    "routeDist": "8.47 mi",
+    "routeTime": "4h 15m"
   },
   {
     "id": "81",
@@ -1632,7 +1792,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/19557452/sponds-hill--black-hill--there--back-wwwthelostpeakcouk?lat=53.32524&lon=-2.04424&zoom=13.3138&style=Standard&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/sponds-hill-black-hill-there-back-www-thelostpeak-co-uk-12e3610?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2829530652?share_token=aw7ipsuSy9E6u3MbVMymjrvFcfjbudpHf07nBFei3o9YvM42ss&ref=wtd",
-    "displayName": "Sponds Hill"
+    "displayName": "Sponds Hill",
+    "routeDist": "7.15 mi",
+    "routeTime": "3h 40m"
   },
   {
     "id": "82",
@@ -1650,7 +1812,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30981121/higger-tor-white-path-moss-high-neb--stanedge-pole-ethels--circular-wwwthelostpeakcouk?lat=53.35127&lon=-1.63075&zoom=12.9957&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/higger-tor-white-path-moss-high-neb-stanedge-pole-ethels-circular-www-thelostpeak-co-uk-ac1e1a1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824980436?share_token=a1vEErU88FZQ0twVGVoZj7MydugJd7EkP8n1CyuUNlWSJIlHGf&ref=wtd",
-    "displayName": "Stanedge Pole"
+    "displayName": "Stanedge Pole",
+    "routeDist": "11.10 mi",
+    "routeTime": "5h 35m"
   },
   {
     "id": "83",
@@ -1668,7 +1832,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31018925/stanton-moor-ethel--circular-wwwthelostpeakcouk?lat=53.17310&lon=-1.67776&zoom=12.6947&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/stanton-moor-ethel-circular-www-thelostpeak-co-uk-553c2e1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2829541871?share_token=anbPqATU77rMWp1uKTdkcdK4G0A66XicIgag6t2KQtEBBhgnH0&ref=wtd",
-    "displayName": "Stanton Moor"
+    "displayName": "Stanton Moor",
+    "routeDist": "9.16 mi",
+    "routeTime": "4h 35m"
   },
   {
     "id": "84",
@@ -1677,7 +1843,7 @@ const ETHELS = [
     "lat": 53.170212,
     "lng": -2.144402,
     "gridRef": "SJ904636",
-    "osMap": "Explorer 268",
+    "osMap": "268: Wilmslow, Macclesfield & Congleton",
     "googleMaps": "https://www.google.com/maps?q=53.170212,-2.144402",
     "image": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/Images/The Cloud.webp",
     "gpx": "https://raw.githubusercontent.com/The-Lost-Peak/The-Ethels-Interactive-Map/main/GPX/The Cloud.gpx",
@@ -1686,7 +1852,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31024418/the-cloud-ethel--circular-wwwthelostpeakcouk?lat=53.16638&lon=-2.15579&zoom=15.0649&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/the-cloud-ethel-circular-www-thelostpeak-co-uk-8802266?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830116311?share_token=a9iq9nsc0KIe9WU5zY8fnJgPlz153O0GnHQCCKb4TLP7WOPeBx&ref=wtd",
-    "displayName": "The Cloud"
+    "displayName": "The Cloud",
+    "routeDist": "2.44 mi",
+    "routeTime": "1h 20m"
   },
   {
     "id": "85",
@@ -1704,7 +1872,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30981061/hen-cloud-the-roaches--ramshaw-rocks-ethels--circular-wwwthelostpeakcouk?lat=53.16683&lon=-2.00386&zoom=13.2971&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/hen-cloud-the-roaches-ramshaw-rocks-ethels-circular-www-thelostpeak-co-uk-f69c9a7?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824972687?share_token=apRJqWFp7vX96qjG72IWDtFJv6mHebmWz1HYEjqHeV62neF0Mv&ref=wtd",
-    "displayName": "The Roaches"
+    "displayName": "The Roaches",
+    "routeDist": "6.91 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "86",
@@ -1722,7 +1892,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31025656/thorpe-cloud-ethel--circular-wwwthelostpeakcouk?lat=53.04922&lon=-1.78049&zoom=12.949&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/thorpe-cloud-ethel-circular-www-thelostpeak-co-uk-27469f1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830154750?share_token=aYr7GtVDtfzJd8zra0rhSAYfsXLxqXF7MIvaf59QVqQmSWW4BX&ref=wtd",
-    "displayName": "Thorpe Cloud"
+    "displayName": "Thorpe Cloud",
+    "routeDist": "9.78 mi",
+    "routeTime": "4h 55m"
   },
   {
     "id": "87",
@@ -1740,7 +1912,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31025713/tissington-hill-ethel--circular-wwwthelostpeakcouk?lat=53.06597&lon=-1.77933&zoom=13.1712&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/tissington-hill-ethel-circular-www-thelostpeak-co-uk-7d8f397?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830158862?share_token=aurM2krxvNQTl7kdARTS99YQzyLDND8uVbgtjDDc746YRrG6Vy&ref=wtd",
-    "displayName": "Tissington Hill"
+    "displayName": "Tissington Hill",
+    "routeDist": "9.60 mi",
+    "routeTime": "4h 50m"
   },
   {
     "id": "88",
@@ -1758,7 +1932,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30990699/longstone-moor--wardlow-hay-cop-ethels--circular-wwwthelostpeakcouk-?lat=53.26232&lon=-1.73304&zoom=14.6227&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/longstone-moor-wardlow-hay-cop-ethels-circular-www-thelostpeak-co-uk-c056ca7?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2825940883?share_token=asi2qsG15kI87MCkzJHcIl82I09tHKBl8Vioky1Ebw5yirdugY&ref=wtd",
-    "displayName": "Wardlow Hay Cop"
+    "displayName": "Wardlow Hay Cop",
+    "routeDist": "4.21 mi",
+    "routeTime": "2h 5m"
   },
   {
     "id": "89",
@@ -1776,7 +1952,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31025764/west-nab-ethel--there--back-wwwthelostpeakcouk?lat=53.57142&lon=-1.90593&zoom=14.5532&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/west-nab-ethel-there-back-www-thelostpeak-co-uk-4854453?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830163502?share_token=ajl3LvuFYL5m8ICluxCmkJG9VnbBECs63QUsTsvbNV2abtKTAv&ref=wtd",
-    "displayName": "West Nab"
+    "displayName": "West Nab",
+    "routeDist": "5.21 mi",
+    "routeTime": "2h 35m"
   },
   {
     "id": "90",
@@ -1794,7 +1972,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30970646/ecton-hill--wetton-hill-ethels--circular-wwwthelostpeakcouk?lat=53.10885&lon=-1.86775&zoom=13.1905&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/gpx-download-ecton-hill-and-manifold-valley-circular-3c6caf8?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830220122?share_token=aq8vmMEBzvYs9X9XtfDwX6idUqrKuVBduirX8RpJQ3bzBHn0bp&ref=wtd",
-    "displayName": "Wetton Hill"
+    "displayName": "Wetton Hill",
+    "routeDist": "7.02 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "91",
@@ -1812,7 +1992,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31025875/whetstone-ridge-ethel--circular-wwwthelostpeakcouk?lat=53.23023&lon=-1.99491&zoom=13.2901&overlays=os-obstacles-layer&style=Aerial&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/whetstone-ridge-ethel-circular-www-thelostpeak-co-uk-14b1b66?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830173890?share_token=aBFqPqrO2MldFIL89FEtnUyttU4rKbu1i9l1pn4Rwnw9mq6Hmd&ref=wtd",
-    "displayName": "Whetstone Ridge"
+    "displayName": "Whetstone Ridge",
+    "routeDist": "7.08 mi",
+    "routeTime": "3h 30m"
   },
   {
     "id": "92",
@@ -1830,7 +2012,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31026034/white-low-ethel--there--back-wwwthelostpeakcouk?lat=53.50419&lon=-1.8959&zoom=13.4093&overlays=os-obstacles-layer&style=TopoAuto&type=2d",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/white-low-ethel-there-back-www-thelostpeak-co-uk-b72029b?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830191778?share_token=a5S6BlnMOpkmSZF66KWk3rZOlLA60hj1FdUGCc0Lfn0wLyabYy&ref=wtd",
-    "displayName": "White Low"
+    "displayName": "White Low",
+    "routeDist": "5.21 mi",
+    "routeTime": "2h 35m"
   },
   {
     "id": "93",
@@ -1848,7 +2032,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/30981121/higger-tor-white-path-moss-high-neb--stanedge-pole-ethels--circular-wwwthelostpeakcouk?lat=53.35127&lon=-1.63075&zoom=12.9957&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/higger-tor-white-path-moss-high-neb-stanedge-pole-ethels-circular-www-thelostpeak-co-uk-ac1e1a1?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2824980436?share_token=a1vEErU88FZQ0twVGVoZj7MydugJd7EkP8n1CyuUNlWSJIlHGf&ref=wtd",
-    "displayName": "White Path Moss"
+    "displayName": "White Path Moss",
+    "routeDist": "11.10 mi",
+    "routeTime": "5h 35m"
   },
   {
     "id": "94",
@@ -1866,7 +2052,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31026123/win-hill-ethel--circular-wwwthelostpeakcouk?lat=53.36976&lon=-1.72929&zoom=13.9801&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://explore.osmaps.com/route/31026123/win-hill-ethel--circular-wwwthelostpeakcouk?lat=53.36976&lon=-1.72929&zoom=13.9801&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "komootUrl": "https://www.komoot.com/tour/2830195832?share_token=aVzdpuNiqerb7ctjGNzpLX1HBtw8xEvOIkbb5A0HC59IQOiEQJ&ref=wtd",
-    "displayName": "Win Hill"
+    "displayName": "Win Hill",
+    "routeDist": "6.45 mi",
+    "routeTime": "3h 15m"
   },
   {
     "id": "95",
@@ -1884,7 +2072,9 @@ const ETHELS = [
     "osMapsUrl": "https://explore.osmaps.com/route/31026187/wolfscote-hill-ethel--circular-wwwthelostpeakcouk?lat=53.12661&lon=-1.81077&zoom=13.2420&style=Leisure&type=2d&overlays=os-obstacles-layer",
     "allTrailsUrl": "https://www.alltrails.com/en-gb/explore/custom-routes/wolfscote-hill-ethel-circular-www-thelostpeak-co-uk-10baa22?u=i&sh=cgsyop",
     "komootUrl": "https://www.komoot.com/tour/2830201321?share_token=aQcgOyUpjsvA6oL1SMHF4ucZfdBYtcA8ryHA7SpT36x273hVO4&ref=wtd",
-    "displayName": "Wolfscote Hill"
+    "displayName": "Wolfscote Hill",
+    "routeDist": "6.00 mi",
+    "routeTime": "3h 0m"
   }
 ];
 
@@ -2006,6 +2196,8 @@ const icons = {
   grid:   `<svg class="icon icon-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="position:relative;top:-1px;left:2px"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/></svg>`,
   dir:    `<svg class="icon icon-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s-8-5.5-8-11.5a8 8 0 0 1 16 0C20 16.5 12 22 12 22z"/><circle cx="12" cy="10.5" r="2.5"/></svg>`,
   buy:    `<svg class="icon icon-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+  dist:   `<svg class="icon icon-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="position:relative;top:-1px;left:1px"><path d="M3 12h18M3 6h18M3 18h18"/></svg>`,
+  clock:  `<svg class="icon icon-red" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>`,
   trail:  `<svg class="icon icon-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 17l4-8 4 5 3-3 4 6"/><circle cx="18" cy="5" r="2"/></svg>`
 };
 
@@ -2027,6 +2219,8 @@ function buildPopupHtml(e, locked){
       <div class="stats-group">
         <div class="spec-row">${icons.height}<span class="spec-value">${e.height}m</span></div>
         <div class="spec-row">${icons.grid}<span class="spec-value">${e.gridRef}</span></div>
+        ${e.routeDist ? `<div class="spec-row">${icons.dist}<span class="spec-value">${e.routeDist}</span></div>` : ""}
+        ${e.routeTime ? `<div class="spec-row">${icons.clock}<span class="spec-value">${e.routeTime}</span></div>` : ""}
       </div>
       <div class="links-group">${dirLink}${osLink}${atLink}${kmLink}${buyLink}</div>
     </div>
