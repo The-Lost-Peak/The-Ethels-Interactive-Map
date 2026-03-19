@@ -120,19 +120,10 @@
     #flyover-overlay.active { display:block; }
     .fv-ui {
       position:absolute; top:50%; transform:translateY(-50%);
-      z-index:10; display:flex; flex-direction:column; gap:20px; pointer-events:auto;
+      z-index:10; display:flex; flex-direction:column; gap:14px; pointer-events:auto;
     }
     .fv-ui-left  { left:20px; }
     .fv-ui-right { right:20px; }
-    #fvBtnReturn {
-      position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
-      border-radius:9999px; width:auto; height:auto; padding:10px 22px;
-      font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:700;
-      color:#fff; letter-spacing:0.01em; white-space:nowrap; pointer-events:auto;
-    }
-    #fvBtnReturn svg { display:none; }
-    .fv-btn.fv-free { background:linear-gradient(180deg,#3899EC,#297fc8) !important; animation:fv-pulse 1.4s ease-in-out infinite; }
-    @keyframes fv-pulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.35)} 50%{box-shadow:0 0 0 6px rgba(56,153,236,.35),0 3px 10px rgba(0,0,0,.35)} }
     .fv-btn {
       width:50px; height:50px; border-radius:50%;
       display:flex; align-items:center; justify-content:center;
@@ -171,13 +162,12 @@
     @media(max-width:767px){
       .fv-btn { width:42px; height:42px; border:none; }
       .fv-btn svg { width:20px; height:20px; }
-      .fv-ui { gap:10px; }
+      .fv-ui { gap:8px; }
       .fv-ui-left, .fv-ui-right { top:auto; transform:none; bottom:20px; }
       .fv-ui-right { flex-direction:row-reverse; align-items:flex-end; right:20px; left:auto; }
       .fv-ui-left { bottom:calc(20px + 42px + 8px); right:20px; left:auto; align-items:flex-end; }
       .fv-speed-wrap { width:42px; height:42px; }
       .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
-      #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 16px; }
     }
     .marker-eye-overlay {
       display:none;
@@ -213,18 +203,94 @@
       .popup-note { width:105px !important; font-size:9px !important; }
     }
 
-    .mapboxgl-ctrl-bottom-right {
-      display:flex !important; flex-direction:column !important; align-items:flex-end !important; gap:6px !important;
+    .mapboxgl-ctrl-attrib { position:absolute; bottom:6px; right:6px; }
+
+    /* ===== MAIN MAP FULLSCREEN BUTTON ===== */
+    #map-btn-fullscreen {
+      position:absolute; bottom:20px; right:20px; z-index:10;
+      width:50px; height:50px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      border:3px solid #fff; cursor:pointer;
+      background:linear-gradient(180deg,#EC2629,#b51d20);
+      box-shadow:0 3px 10px rgba(0,0,0,.35); transition:.15s; padding:0;
     }
-    .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-group,
-    .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-fullscreen { order:1; }
-    .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib { order:2; }
-    .mapboxgl-ctrl-attrib { transform:translate(-1px,3px); }
+    #map-btn-fullscreen:hover { background:linear-gradient(180deg,#3899EC,#297fc8); }
+    #map-btn-fullscreen svg { fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; width:22px; height:22px; }
+    @media(max-width:767px){
+      #map-btn-fullscreen { width:42px; height:42px; border:none; bottom:16px; right:16px; }
+      #map-btn-fullscreen svg { width:18px; height:18px; }
+    }
+
+    /* ===== FLYOVER BUTTONS ===== */
+    .fv-btn {
+      width:50px; height:50px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      border:3px solid #fff; cursor:pointer;
+      background:linear-gradient(180deg,#EC2629,#b51d20);
+      box-shadow:0 3px 10px rgba(0,0,0,.35); transition:.15s; padding:0;
+    }
+    .fv-btn:hover { background:linear-gradient(180deg,#3899EC,#297fc8); }
+    .fv-btn svg { fill:#fff; width:24px; height:24px; display:none; }
+    .fv-btn svg.active { display:block; }
+    .fv-speed-wrap { position:relative; width:50px; height:50px; }
+    .fv-speed-panel {
+      position:absolute; top:50%; right:60px;
+      transform:translateY(-50%) scale(.98);
+      opacity:0; pointer-events:none;
+      width:220px; height:44px;
+      display:flex; align-items:center; gap:12px; padding:0 10px;
+      border-radius:9999px; border:3px solid #fff;
+      background:linear-gradient(180deg,#EC2629,#b51d20);
+      transition:opacity .18s,transform .18s;
+      box-shadow:0 3px 10px rgba(0,0,0,.35);
+    }
+    .fv-speed-wrap.open .fv-speed-panel { opacity:1; transform:translateY(-50%) scale(1); pointer-events:auto; }
+    .fv-speed-slider { flex:1; appearance:none; height:6px; border-radius:999px; background:linear-gradient(90deg,#fff,#fff8); outline:none; }
+    .fv-speed-slider::-webkit-slider-thumb {
+      appearance:none; width:18px; height:18px; border-radius:50%;
+      background:#fff; border:2px solid #EC2629;
+      box-shadow:0 2px 8px rgba(0,0,0,.25); cursor:pointer;
+    }
+
+    /* ===== FLYOVER OVERLAY PANEL ===== */
+    #flyover-overlay {
+      display:none; position:absolute; inset:0; z-index:500; pointer-events:none;
+    }
+    #flyover-overlay.active { display:block; }
+    .fv-ui {
+      position:absolute; top:50%; transform:translateY(-50%);
+      z-index:10; display:flex; flex-direction:column; gap:20px; pointer-events:auto;
+    }
+    .fv-ui-left  { left:20px; }
+    .fv-ui-right { right:20px; }
+    #fvBtnReturn {
+      position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+      border-radius:9999px; width:auto; height:auto; padding:10px 22px;
+      font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:700;
+      color:#fff; letter-spacing:0.01em; white-space:nowrap; pointer-events:auto;
+    }
+    #fvBtnReturn svg { display:none; }
+    .fv-btn.fv-free { background:linear-gradient(180deg,#3899EC,#297fc8) !important; animation:fv-pulse 1.4s ease-in-out infinite; }
+    @keyframes fv-pulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.35)} 50%{box-shadow:0 0 0 6px rgba(56,153,236,.35),0 3px 10px rgba(0,0,0,.35)} }
+    @media(max-width:767px){
+      .fv-btn { width:42px; height:42px; border:none; }
+      .fv-btn svg { width:20px; height:20px; }
+      .fv-ui { gap:10px; }
+      .fv-ui-left { left:16px; top:50%; transform:translateY(-50%); }
+      .fv-ui-right { right:16px; top:50%; transform:translateY(-50%); }
+      .fv-speed-wrap { width:42px; height:42px; }
+      .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
+      #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 18px; }
+    }
   </style>
 </head>
 <body>
 
-<div id="map"></div>
+<div id="map">
+<button id="map-btn-fullscreen" title="Fullscreen">
+  <svg id="fsIconExpand" viewBox="0 0 24 24" style="display:block"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
+  <svg id="fsIconCollapse" viewBox="0 0 24 24" style="display:none"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
+</button>
 <div id="flyover-overlay">
   <div class="fv-ui fv-ui-left">
     <button id="fvBtnToggle" class="fv-btn" title="Play / Pause">
@@ -259,6 +325,7 @@
 <div id="search-container">
   <input id="search-input" type="text" placeholder="Search Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
   <div id="search-results"></div>
+</div>
 </div>
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
@@ -2186,40 +2253,12 @@ const map = new mapboxgl.Map({
   zoom:9,
   attributionControl:false
 });
-map.addControl(new mapboxgl.NavigationControl({showCompass:true,showZoom:true}),"bottom-right");
-map.addControl(new mapboxgl.FullscreenControl(),"bottom-right");
 map.addControl(new mapboxgl.AttributionControl({compact:true}),"bottom-right");
 
 function isIOS(){
   const ua=navigator.userAgent||"";
   return /iPad|iPhone|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 }
-const _fsParams=new URLSearchParams(location.search);
-if(isIOS()&&_fsParams.get("fs")==="1"){
-  const hide=()=>{ const el=document.querySelector(".mapboxgl-ctrl-fullscreen"); if(el) el.style.display="none"; };
-  hide(); setTimeout(hide,500);
-}
-function addIOSFullscreenBtn(){
-  if(!isIOS()) return;
-  if(_fsParams.get("fs")==="1") return;
-  const corner=document.querySelector(".mapboxgl-ctrl-bottom-right");
-  if(!corner) return;
-  const navGroup=[...corner.querySelectorAll(".mapboxgl-ctrl-group")].find(g=>g.querySelector(".mapboxgl-ctrl-zoom-in"));
-  if(!navGroup) return;
-  const btn=document.createElement("button");
-  btn.className="mapboxgl-ctrl-icon";
-  btn.title="Full screen";
-  btn.innerHTML=`<svg viewBox="0 0 24 24" style="width:20px;height:20px;margin:auto;display:block"><polyline points="4,9 4,4 9,4" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/><polyline points="20,9 20,4 15,4" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/><polyline points="4,15 4,20 9,20" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/><polyline points="20,15 20,20 15,20" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/></svg>`;
-  const compass=navGroup.querySelector(".mapboxgl-ctrl-compass");
-  if(compass) navGroup.insertBefore(btn,compass);
-  else navGroup.appendChild(btn);
-  btn.onclick=()=>{
-    const url=new URL(location.href);
-    url.searchParams.set("fs","1");
-    window.open(url.toString(),"_blank");
-  };
-}
-map.on("load",addIOSFullscreenBtn);
 
 const isMobile = window.innerWidth<=768||('ontouchstart' in window);
 const markerEls={}, lockedPopups={}, routeLayers={}, routeAnims={};
@@ -2597,6 +2636,7 @@ window.startFlyover = function(id, evt) {
   Object.keys(lockedPopups).forEach(k => { lockedPopups[k].remove(); delete lockedPopups[k]; });
   lockedId = null;
   document.getElementById("search-container").style.display = "none";
+  document.getElementById("map-btn-fullscreen").style.display = "none";
   document.getElementById("fvIconPlay").classList.remove("active");
   document.getElementById("fvIconPause").classList.add("active");
   document.getElementById("fvIconCamFollow").classList.add("active");
@@ -2604,7 +2644,7 @@ window.startFlyover = function(id, evt) {
   document.getElementById("fvIconCamFree").classList.remove("active");
   document.getElementById("fvBtnCam").classList.remove("fv-free");
   document.getElementById("flyover-overlay").classList.add("active");
-  ["mousedown","touchstart","dragstart","rotatestart","zoomstart","pitchstart"].forEach(ev => {
+  ["mousedown","touchstart","dragstart","rotatestart","zoomstart","pitchstart"].forEach(ev=>{
     map.off(ev, onFlyoverInteract);
     map.on(ev, onFlyoverInteract);
   });
@@ -2633,6 +2673,7 @@ function flyoverTick(ts) {
   const nxt = turf.along(flyLine, Math.min(flyoverProgress+0.01, r._flyLen), {units:"kilometers"}).geometry.coordinates;
   const cursorSrc = map.getSource("fv-cursor-src");
   if (cursorSrc) cursorSrc.setData(turf.point(pos));
+
   if (!flyoverUserOverride) {
     const targetBearing = turf.bearing(turf.point(pos), turf.point(nxt));
     if (flyoverCamBearing === null) flyoverCamBearing = targetBearing;
@@ -2665,11 +2706,20 @@ function setFlyoverCamBtn() {
   }
 }
 
+function onFlyoverInteract(e) {
+  if (!e.originalEvent) return;
+  if (flyoverActive && !flyoverUserOverride) {
+    flyoverUserOverride = true;
+    setFlyoverCamBtn();
+  }
+}
+
 function stopFlyover() {
   flyoverActive = false;
   if (flyoverAnimId) { cancelAnimationFrame(flyoverAnimId); flyoverAnimId = null; }
   document.getElementById("flyover-overlay").classList.remove("active");
   document.getElementById("search-container").style.display = "";
+  document.getElementById("map-btn-fullscreen").style.display = "";
   ["mousedown","touchstart","dragstart","rotatestart","zoomstart","pitchstart"].forEach(ev => {
     map.off(ev, onFlyoverInteract);
   });
@@ -2692,14 +2742,6 @@ function stopFlyover() {
   flyoverEthelId = null;
   flyoverUserOverride = false;
   document.getElementById("fvSpeedWrap").classList.remove("open");
-}
-
-function onFlyoverInteract(e) {
-  if (!e.originalEvent) return;
-  if (flyoverActive && !flyoverUserOverride) {
-    flyoverUserOverride = true;
-    setFlyoverCamBtn();
-  }
 }
 
 document.getElementById("fvBtnToggle").onclick = () => {
@@ -2736,6 +2778,40 @@ document.addEventListener("click", () => {
   const sw = document.getElementById("fvSpeedWrap");
   if (sw) sw.classList.remove("open");
 });
+
+// Main map fullscreen button
+(function(){
+  const btn = document.getElementById("map-btn-fullscreen");
+  const expand = document.getElementById("fsIconExpand");
+  const collapse = document.getElementById("fsIconCollapse");
+  function isFS(){ return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement); }
+  function updateIcon(){ expand.style.display=isFS()?"none":"block"; collapse.style.display=isFS()?"block":"none"; }
+  document.addEventListener("fullscreenchange", updateIcon);
+  document.addEventListener("webkitfullscreenchange", updateIcon);
+  if(isIOS()){
+    const params=new URLSearchParams(location.search);
+    if(params.get("fs")==="1"){ btn.style.display="none"; }
+    else {
+      btn.onclick=()=>{
+        const url=new URL(location.href);
+        url.searchParams.set("fs","1");
+        window.open(url.toString(),"_blank");
+      };
+    }
+  } else {
+    btn.onclick=()=>{
+      if(!isFS()){
+        const el=document.getElementById("map");
+        if(el.requestFullscreen) el.requestFullscreen();
+        else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if(el.mozRequestFullScreen) el.mozRequestFullScreen();
+      } else {
+        if(document.exitFullscreen) document.exitFullscreen();
+        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
+    };
+  }
+})();
 
 const searchInput=document.getElementById("search-input");
 const searchResults=document.getElementById("search-results");
