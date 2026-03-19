@@ -115,7 +115,7 @@
 
     /* ===== FLYOVER OVERLAY PANEL ===== */
     #flyover-overlay {
-      display:none; position:absolute; inset:0; z-index:500; pointer-events:none;
+      display:none; position:fixed; inset:0; z-index:500; pointer-events:none;
     }
     #flyover-overlay.active { display:block; }
     .fv-ui {
@@ -224,7 +224,7 @@
 </head>
 <body>
 
-<div id="map">
+<div id="map"></div>
 <div id="flyover-overlay">
   <div class="fv-ui fv-ui-left">
     <button id="fvBtnToggle" class="fv-btn" title="Play / Pause">
@@ -259,7 +259,6 @@
 <div id="search-container">
   <input id="search-input" type="text" placeholder="Search Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
   <div id="search-results"></div>
-</div>
 </div>
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
@@ -2597,6 +2596,7 @@ window.startFlyover = function(id, evt) {
   if (hoverPopupObj) { hoverPopupObj.remove(); hoverPopupObj=null; }
   Object.keys(lockedPopups).forEach(k => { lockedPopups[k].remove(); delete lockedPopups[k]; });
   lockedId = null;
+  document.getElementById("search-container").style.display = "none";
   document.getElementById("fvIconPlay").classList.remove("active");
   document.getElementById("fvIconPause").classList.add("active");
   document.getElementById("fvIconCamFollow").classList.add("active");
@@ -2631,10 +2631,8 @@ function flyoverTick(ts) {
   const flyLine = {type:"Feature",geometry:{type:"LineString",coordinates:r._flyPts}};
   const pos = turf.along(flyLine, flyoverProgress, {units:"kilometers"}).geometry.coordinates;
   const nxt = turf.along(flyLine, Math.min(flyoverProgress+0.01, r._flyLen), {units:"kilometers"}).geometry.coordinates;
-
   const cursorSrc = map.getSource("fv-cursor-src");
   if (cursorSrc) cursorSrc.setData(turf.point(pos));
-
   if (!flyoverUserOverride) {
     const targetBearing = turf.bearing(turf.point(pos), turf.point(nxt));
     if (flyoverCamBearing === null) flyoverCamBearing = targetBearing;
@@ -2671,6 +2669,7 @@ function stopFlyover() {
   flyoverActive = false;
   if (flyoverAnimId) { cancelAnimationFrame(flyoverAnimId); flyoverAnimId = null; }
   document.getElementById("flyover-overlay").classList.remove("active");
+  document.getElementById("search-container").style.display = "";
   ["mousedown","touchstart","dragstart","rotatestart","zoomstart","pitchstart"].forEach(ev => {
     map.off(ev, onFlyoverInteract);
   });
