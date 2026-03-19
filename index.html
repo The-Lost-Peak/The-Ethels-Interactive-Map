@@ -115,7 +115,7 @@
 
     /* ===== FLYOVER OVERLAY PANEL ===== */
     #flyover-overlay {
-      display:none; position:fixed; inset:0; z-index:500; pointer-events:none;
+      display:none; position:absolute; inset:0; z-index:500; pointer-events:none;
     }
     #flyover-overlay.active { display:block; }
     .fv-ui {
@@ -147,28 +147,54 @@
       transition:opacity .18s,transform .18s;
       box-shadow:0 3px 10px rgba(0,0,0,.35);
     }
-    .fv-speed-wrap.open .fv-speed-panel {
-      opacity:1; transform:translateY(-50%) scale(1); pointer-events:auto;
-    }
-    .fv-speed-slider {
-      flex:1; appearance:none; height:6px; border-radius:999px;
-      background:linear-gradient(90deg,#fff,#fff8); outline:none;
-    }
+    .fv-speed-wrap.open .fv-speed-panel { opacity:1; transform:translateY(-50%) scale(1); pointer-events:auto; }
+    .fv-speed-slider { flex:1; appearance:none; height:6px; border-radius:999px; background:linear-gradient(90deg,#fff,#fff8); outline:none; }
     .fv-speed-slider::-webkit-slider-thumb {
       appearance:none; width:18px; height:18px; border-radius:50%;
       background:#fff; border:2px solid #EC2629;
       box-shadow:0 2px 8px rgba(0,0,0,.25); cursor:pointer;
     }
+
+    /* Return to Map pill */
+    #fvBtnReturn {
+      position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+      border-radius:9999px; width:auto; height:auto; padding:10px 22px;
+      font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:700;
+      color:#fff; letter-spacing:0.01em; white-space:nowrap; pointer-events:auto;
+    }
+    #fvBtnReturn svg { display:none; }
+
+    /* Fullscreen button — shared style for both map and flyover */
+    .fs-btn {
+      position:absolute; bottom:50px; right:20px; z-index:10;
+      width:50px; height:50px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      border:3px solid #fff; cursor:pointer;
+      background:linear-gradient(180deg,#EC2629,#b51d20);
+      box-shadow:0 3px 10px rgba(0,0,0,.35); transition:.15s; padding:0;
+    }
+    .fs-btn:hover { background:linear-gradient(180deg,#3899EC,#297fc8); }
+    .fs-btn svg { fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; width:22px; height:22px; display:block; }
+
+    /* Free cam pulse */
+    .fv-btn.fv-free { background:linear-gradient(180deg,#3899EC,#297fc8) !important; animation:fv-pulse 1.4s ease-in-out infinite; }
+    @keyframes fv-pulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.35)} 50%{box-shadow:0 0 0 6px rgba(56,153,236,.35),0 3px 10px rgba(0,0,0,.35)} }
+
     @media(max-width:767px){
       .fv-btn { width:42px; height:42px; border:none; }
       .fv-btn svg { width:20px; height:20px; }
-      .fv-ui { gap:8px; }
-      .fv-ui-left, .fv-ui-right { top:auto; transform:none; bottom:20px; }
-      .fv-ui-right { flex-direction:row-reverse; align-items:flex-end; right:20px; left:auto; }
-      .fv-ui-left { bottom:calc(20px + 42px + 8px); right:20px; left:auto; align-items:flex-end; }
+      .fv-ui { gap:10px; }
+      /* Left stays left, right stays right, both vertically centred */
+      .fv-ui-left { left:16px; top:50%; transform:translateY(-50%); right:auto; bottom:auto; }
+      .fv-ui-right { right:16px; top:50%; transform:translateY(-50%); left:auto; bottom:auto; }
       .fv-speed-wrap { width:42px; height:42px; }
       .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
+      #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 18px; }
+      .fs-btn { width:42px; height:42px; border:none; bottom:46px; right:16px; }
+      .fs-btn svg { width:18px; height:18px; }
     }
+
+    .mapboxgl-ctrl-attrib { position:absolute; bottom:6px; right:6px; }
     .marker-eye-overlay {
       display:none;
       position:absolute;
@@ -203,95 +229,12 @@
       .popup-note { width:105px !important; font-size:9px !important; }
     }
 
-    .mapboxgl-ctrl-attrib { position:absolute; bottom:6px; right:6px; }
-
-    /* ===== MAIN MAP FULLSCREEN BUTTON ===== */
-    #map-btn-fullscreen {
-      position:absolute; bottom:30px; right:20px; z-index:10;
-      width:50px; height:50px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      border:3px solid #fff; cursor:pointer;
-      background:linear-gradient(180deg,#EC2629,#b51d20);
-      box-shadow:0 3px 10px rgba(0,0,0,.35); transition:.15s; padding:0;
-    }
-    #map-btn-fullscreen:hover { background:linear-gradient(180deg,#3899EC,#297fc8); }
-    #map-btn-fullscreen svg { fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; width:22px; height:22px; }
-    @media(max-width:767px){
-      #map-btn-fullscreen { width:42px; height:42px; border:none; bottom:26px; right:16px; }
-      #map-btn-fullscreen svg { width:18px; height:18px; }
-    }
-
-    /* ===== FLYOVER BUTTONS ===== */
-    .fv-btn {
-      width:50px; height:50px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      border:3px solid #fff; cursor:pointer;
-      background:linear-gradient(180deg,#EC2629,#b51d20);
-      box-shadow:0 3px 10px rgba(0,0,0,.35); transition:.15s; padding:0;
-    }
-    .fv-btn:hover { background:linear-gradient(180deg,#3899EC,#297fc8); }
-    .fv-btn svg { fill:#fff; width:24px; height:24px; display:none; }
-    .fv-btn svg.active { display:block; }
-    .fv-speed-wrap { position:relative; width:50px; height:50px; }
-    .fv-speed-panel {
-      position:absolute; top:50%; right:60px;
-      transform:translateY(-50%) scale(.98);
-      opacity:0; pointer-events:none;
-      width:220px; height:44px;
-      display:flex; align-items:center; gap:12px; padding:0 10px;
-      border-radius:9999px; border:3px solid #fff;
-      background:linear-gradient(180deg,#EC2629,#b51d20);
-      transition:opacity .18s,transform .18s;
-      box-shadow:0 3px 10px rgba(0,0,0,.35);
-    }
-    .fv-speed-wrap.open .fv-speed-panel { opacity:1; transform:translateY(-50%) scale(1); pointer-events:auto; }
-    .fv-speed-slider { flex:1; appearance:none; height:6px; border-radius:999px; background:linear-gradient(90deg,#fff,#fff8); outline:none; }
-    .fv-speed-slider::-webkit-slider-thumb {
-      appearance:none; width:18px; height:18px; border-radius:50%;
-      background:#fff; border:2px solid #EC2629;
-      box-shadow:0 2px 8px rgba(0,0,0,.25); cursor:pointer;
-    }
-
-    /* ===== FLYOVER OVERLAY PANEL ===== */
-    #flyover-overlay {
-      display:none; position:absolute; inset:0; z-index:500; pointer-events:none;
-    }
-    #flyover-overlay.active { display:block; }
-    .fv-ui {
-      position:absolute; top:50%; transform:translateY(-50%);
-      z-index:10; display:flex; flex-direction:column; gap:20px; pointer-events:auto;
-    }
-    .fv-ui-left  { left:20px; }
-    .fv-ui-right { right:20px; }
-    #fvBtnReturn {
-      position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
-      border-radius:9999px; width:auto; height:auto; padding:10px 22px;
-      font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:700;
-      color:#fff; letter-spacing:0.01em; white-space:nowrap; pointer-events:auto;
-    }
-    #fvBtnReturn svg { display:none; }
-    #fvBtnFullscreen {
-      position:absolute; bottom:24px; right:20px; pointer-events:auto;
-    }
-    .fv-btn.fv-free { background:linear-gradient(180deg,#3899EC,#297fc8) !important; animation:fv-pulse 1.4s ease-in-out infinite; }
-    @keyframes fv-pulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.35)} 50%{box-shadow:0 0 0 6px rgba(56,153,236,.35),0 3px 10px rgba(0,0,0,.35)} }
-    @media(max-width:767px){
-      .fv-btn { width:42px; height:42px; border:none; }
-      .fv-btn svg { width:20px; height:20px; }
-      .fv-ui { gap:10px; }
-      .fv-ui-left { left:16px; top:50%; transform:translateY(-50%); }
-      .fv-ui-right { right:16px; top:50%; transform:translateY(-50%); }
-      .fv-speed-wrap { width:42px; height:42px; }
-      .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
-      #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 18px; }
-      #fvBtnFullscreen { bottom:16px; right:16px; }
-    }
   </style>
 </head>
 <body>
 
 <div id="map">
-<button id="map-btn-fullscreen" title="Fullscreen">
+<button id="map-btn-fullscreen" class="fs-btn" title="Fullscreen">
   <svg id="fsIconExpand" viewBox="0 0 24 24" style="display:block"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
   <svg id="fsIconCollapse" viewBox="0 0 24 24" style="display:none"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
 </button>
@@ -325,9 +268,9 @@
     </div>
   </div>
   <button id="fvBtnReturn" class="fv-btn" title="Return to map">Return to Map</button>
-  <button id="fvBtnFullscreen" class="fv-btn" title="Fullscreen">
-    <svg id="fvFsIconExpand" class="active" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
-    <svg id="fvFsIconCollapse" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
+  <button id="fv-btn-fullscreen" class="fs-btn" title="Fullscreen">
+    <svg id="fvFsIconExpand" viewBox="0 0 24 24" style="display:block"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
+    <svg id="fvFsIconCollapse" viewBox="0 0 24 24" style="display:none"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
   </button>
 </div>
 <div id="search-container">
@@ -2533,6 +2476,7 @@ let flyoverEthelId = null;
 let flyoverSavedState = null;
 let flyoverCamMode = "follow";
 let flyoverUserOverride = false;
+let flyoverLockedEthelId = null;
 const FV_START_ZOOM = 15.7;
 const FV_SMOOTH     = 0.13;
 const FV_MAX_TURN   = 7;
@@ -2577,6 +2521,7 @@ window.startFlyover = function(id, evt) {
   flyoverLastTs = 0;
   flyoverCamMode = "follow";
   flyoverUserOverride = false;
+  flyoverLockedEthelId = lockedId; // save so we can restore on exit
   const {pts, len} = buildFlyoverRoute(r.coords);
   r._flyPts = pts;
   r._flyLen = len;
@@ -2681,7 +2626,6 @@ function flyoverTick(ts) {
   const nxt = turf.along(flyLine, Math.min(flyoverProgress+0.01, r._flyLen), {units:"kilometers"}).geometry.coordinates;
   const cursorSrc = map.getSource("fv-cursor-src");
   if (cursorSrc) cursorSrc.setData(turf.point(pos));
-
   if (!flyoverUserOverride) {
     const targetBearing = turf.bearing(turf.point(pos), turf.point(nxt));
     if (flyoverCamBearing === null) flyoverCamBearing = targetBearing;
@@ -2723,6 +2667,7 @@ function onFlyoverInteract(e) {
 }
 
 function stopFlyover() {
+  const restoredId = flyoverEthelId;
   flyoverActive = false;
   if (flyoverAnimId) { cancelAnimationFrame(flyoverAnimId); flyoverAnimId = null; }
   document.getElementById("flyover-overlay").classList.remove("active");
@@ -2738,10 +2683,6 @@ function stopFlyover() {
   if (map.getSource("fv-arrow-src")) map.removeSource("fv-arrow-src");
   if (map.getLayer("fv-cursor")) map.removeLayer("fv-cursor");
   if (map.getSource("fv-cursor")) map.removeSource("fv-cursor");
-  if (flyoverEthelId) {
-    const rr = routeLayers[flyoverEthelId];
-    if (rr && rr.lyrBase && map.getLayer(rr.lyrBase)) map.setPaintProperty(rr.lyrBase,"line-width",3.5);
-  }
   try { map.setTerrain(null); } catch(e) {}
   if (flyoverSavedState) {
     map.easeTo({ center:flyoverSavedState.center, zoom:flyoverSavedState.zoom, bearing:flyoverSavedState.bearing, pitch:flyoverSavedState.pitch, duration:1200 });
@@ -2750,6 +2691,24 @@ function stopFlyover() {
   flyoverEthelId = null;
   flyoverUserOverride = false;
   document.getElementById("fvSpeedWrap").classList.remove("open");
+
+  // Restore the popup and route animation for the ethel that was locked before flyover
+  if (flyoverLockedEthelId) {
+    const ethel = ETHELS.find(e => e.id === flyoverLockedEthelId);
+    if (ethel) {
+      setTimeout(() => {
+        setMarkerColor(ethel.id, BLUE);
+        showRoute(ethel.id);
+        const p = new mapboxgl.Popup({offset:22, closeButton:false, closeOnClick:false, anchor:"bottom"})
+          .setLngLat([ethel.lng, ethel.lat])
+          .setHTML(buildPopupHtml(ethel, true))
+          .addTo(map);
+        lockedPopups[ethel.id] = p;
+        lockedId = ethel.id;
+      }, 1300); // after easeTo completes
+    }
+    flyoverLockedEthelId = null;
+  }
 }
 
 document.getElementById("fvBtnToggle").onclick = () => {
@@ -2789,48 +2748,41 @@ document.addEventListener("click", () => {
 
 // Shared fullscreen logic
 function isFS(){ return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement); }
-function fsEnter(){
-  const el=document.getElementById("map");
-  if(el.requestFullscreen) el.requestFullscreen();
-  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  else if(el.mozRequestFullScreen) el.mozRequestFullScreen();
+function fsToggle(){
+  if(!isFS()){
+    const el=document.getElementById("map");
+    if(el.requestFullscreen) el.requestFullscreen();
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if(el.mozRequestFullScreen) el.mozRequestFullScreen();
+  } else {
+    if(document.exitFullscreen) document.exitFullscreen();
+    else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+  }
 }
-function fsExit(){
-  if(document.exitFullscreen) document.exitFullscreen();
-  else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
-}
-function fsToggle(){ isFS() ? fsExit() : fsEnter(); }
 function updateFsIcons(){
   const inFS = isFS();
   document.getElementById("fsIconExpand").style.display = inFS?"none":"block";
   document.getElementById("fsIconCollapse").style.display = inFS?"block":"none";
-  document.getElementById("fvFsIconExpand").classList.toggle("active", !inFS);
-  document.getElementById("fvFsIconCollapse").classList.toggle("active", inFS);
+  document.getElementById("fvFsIconExpand").style.display = inFS?"none":"block";
+  document.getElementById("fvFsIconCollapse").style.display = inFS?"block":"none";
 }
 document.addEventListener("fullscreenchange", updateFsIcons);
 document.addEventListener("webkitfullscreenchange", updateFsIcons);
 
-// Main map fullscreen button
 (function(){
-  const btn = document.getElementById("map-btn-fullscreen");
-  if(isIOS()){
-    const params=new URLSearchParams(location.search);
-    if(params.get("fs")==="1"){ btn.style.display="none"; }
-    else { btn.onclick=()=>{ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }; }
-  } else {
-    btn.onclick = fsToggle;
-  }
-})();
+  const iosParams = new URLSearchParams(location.search);
+  const iosFS = isIOS() && iosParams.get("fs")==="1";
+  function iosOpen(){ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }
 
-// Flyover fullscreen button
-(function(){
-  const btn = document.getElementById("fvBtnFullscreen");
+  const mapBtn = document.getElementById("map-btn-fullscreen");
+  const fvBtn  = document.getElementById("fv-btn-fullscreen");
+
   if(isIOS()){
-    const params=new URLSearchParams(location.search);
-    if(params.get("fs")==="1"){ btn.style.display="none"; }
-    else { btn.onclick=()=>{ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }; }
+    if(iosFS){ mapBtn.style.display="none"; if(fvBtn) fvBtn.style.display="none"; }
+    else { mapBtn.onclick = iosOpen; if(fvBtn) fvBtn.onclick = iosOpen; }
   } else {
-    btn.onclick = fsToggle;
+    mapBtn.onclick = fsToggle;
+    if(fvBtn) fvBtn.onclick = fsToggle;
   }
 })();
 
