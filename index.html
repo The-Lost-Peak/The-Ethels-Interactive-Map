@@ -207,7 +207,7 @@
 
     /* ===== MAIN MAP FULLSCREEN BUTTON ===== */
     #map-btn-fullscreen {
-      position:absolute; bottom:20px; right:20px; z-index:10;
+      position:absolute; bottom:30px; right:20px; z-index:10;
       width:50px; height:50px; border-radius:50%;
       display:flex; align-items:center; justify-content:center;
       border:3px solid #fff; cursor:pointer;
@@ -217,7 +217,7 @@
     #map-btn-fullscreen:hover { background:linear-gradient(180deg,#3899EC,#297fc8); }
     #map-btn-fullscreen svg { fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; width:22px; height:22px; }
     @media(max-width:767px){
-      #map-btn-fullscreen { width:42px; height:42px; border:none; bottom:16px; right:16px; }
+      #map-btn-fullscreen { width:42px; height:42px; border:none; bottom:26px; right:16px; }
       #map-btn-fullscreen svg { width:18px; height:18px; }
     }
 
@@ -270,6 +270,9 @@
       color:#fff; letter-spacing:0.01em; white-space:nowrap; pointer-events:auto;
     }
     #fvBtnReturn svg { display:none; }
+    #fvBtnFullscreen {
+      position:absolute; bottom:24px; right:20px; pointer-events:auto;
+    }
     .fv-btn.fv-free { background:linear-gradient(180deg,#3899EC,#297fc8) !important; animation:fv-pulse 1.4s ease-in-out infinite; }
     @keyframes fv-pulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.35)} 50%{box-shadow:0 0 0 6px rgba(56,153,236,.35),0 3px 10px rgba(0,0,0,.35)} }
     @media(max-width:767px){
@@ -281,6 +284,7 @@
       .fv-speed-wrap { width:42px; height:42px; }
       .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
       #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 18px; }
+      #fvBtnFullscreen { bottom:16px; right:16px; }
     }
   </style>
 </head>
@@ -321,6 +325,10 @@
     </div>
   </div>
   <button id="fvBtnReturn" class="fv-btn" title="Return to map">Return to Map</button>
+  <button id="fvBtnFullscreen" class="fv-btn" title="Fullscreen">
+    <svg id="fvFsIconExpand" class="active" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
+    <svg id="fvFsIconCollapse" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
+  </button>
 </div>
 <div id="search-container">
   <input id="search-input" type="text" placeholder="Search Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
@@ -2779,37 +2787,50 @@ document.addEventListener("click", () => {
   if (sw) sw.classList.remove("open");
 });
 
+// Shared fullscreen logic
+function isFS(){ return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement); }
+function fsEnter(){
+  const el=document.getElementById("map");
+  if(el.requestFullscreen) el.requestFullscreen();
+  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  else if(el.mozRequestFullScreen) el.mozRequestFullScreen();
+}
+function fsExit(){
+  if(document.exitFullscreen) document.exitFullscreen();
+  else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+}
+function fsToggle(){ isFS() ? fsExit() : fsEnter(); }
+function updateFsIcons(){
+  const inFS = isFS();
+  document.getElementById("fsIconExpand").style.display = inFS?"none":"block";
+  document.getElementById("fsIconCollapse").style.display = inFS?"block":"none";
+  document.getElementById("fvFsIconExpand").classList.toggle("active", !inFS);
+  document.getElementById("fvFsIconCollapse").classList.toggle("active", inFS);
+}
+document.addEventListener("fullscreenchange", updateFsIcons);
+document.addEventListener("webkitfullscreenchange", updateFsIcons);
+
 // Main map fullscreen button
 (function(){
   const btn = document.getElementById("map-btn-fullscreen");
-  const expand = document.getElementById("fsIconExpand");
-  const collapse = document.getElementById("fsIconCollapse");
-  function isFS(){ return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement); }
-  function updateIcon(){ expand.style.display=isFS()?"none":"block"; collapse.style.display=isFS()?"block":"none"; }
-  document.addEventListener("fullscreenchange", updateIcon);
-  document.addEventListener("webkitfullscreenchange", updateIcon);
   if(isIOS()){
     const params=new URLSearchParams(location.search);
     if(params.get("fs")==="1"){ btn.style.display="none"; }
-    else {
-      btn.onclick=()=>{
-        const url=new URL(location.href);
-        url.searchParams.set("fs","1");
-        window.open(url.toString(),"_blank");
-      };
-    }
+    else { btn.onclick=()=>{ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }; }
   } else {
-    btn.onclick=()=>{
-      if(!isFS()){
-        const el=document.getElementById("map");
-        if(el.requestFullscreen) el.requestFullscreen();
-        else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-        else if(el.mozRequestFullScreen) el.mozRequestFullScreen();
-      } else {
-        if(document.exitFullscreen) document.exitFullscreen();
-        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
-      }
-    };
+    btn.onclick = fsToggle;
+  }
+})();
+
+// Flyover fullscreen button
+(function(){
+  const btn = document.getElementById("fvBtnFullscreen");
+  if(isIOS()){
+    const params=new URLSearchParams(location.search);
+    if(params.get("fs")==="1"){ btn.style.display="none"; }
+    else { btn.onclick=()=>{ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }; }
+  } else {
+    btn.onclick = fsToggle;
   }
 })();
 
