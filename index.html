@@ -224,14 +224,14 @@
       .marker svg { transform:scale(0.612) !important; }
       #search-container { width:calc(100% - 24px); top:10px; }
       .popup-card { height:179px !important }
-      .img-wrap { width:105px !important; flex-basis:105px !important; height:179px !important }
-      .popup-body { flex:0 0 120px !important; min-width:120px !important; max-width:120px !important; padding:4px 6px !important; }
-      .popup-heading { font-size:10.5px !important }
+      .img-wrap { width:140px !important; flex-basis:140px !important; height:179px !important }
+      .popup-body { flex:0 0 155px !important; min-width:155px !important; max-width:155px !important; padding:4px 8px 4px 10px !important; }
+      .popup-heading { font-size:10.5px !important; padding-right:18px !important; }
       .specs { font-size:9.5px !important }
       .spec-value { font-size:10px !important }
       .popup-link { font-size:10px !important }
       .icon { width:11px !important; height:11px !important }
-      .popup-note { width:105px !important; font-size:9px !important; }
+      .popup-note { width:140px !important; font-size:9px !important; }
     }
 
   </style>
@@ -2778,7 +2778,38 @@ document.addEventListener("webkitfullscreenchange", updateFsIcons);
 (function(){
   const iosParams = new URLSearchParams(location.search);
   const iosFS = isIOS() && iosParams.get("fs")==="1";
-  function openInNew(){ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }
+
+  // If opened via mobile fullscreen with a flyover param, auto-start flyover once GPX loads
+  const autoFlyId = iosParams.get("flyover");
+  if(autoFlyId){
+    const autoEthel = ETHELS.find(e=>e.id===autoFlyId);
+    if(autoEthel){
+      // Wait for map load and GPX, then start flyover
+      map.on("load", ()=>{
+        const poll = setInterval(()=>{
+          const r = routeLayers[autoFlyId];
+          if(r && r.coords && r.coords.length >= 2){
+            clearInterval(poll);
+            // Fly to ethel first, then start flyover
+            map.flyTo({center:[autoEthel.lng, autoEthel.lat], zoom:13, duration:1200});
+            setTimeout(()=>{ window.startFlyover(autoFlyId, null); }, 1300);
+          }
+        }, 300);
+      });
+    }
+  }
+
+  function openInNew(){
+    const url = new URL(location.href);
+    url.searchParams.set("fs","1");
+    // If flyover is currently active, pass the ethelId so the new tab resumes flyover
+    if(typeof flyoverActive !== "undefined" && flyoverActive && flyoverEthelId){
+      url.searchParams.set("flyover", flyoverEthelId);
+    } else {
+      url.searchParams.delete("flyover");
+    }
+    window.open(url.toString(),"_blank");
+  }
 
   const mapBtn = document.getElementById("map-btn-fullscreen");
   const fvBtn  = document.getElementById("fv-btn-fullscreen");
@@ -2787,7 +2818,6 @@ document.addEventListener("webkitfullscreenchange", updateFsIcons);
     if(iosFS){ mapBtn.style.display="none"; if(fvBtn) fvBtn.style.display="none"; }
     else { mapBtn.onclick = openInNew; if(fvBtn) fvBtn.onclick = openInNew; }
   } else if(isAndroid()){
-    // Android WebView / Safari can't fullscreen a child element reliably — open in new tab instead
     mapBtn.onclick = openInNew;
     if(fvBtn) fvBtn.onclick = openInNew;
   } else {
