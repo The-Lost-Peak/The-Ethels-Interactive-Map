@@ -181,7 +181,7 @@
     @keyframes fv-pulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.35)} 50%{box-shadow:0 0 0 6px rgba(56,153,236,.35),0 3px 10px rgba(0,0,0,.35)} }
 
     @media(max-width:767px){
-      .fv-btn { width:42px; height:42px; border:none; }
+      .fv-btn { width:42px; height:42px; border:1.5px solid #fff; }
       .fv-btn svg { width:20px; height:20px; }
       .fv-ui { gap:10px; }
       /* Left stays left, right stays right, both vertically centred */
@@ -190,8 +190,13 @@
       .fv-speed-wrap { width:42px; height:42px; }
       .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
       #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 18px; }
-      .fs-btn { width:42px; height:42px; border:none; bottom:46px; right:16px; }
+      .fs-btn { width:42px; height:42px; border:1.5px solid #fff; bottom:46px; right:16px; }
       .fs-btn svg { width:18px; height:18px; }
+      /* Prevent blue tap highlight and stuck active state on mobile */
+      .fv-btn, .fs-btn { -webkit-tap-highlight-color:transparent; }
+      .fv-btn:active, .fs-btn:active { background:linear-gradient(180deg,#EC2629,#b51d20); }
+      /* Mobile-specific icon offset: eye left 0.5px from desktop position */
+      #fvIconCamFollow { transform:translate(0px,1px) !important; }
     }
 
     .mapboxgl-ctrl-attrib { position:absolute; bottom:6px; right:6px; }
@@ -248,8 +253,8 @@
       <svg class="active" viewBox="0 0 24 24" style="transform:translateX(2px)"><path d="M5 4v5h5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9a7 7 0 1 1-1.5 4.3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <button id="fvBtnCam" class="fv-btn" title="Toggle camera">
-      <svg id="fvIconCamFollow" class="active" viewBox="0 0 24 24"><rect x="3" y="7" width="11" height="10" rx="2"/><polygon points="16,10 22,7.5 22,16.5 16,14"/></svg>
-      <svg id="fvIconCamBird" viewBox="4.3 6.3 43.9 40.4" style="transform:translate(1px,1px)"><path fill="#fff" d="M41.965,20.694c-0.495-2.083-2.273-3.54-4.182-3.54c-1.816,0-3.717,1.149-5.184,2.522c-3.911-5.328-9.661-9.706-13.112-12.527c-0.713,1.656-1.029,3.449-1.029,5.271c0,1.999,0.395,4.832,1.042,6.768L26,19.667H5.121c2.5,5.762,7.472,9.976,13.329,12.333c-3.699,2.583-6.778,4.415-10.271,6.815c2.034,2.034,3.384,2.935,6.606,4.035c2.205-3.185,3.991-5.396,5.582-7.654c2.219,0.988,4.734,1.532,7.207,1.532c11.183,0,14.263-12.188,14.509-14.603c0.972-0.161,1.946-0.328,2.918-0.455C43.971,21.4,42.953,21.075,41.965,20.694z"/></svg>
+      <svg id="fvIconCamFollow" class="active" viewBox="0 0 24 24" style="transform:translate(0.5px,1px)"><rect x="3" y="7" width="11" height="10" rx="2"/><polygon points="16,10 22,7.5 22,16.5 16,14"/></svg>
+      <svg id="fvIconCamBird" viewBox="4.3 6.3 43.9 40.4" style="transform:translate(1px,2px)"><path fill="#fff" d="M41.965,20.694c-0.495-2.083-2.273-3.54-4.182-3.54c-1.816,0-3.717,1.149-5.184,2.522c-3.911-5.328-9.661-9.706-13.112-12.527c-0.713,1.656-1.029,3.449-1.029,5.271c0,1.999,0.395,4.832,1.042,6.768L26,19.667H5.121c2.5,5.762,7.472,9.976,13.329,12.333c-3.699,2.583-6.778,4.415-10.271,6.815c2.034,2.034,3.384,2.935,6.606,4.035c2.205-3.185,3.991-5.396,5.582-7.654c2.219,0.988,4.734,1.532,7.207,1.532c11.183,0,14.263-12.188,14.509-14.603c0.972-0.161,1.946-0.328,2.918-0.455C43.971,21.4,42.953,21.075,41.965,20.694z"/></svg>
       <svg id="fvIconCamFree" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="#fff"/><line x1="12" y1="2" x2="12" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="22" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="12" x2="6" y2="12" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="12" x2="22" y2="12" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
   </div>
@@ -2747,6 +2752,7 @@ document.addEventListener("click", () => {
 });
 
 // Shared fullscreen logic
+function isAndroid(){ return /Android/i.test(navigator.userAgent||""); }
 function isFS(){ return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement); }
 function fsToggle(){
   if(!isFS()){
@@ -2772,14 +2778,18 @@ document.addEventListener("webkitfullscreenchange", updateFsIcons);
 (function(){
   const iosParams = new URLSearchParams(location.search);
   const iosFS = isIOS() && iosParams.get("fs")==="1";
-  function iosOpen(){ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }
+  function openInNew(){ const url=new URL(location.href); url.searchParams.set("fs","1"); window.open(url.toString(),"_blank"); }
 
   const mapBtn = document.getElementById("map-btn-fullscreen");
   const fvBtn  = document.getElementById("fv-btn-fullscreen");
 
   if(isIOS()){
     if(iosFS){ mapBtn.style.display="none"; if(fvBtn) fvBtn.style.display="none"; }
-    else { mapBtn.onclick = iosOpen; if(fvBtn) fvBtn.onclick = iosOpen; }
+    else { mapBtn.onclick = openInNew; if(fvBtn) fvBtn.onclick = openInNew; }
+  } else if(isAndroid()){
+    // Android WebView / Safari can't fullscreen a child element reliably — open in new tab instead
+    mapBtn.onclick = openInNew;
+    if(fvBtn) fvBtn.onclick = openInNew;
   } else {
     mapBtn.onclick = fsToggle;
     if(fvBtn) fvBtn.onclick = fsToggle;
