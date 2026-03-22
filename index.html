@@ -216,7 +216,7 @@
     }
 
     @media (max-width:440px){
-.marker svg{transform:scale(0.5)!important;}
+body:not(.fs-mode) .marker svg{transform:scale(0.5)!important;}
 #search-container{width:calc(100% - 24px);top:10px;}
 .popup-card{height:170px!important;}
 .img-wrap{width:130px!important;flex-basis:130px!important;height:170px!important;}
@@ -2215,6 +2215,8 @@ function isIOS(){
 
 const isMobile = window.innerWidth<=768||('ontouchstart' in window);
 const isEmbed = new URLSearchParams(location.search).get("embed") === "1";
+  const isFullscreen = new URLSearchParams(location.search).get("fs") === "1";
+if (isFullscreen) document.body.classList.add("fs-mode");
 if (isEmbed) {
   document.documentElement.style.setProperty('--marker-scale', isMobile ? '0.5' : '0.65');
 }
