@@ -2371,9 +2371,9 @@ function lockEthel(e){
   }
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
-  const popupOffsetPx = isMobile ? 5 : 0; // was 6
+  const popupOffsetPx = isMobile ? 5 : 0; // was 6 needed to move to left a bit
   const pt = map.project([e.lng, e.lat]);
-  const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y - 6]); // was -7 
+  const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y - 6]); // was -7 needed to move up abit
   map.panTo(isMobile ? adjustedCenter : [e.lng, e.lat], {duration:300});
   const p=new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
     .setLngLat([e.lng,e.lat]).setHTML(buildPopupHtml(e,true)).addTo(map);
