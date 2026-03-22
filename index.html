@@ -2367,7 +2367,7 @@ function lockEthel(e){
   }
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
-  const popupOffsetPx = isMobile ? 40 : 0;
+  const popupOffsetPx = isMobile ? 20 : 0;
   const pt = map.project([e.lng, e.lat]);
   const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y]);
   map.panTo(isMobile ? adjustedCenter : [e.lng, e.lat], {duration:300});
