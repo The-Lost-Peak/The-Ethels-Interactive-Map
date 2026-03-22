@@ -2369,7 +2369,7 @@ function lockEthel(e){
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
   const popupOffsetPx = isMobile ? 10 : 0;
   const pt = map.project([e.lng, e.lat]);
-  const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y]);
+  const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y - 30]);
   map.panTo(isMobile ? adjustedCenter : [e.lng, e.lat], {duration:300});
   const p=new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
     .setLngLat([e.lng,e.lat]).setHTML(buildPopupHtml(e,true)).addTo(map);
