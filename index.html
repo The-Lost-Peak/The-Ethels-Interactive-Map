@@ -181,18 +181,17 @@
     @keyframes fv-pulse { 0%,100%{box-shadow:0 3px 10px rgba(0,0,0,.35)} 50%{box-shadow:0 0 0 6px rgba(56,153,236,.35),0 3px 10px rgba(0,0,0,.35)} }
 
     @media(max-width:767px){
-      .fv-btn { width:42px; height:42px; border:2px solid #fff; }
-      .fv-btn svg { width:20px; height:20px; }
-      .fv-ui { gap:10px; }
-      /* Left stays left, right stays right, both vertically centred */
-      .fv-ui-left { left:16px; top:50%; transform:translateY(-50%); right:auto; bottom:auto; }
-      .fv-ui-right { right:16px; top:50%; transform:translateY(-50%); left:auto; bottom:auto; }
-      .fv-speed-wrap { width:42px; height:42px; }
-      .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
-      #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 18px; }
-      .fs-btn { width:42px; height:42px; border:2px solid #fff; bottom:46px; right:16px; }
-      .fs-btn svg { width:18px; height:18px; }
-    }
+  body:not(.fs-mode) .fv-btn { width:42px; height:42px; border:2px solid #fff; }
+  body:not(.fs-mode) .fv-btn svg { width:20px; height:20px; }
+  body:not(.fs-mode) .fv-ui { gap:10px; }
+  .fv-ui-left { left:16px; top:50%; transform:translateY(-50%); right:auto; bottom:auto; }
+  .fv-ui-right { right:16px; top:50%; transform:translateY(-50%); left:auto; bottom:auto; }
+  body:not(.fs-mode) .fv-speed-wrap { width:42px; height:42px; }
+  body:not(.fs-mode) .fv-speed-panel { height:36px; right:50px; width:185px; border:none; }
+  body:not(.fs-mode) #fvBtnReturn { bottom:16px; font-size:12px; padding:8px 18px; }
+  .fs-btn { width:42px; height:42px; border:2px solid #fff; bottom:46px; right:16px; }
+  .fs-btn svg { width:18px; height:18px; }
+}
 
     .mapboxgl-ctrl-attrib { position:absolute; bottom:6px; right:6px; }
     .marker-eye-overlay {
