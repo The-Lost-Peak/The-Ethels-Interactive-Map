@@ -2367,7 +2367,10 @@ function lockEthel(e){
   }
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
-  map.panTo([e.lng,e.lat],{duration:300});
+  const popupOffsetPx = isMobile ? -80 : 0;
+  const pt = map.project([e.lng, e.lat]);
+  const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y]);
+  map.panTo(isMobile ? adjustedCenter : [e.lng, e.lat], {duration:300});
   const p=new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
     .setLngLat([e.lng,e.lat]).setHTML(buildPopupHtml(e,true)).addTo(map);
   lockedPopups[e.id]=p;
