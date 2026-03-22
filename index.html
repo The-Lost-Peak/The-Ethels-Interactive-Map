@@ -216,7 +216,7 @@
     }
 
     @media (max-width:440px){
-.marker svg{transform:scale(var(--marker-scale, 0.612))!important;}
+.marker svg{transform:scale(0.612)!important;}
 #search-container{width:calc(100% - 24px);top:10px;}
 .popup-card{height:175px!important;}
 .img-wrap{width:130px!important;flex-basis:130px!important;height:175px!important;}
@@ -287,10 +287,6 @@
 <script>
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC";
-const isEmbed = new URLSearchParams(location.search).get("embed") === "1";
-if (isEmbed) {
-  document.documentElement.style.setProperty('--marker-scale', isMobile ? '0.3' : '0.65');
-}
 const ETHELS = [
   {
     "id": "1",
@@ -2218,6 +2214,10 @@ function isIOS(){
 }
 
 const isMobile = window.innerWidth<=768||('ontouchstart' in window);
+const isEmbed = new URLSearchParams(location.search).get("embed") === "1";
+if (isEmbed) {
+  document.documentElement.style.setProperty('--marker-scale', isMobile ? '0.5' : '0.65');
+}
 const markerEls={}, lockedPopups={}, routeLayers={}, routeAnims={};
 let lockedId=null, hoverPopupObj=null;
 
