@@ -36,7 +36,7 @@
     .search-no-results { padding:10px 16px; font-family:Inter,system-ui,sans-serif; font-size:12px; color:#888; }
 
     .marker { cursor:pointer !important }
-    .marker svg { transform:scale(0.72); transform-origin:center }
+    .marker svg { transform:scale(var(--marker-scale, 0.72)); transform-origin:center }
 
     .mapboxgl-popup { filter:drop-shadow(0 14px 28px rgba(0,0,0,.45)); }
     .mapboxgl-popup-tip { display:none !important; }
@@ -287,6 +287,10 @@
 <script>
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC";
+const isEmbed = new URLSearchParams(location.search).get("embed") === "1";
+if (isEmbed) {
+  document.documentElement.style.setProperty('--marker-scale', '0.5');
+}
 const ETHELS = [
   {
     "id": "1",
