@@ -227,6 +227,7 @@ body:not(.fs-mode) .spec-value{font-size:10px!important;}
 body:not(.fs-mode) .popup-link{font-size:10px!important;}
 body:not(.fs-mode) .icon{width:11px!important;height:11px!important;}
 body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
+.fs-mode #search-input { font-size: 16px; }
 }
   
 }
@@ -2373,10 +2374,9 @@ function lockEthel(e){
   }
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
-  const popupOffsetPx = isMobile ? 10 : 0; // was 6 needed to move to left a bit
   const pt = map.project([e.lng, e.lat]);
-  const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y - 2]); // was -7 needed to move up abit
-  map.panTo(isMobile ? adjustedCenter : [e.lng, e.lat], {duration:300});
+const adjustedCenter = map.unproject([pt.x - 80, pt.y]);
+map.panTo(isMobile ? adjustedCenter : [e.lng, e.lat], {duration:300});
   const p=new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
     .setLngLat([e.lng,e.lat]).setHTML(buildPopupHtml(e,true)).addTo(map);
   lockedPopups[e.id]=p;
