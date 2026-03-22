@@ -218,8 +218,8 @@
     @media (max-width:440px){
 .marker svg{transform:scale(0.5)!important;}
 #search-container{width:calc(100% - 24px);top:10px;}
-.popup-card{height:175px!important;}
-.img-wrap{width:130px!important;flex-basis:130px!important;height:175px!important;}
+.popup-card{height:170px!important;}
+.img-wrap{width:130px!important;flex-basis:130px!important;height:170px!important;}
 .popup-body{flex:0 0 130px!important;min-width:130px!important;max-width:130px!important;padding:4px 6px!important;}
 .popup-heading{font-size:10.5px!important;}
 .specs{font-size:9.5px!important;}
@@ -2371,7 +2371,7 @@ function lockEthel(e){
   }
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
-  const popupOffsetPx = isMobile ? 5 : 0;
+  const popupOffsetPx = isMobile ? 7 : 0;
   const pt = map.project([e.lng, e.lat]);
   const adjustedCenter = map.unproject([pt.x + popupOffsetPx, pt.y - 8]);
   map.panTo(isMobile ? adjustedCenter : [e.lng, e.lat], {duration:300});
