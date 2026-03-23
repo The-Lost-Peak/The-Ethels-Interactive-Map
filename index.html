@@ -295,6 +295,12 @@ window.addEventListener("message", (event) => {
 
   if (event.data.type === "userData") {
     completedEthels = (event.data.completed || []).map(String);
+
+    window.parent.postMessage({
+      type: "mapDebug",
+      text: "Map received completed IDs: " + (completedEthels.join(", ") || "none")
+    }, "*");
+
     console.log("Completed from Wix:", completedEthels);
   }
 });
