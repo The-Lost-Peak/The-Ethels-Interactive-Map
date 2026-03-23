@@ -295,6 +295,16 @@ window.addEventListener("message", (event) => {
   }
 });
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
+let completedEthels = [];
+
+window.addEventListener("message", (event) => {
+  if (!event.data || !event.data.type) return;
+
+  if (event.data.type === "userData") {
+    completedEthels = (event.data.completed || []).map(String);
+    console.log("Completed from Wix:", completedEthels);
+  }
+});
 const RED = "#EC2629", BLUE = "#3899EC";
 const ETHELS = [
   {
@@ -2828,6 +2838,9 @@ searchInput.addEventListener("keydown",e=>{
   if(e.key==="Escape"){ searchResults.classList.remove("visible"); searchInput.blur(); }
   if(e.key==="Enter"){ const first=searchResults.querySelector(".search-item"); if(first) first.click(); }
 });
+window.parent.postMessage({
+  type: "requestUserData"
+}, "*");
 </script>
 </body>
 </html>
