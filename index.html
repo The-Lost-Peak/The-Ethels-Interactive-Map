@@ -2842,7 +2842,7 @@ searchInput.addEventListener("keydown",e=>{
   if(e.key==="Enter"){ const first=searchResults.querySelector(".search-item"); if(first) first.click(); }
 });
 window.parent.postMessage({
-  type: "requestUserData"
+  type: "mapReady"
 }, "*");
 </script>
 </body>
