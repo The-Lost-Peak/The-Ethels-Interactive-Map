@@ -286,6 +286,14 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.0/dist/togeojson.umd.js"></script>
 <script>
+let completedEthels = [];
+
+window.addEventListener("message", (event) => {
+  if (event.data.type === "userData") {
+    completedEthels = event.data.completed;
+    console.log("Completed from Wix:", completedEthels);
+  }
+});
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC";
 const ETHELS = [
