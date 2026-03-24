@@ -229,6 +229,8 @@ body:not(.fs-mode) .icon{width:11px!important;height:11px!important;}
 body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 .fs-mode #search-input { font-size: 16px; }
 }
+  
+}
 
   </style>
 </head>
@@ -284,45 +286,15 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.0/dist/togeojson.umd.js"></script>
 <script>
-
-mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
-  window.parent.postMessage({
-  type: "mapDebug",
-  text: "HTML loaded and script running"
-}, "*");
 let completedEthels = [];
-let wixConnected = false;
-
-const mapReadyInterval = setInterval(() => {
-  if (wixConnected) return;
-  window.parent.postMessage({ type: "mapReady" }, "*");
-}, 500);
 
 window.addEventListener("message", (event) => {
-  if (!event.data || !event.data.type) return;
-
   if (event.data.type === "userData") {
-    wixConnected = true;
-    clearInterval(mapReadyInterval);
-
-    completedEthels = (event.data.completed || []).map(String);
-
-    window.parent.postMessage({
-      type: "mapDebug",
-      text: "Map received completed IDs: " + (completedEthels.join(", ") || "none")
-    }, "*");
-
+    completedEthels = event.data.completed;
     console.log("Completed from Wix:", completedEthels);
-
-    refreshCompletedMarkers();
   }
 });
-function refreshCompletedMarkers(){
-  ETHELS.forEach(e => {
-    const isCompleted = completedEthels.includes(String(e.id));
-    setMarkerColor(e.id, isCompleted ? BLUE : RED);
-  });
-}
+mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC";
 const ETHELS = [
   {
@@ -2235,7 +2207,7 @@ function preloadImages() {
     img.src = e.image;
   });
 }
-document.getElementById('map').innerHTML = "";
+
 const map = new mapboxgl.Map({
   container:"map",
   style:"mapbox://styles/mapbox/satellite-streets-v12",
@@ -2423,17 +2395,13 @@ preloadImages();
 
 map.on("load", ()=>{
   const bounds=new mapboxgl.LngLatBounds();
-
   ETHELS.forEach(e=>{
     bounds.extend([e.lng,e.lat]);
-
     const el=document.createElement("div");
     el.className="marker";
     el.innerHTML=`<svg width="27" height="41" viewBox="0 0 27 41" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 0C6.044 0 0 6.044 0 13.5c0 9.375 13.5 27.5 13.5 27.5S27 22.875 27 13.5C27 6.044 20.956 0 13.5 0z" fill="${RED}"/><circle cx="13.5" cy="13.5" r="5" fill="white" opacity="0.9"/></svg><div class="marker-eye-overlay"><div class="eye-overlay-btn" style="position:absolute;top:-11px;left:-11px;width:22px;height:22px;background:rgba(0,0,0,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></div></div>`;
-
     el.dataset.ethelId = e.id;
     markerEls[e.id]=el;
-
     new mapboxgl.Marker({element:el}).setLngLat([e.lng,e.lat]).addTo(map);
 
     if(!isMobile){
@@ -2452,20 +2420,18 @@ map.on("load", ()=>{
       });
     }
   });
-
-  refreshCompletedMarkers();
-
   map.on("click",()=>{ if(!isMobile) closeLocked(); });
-
   const mob=window.innerWidth<600;
   map.fitBounds(bounds,{padding:mob?30:80,maxZoom:11});
 
+  // Load GPX routes in parallel
   (async()=>{
     await Promise.all(ETHELS.map(async e=>{
       try{ const line=await loadGpx(e.gpx); if(line) addRoute(e,line); }catch(_){}
     }));
   })();
 });
+
 
 const infoHiddenIds = new Set();
 
@@ -2862,9 +2828,6 @@ searchInput.addEventListener("keydown",e=>{
   if(e.key==="Escape"){ searchResults.classList.remove("visible"); searchInput.blur(); }
   if(e.key==="Enter"){ const first=searchResults.querySelector(".search-item"); if(first) first.click(); }
 });
-window.parent.postMessage({
-  type: "mapReady"
-}, "*");
 </script>
 </body>
 </html>
