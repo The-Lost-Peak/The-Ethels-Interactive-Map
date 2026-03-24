@@ -290,15 +290,21 @@ mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqc
   type: "mapDebug",
   text: "HTML loaded and script running"
 }, "*");
-window.parent.postMessage({
-  type: "mapReady"
-}, "*");
 let completedEthels = [];
+let wixConnected = false;
+
+const mapReadyInterval = setInterval(() => {
+  if (wixConnected) return;
+  window.parent.postMessage({ type: "mapReady" }, "*");
+}, 500);
 
 window.addEventListener("message", (event) => {
   if (!event.data || !event.data.type) return;
 
   if (event.data.type === "userData") {
+    wixConnected = true;
+    clearInterval(mapReadyInterval);
+
     completedEthels = (event.data.completed || []).map(String);
 
     window.parent.postMessage({
