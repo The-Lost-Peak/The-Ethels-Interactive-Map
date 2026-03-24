@@ -229,8 +229,6 @@ body:not(.fs-mode) .icon{width:11px!important;height:11px!important;}
 body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 .fs-mode #search-input { font-size: 16px; }
 }
-  
-}
 
   </style>
 </head>
@@ -2451,22 +2449,17 @@ map.on("load", ()=>{
 
   refreshCompletedMarkers();
 
-  map.fitBounds(bounds,{padding:40});
-  map.on("click",()=>{ closeLocked(); });
-  loadAllGpxRoutes();
-});
   map.on("click",()=>{ if(!isMobile) closeLocked(); });
+
   const mob=window.innerWidth<600;
   map.fitBounds(bounds,{padding:mob?30:80,maxZoom:11});
 
-  // Load GPX routes in parallel
   (async()=>{
     await Promise.all(ETHELS.map(async e=>{
       try{ const line=await loadGpx(e.gpx); if(line) addRoute(e,line); }catch(_){}
     }));
   })();
 });
-
 
 const infoHiddenIds = new Set();
 
