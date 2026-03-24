@@ -290,7 +290,10 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
   window.parent.postMessage({
   type: "mapDebug",
-  text: "HTML file updated"
+  text: "HTML loaded and script running"
+}, "*");
+window.parent.postMessage({
+  type: "mapReady"
 }, "*");
 let completedEthels = [];
 
@@ -306,8 +309,16 @@ window.addEventListener("message", (event) => {
     }, "*");
 
     console.log("Completed from Wix:", completedEthels);
+
+    refreshCompletedMarkers();
   }
 });
+function refreshCompletedMarkers(){
+  ETHELS.forEach(e => {
+    const isCompleted = completedEthels.includes(String(e.id));
+    setMarkerColor(e.id, isCompleted ? BLUE : RED);
+  });
+}
 const RED = "#EC2629", BLUE = "#3899EC";
 const ETHELS = [
   {
