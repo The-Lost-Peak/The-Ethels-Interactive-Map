@@ -2229,7 +2229,7 @@ function preloadImages() {
     img.src = e.image;
   });
 }
-
+document.getElementById('map').innerHTML = "";
 const map = new mapboxgl.Map({
   container:"map",
   style:"mapbox://styles/mapbox/satellite-streets-v12",
