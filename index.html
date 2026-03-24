@@ -2419,13 +2419,17 @@ preloadImages();
 
 map.on("load", ()=>{
   const bounds=new mapboxgl.LngLatBounds();
+
   ETHELS.forEach(e=>{
     bounds.extend([e.lng,e.lat]);
+
     const el=document.createElement("div");
     el.className="marker";
     el.innerHTML=`<svg width="27" height="41" viewBox="0 0 27 41" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 0C6.044 0 0 6.044 0 13.5c0 9.375 13.5 27.5 13.5 27.5S27 22.875 27 13.5C27 6.044 20.956 0 13.5 0z" fill="${RED}"/><circle cx="13.5" cy="13.5" r="5" fill="white" opacity="0.9"/></svg><div class="marker-eye-overlay"><div class="eye-overlay-btn" style="position:absolute;top:-11px;left:-11px;width:22px;height:22px;background:rgba(0,0,0,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></div></div>`;
+
     el.dataset.ethelId = e.id;
     markerEls[e.id]=el;
+
     new mapboxgl.Marker({element:el}).setLngLat([e.lng,e.lat]).addTo(map);
 
     if(!isMobile){
@@ -2444,6 +2448,13 @@ map.on("load", ()=>{
       });
     }
   });
+
+  refreshCompletedMarkers();
+
+  map.fitBounds(bounds,{padding:40});
+  map.on("click",()=>{ closeLocked(); });
+  loadAllGpxRoutes();
+});
   map.on("click",()=>{ if(!isMobile) closeLocked(); });
   const mob=window.innerWidth<600;
   map.fitBounds(bounds,{padding:mob?30:80,maxZoom:11});
