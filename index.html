@@ -290,12 +290,13 @@ let completedEthels = [];
 
 window.addEventListener("message", (event) => {
   if (event.data.type === "userData") {
-    completedEthels = event.data.completed;
+    completedEthels = event.data.completed.map(String);
     console.log("Completed from Wix:", completedEthels);
+    applyCompletedColors();
   }
 });
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
-const RED = "#EC2629", BLUE = "#3899EC";
+const RED = "#EC2629", BLUE = "#3899EC", GREEN = "#22c55e";
 const ETHELS = [
   {
     "id": "1",
@@ -2235,6 +2236,25 @@ let lockedId=null, hoverPopupObj=null;
 function setMarkerColor(id,color){
   const el=markerEls[id]; if(!el) return;
   const path=el.querySelector("path"); if(path) path.setAttribute("fill",color);
+}
+
+function isCompletedEthel(id){
+  return completedEthels.includes(String(id));
+}
+
+function restoreMarkerColor(id){
+  if (lockedId === id) {
+    setMarkerColor(id, BLUE);
+    return;
+  }
+  setMarkerColor(id, isCompletedEthel(id) ? GREEN : RED);
+}
+
+function applyCompletedColors(){
+  ETHELS.forEach(e => {
+    if (lockedId === e.id) return;
+    setMarkerColor(e.id, isCompletedEthel(e.id) ? GREEN : RED);
+  });
 }
 
 async function loadGpx(url){
