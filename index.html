@@ -2389,7 +2389,7 @@ function showHoverPopup(e){
 function hideHoverPopup(id){
   if(lockedId===id) return;
   if(hoverPopupObj){ hoverPopupObj.remove(); hoverPopupObj=null; }
-  hideRoute(id); setMarkerColor(id,RED);
+  hideRoute(id); restoreMarkerColor(id);
 }
 function lockEthel(e){
   if(hoverPopupObj){ hoverPopupObj.remove(); hoverPopupObj=null; }
