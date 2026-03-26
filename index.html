@@ -2397,7 +2397,7 @@ function lockEthel(e){
   if(lockedId!==null&&lockedId!==e.id){
     hideRoute(lockedId);
     if(lockedPopups[lockedId]){ lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
-    restoreMarkerColor(lockedId);
+    setMarkerColor(lockedId, isCompletedEthel(lockedId) ? GREEN : RED);
     infoHiddenIds.delete(lockedId);
     if(markerEls[lockedId]) markerEls[lockedId].classList.remove("info-hidden");
   }
