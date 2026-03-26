@@ -2371,12 +2371,13 @@ function buildPopupHtml(e, locked){
 window.closeLocked = function(evt){
   if(evt) evt.stopPropagation();
   if(lockedId!==null){
-    hideRoute(lockedId);
-    if(lockedPopups[lockedId]){ lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
-    restoreMarkerColor(lockedId);
-    infoHiddenIds.delete(lockedId);
-    if(markerEls[lockedId]) markerEls[lockedId].classList.remove("info-hidden");
-    lockedId=null;
+    const id = lockedId;
+    hideRoute(id);
+    if(lockedPopups[id]){ lockedPopups[id].remove(); delete lockedPopups[id]; }
+    infoHiddenIds.delete(id);
+    if(markerEls[id]) markerEls[id].classList.remove("info-hidden");
+    lockedId = null;
+    restoreMarkerColor(id);
   }
 };
 
