@@ -2410,6 +2410,24 @@ function lockEthel(e){
   if(markerEls[prevId]) markerEls[prevId].classList.remove("info-hidden");
   setMarkerColor(prevId, isCompletedEthel(prevId) ? GREEN : RED);
 }
+  function toggleComplete(id, evt){
+  if(evt) evt.stopPropagation();
+
+  if(!isLoggedIn){
+    window.parent.postMessage({ type: "loginRequired" }, "*");
+    return;
+  }
+
+  const isDone = completedEthels.includes(String(id));
+
+  if(isDone){
+    completedEthels = completedEthels.filter(x => x !== String(id));
+  } else {
+    completedEthels.push(String(id));
+  }
+
+  setMarkerColor(id, isDone ? RED : GREEN);
+}
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
   const pt = map.project([e.lng, e.lat]);
