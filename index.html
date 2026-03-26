@@ -2395,12 +2395,13 @@ function hideHoverPopup(id){
 function lockEthel(e){
   if(hoverPopupObj){ hoverPopupObj.remove(); hoverPopupObj=null; }
   if(lockedId!==null&&lockedId!==e.id){
-    hideRoute(lockedId);
-    if(lockedPopups[lockedId]){ lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
-    setMarkerColor(lockedId, isCompletedEthel(lockedId) ? GREEN : RED);
-    infoHiddenIds.delete(lockedId);
-    if(markerEls[lockedId]) markerEls[lockedId].classList.remove("info-hidden");
-  }
+  const prevId = lockedId;
+  hideRoute(prevId);
+  if(lockedPopups[prevId]){ lockedPopups[prevId].remove(); delete lockedPopups[prevId]; }
+  infoHiddenIds.delete(prevId);
+  if(markerEls[prevId]) markerEls[prevId].classList.remove("info-hidden");
+  setMarkerColor(prevId, isCompletedEthel(prevId) ? GREEN : RED);
+}
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
   const pt = map.project([e.lng, e.lat]);
