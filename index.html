@@ -2397,7 +2397,7 @@ function lockEthel(e){
   if(lockedId!==null&&lockedId!==e.id){
     hideRoute(lockedId);
     if(lockedPopups[lockedId]){ lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
-    restoreMarkerColor(lockedId);
+    setMarkerColor(lockedId,RED);
     infoHiddenIds.delete(lockedId);
     if(markerEls[lockedId]) markerEls[lockedId].classList.remove("info-hidden");
   }
@@ -2482,7 +2482,7 @@ window.toggleInfo = function(id, evt) {
     if(lockedId!==null && lockedId!==id){
       hideRoute(lockedId);
       if(lockedPopups[lockedId]){ lockedPopups[lockedId].remove(); delete lockedPopups[lockedId]; }
-      restoreMarkerColor(lockedId);
+      setMarkerColor(lockedId,RED);
       infoHiddenIds.delete(lockedId);
       if(markerEls[lockedId]) markerEls[lockedId].classList.remove("info-hidden");
     }
