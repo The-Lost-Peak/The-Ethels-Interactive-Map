@@ -291,10 +291,12 @@ let isLoggedIn = false;
 
 window.addEventListener("message", (event) => {
   if (event.data.type === "userData") {
-    completedEthels = event.data.completed.map(String);
-    console.log("Completed from Wix:", completedEthels);
-    applyCompletedColors();
-  }
+  completedEthels = event.data.completed.map(String);
+  isLoggedIn = !!event.data.loggedIn;
+  console.log("Completed from Wix:", completedEthels);
+  console.log("Logged in from Wix:", isLoggedIn);
+  applyCompletedColors();
+}
 });
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC", GREEN = "#22c55e";
