@@ -2432,9 +2432,36 @@ function toggleComplete(id, evt){
     return;
   }
 
+  const idStr = String(id);
+  const wasCompleted = completedEthels.includes(idStr);
+
+  if (wasCompleted) {
+    completedEthels = completedEthels.filter(x => x !== idStr);
+  } else {
+    completedEthels.push(idStr);
+  }
+
+  applyCompletedColors();
+
+  if (lockedId === idStr) {
+    const e = ETHELS.find(x => String(x.id) === idStr);
+    if (e && lockedPopups[idStr]) {
+      lockedPopups[idStr].remove();
+      delete lockedPopups[idStr];
+
+      const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
+        .setLngLat([e.lng, e.lat])
+        .setHTML(buildPopupHtml(e, true))
+        .addTo(map);
+
+      lockedPopups[idStr] = p;
+      setMarkerColor(idStr, BLUE);
+    }
+  }
+
   window.parent.postMessage({
     type: "toggleEthel",
-    ethelId: String(id)
+    ethelId: idStr
   }, "*");
 }
 
