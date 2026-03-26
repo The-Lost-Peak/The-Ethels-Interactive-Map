@@ -2351,7 +2351,7 @@ const flyBtn = `<button class="fly-btn" onclick="startFlyover('${e.id}',event)" 
   const buyLink = e.osAffiliateUrl ? `<div class="spec-row">${icons.buy}<a class="popup-link" href="${e.osAffiliateUrl}" target="_blank" rel="noopener">${e.osMap} ↗</a></div>` : "";
   const dirLink = `<div class="spec-row">${icons.dir}<a class="popup-link" href="${e.googleMaps}" target="_blank" rel="noopener">Directions ↗</a></div>`;
   return `<div class="popup-card">
-  ${closeBtn}${eyeBtn}${flyBtn}
+  ${completeBtn}${eyeBtn}${flyBtn}${closeBtn}
   <div class="img-wrap"><img src="${imageCache[e.id]?.src||e.image}" alt="${e.displayName}" /></div>
   <div class="popup-body">
     <div class="popup-heading">${e.displayName}</div>
