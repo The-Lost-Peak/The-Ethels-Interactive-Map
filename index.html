@@ -2432,15 +2432,10 @@ function toggleComplete(id, evt){
     return;
   }
 
-  const isDone = completedEthels.includes(String(id));
-
-  if(isDone){
-    completedEthels = completedEthels.filter(x => x !== String(id));
-  } else {
-    completedEthels.push(String(id));
-  }
-
-  setMarkerColor(id, isDone ? RED : GREEN);
+  window.parent.postMessage({
+    type: "toggleEthel",
+    ethelId: String(id)
+  }, "*");
 }
 
 preloadImages();
