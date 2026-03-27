@@ -303,19 +303,36 @@ window.addEventListener("message", (event) => {
   }
 
   if (event.data.type === "toggleResult") {
-    const id = String(event.data.ethelId);
+  const id = String(event.data.ethelId);
 
-    if (event.data.completed) {
-      if (!completedEthels.includes(id)) {
-        completedEthels.push(id);
-      }
-    } else {
-      completedEthels = completedEthels.filter(x => x !== id);
+  if (event.data.completed) {
+    if (!completedEthels.includes(id)) {
+      completedEthels.push(id);
     }
-
-    applyCompletedColors();
-    return;
+  } else {
+    completedEthels = completedEthels.filter(x => x !== id);
   }
+
+  applyCompletedColors();
+
+  if (lockedId === id && lockedPopups[id]) {
+    const e = ETHELS.find(x => String(x.id) === id);
+    if (e) {
+      lockedPopups[id].remove();
+      delete lockedPopups[id];
+
+      const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
+        .setLngLat([e.lng, e.lat])
+        .setHTML(buildPopupHtml(e, true))
+        .addTo(map);
+
+      lockedPopups[id] = p;
+      setMarkerColor(id, BLUE);
+    }
+  }
+
+  return;
+}
 });
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC", GREEN = "#22c55e";
