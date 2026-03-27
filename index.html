@@ -292,14 +292,30 @@ let isLoggedIn = false;
 
 window.addEventListener("message", (event) => {
   if (event.data.type === "userData") {
-  completedEthels = event.data.completed.map(String);
-  completedEthelsData = event.data.completedData || [];
-  isLoggedIn = !!event.data.loggedIn;
-  console.log("Completed from Wix:", completedEthels);
-  console.log("Completed data from Wix:", completedEthelsData);
-  console.log("Logged in from Wix:", isLoggedIn);
-  applyCompletedColors();
-}
+    completedEthels = event.data.completed.map(String);
+    completedEthelsData = event.data.completedData || [];
+    isLoggedIn = !!event.data.loggedIn;
+    console.log("Completed from Wix:", completedEthels);
+    console.log("Completed data from Wix:", completedEthelsData);
+    console.log("Logged in from Wix:", isLoggedIn);
+    applyCompletedColors();
+    return;
+  }
+
+  if (event.data.type === "toggleResult") {
+    const id = String(event.data.ethelId);
+
+    if (event.data.completed) {
+      if (!completedEthels.includes(id)) {
+        completedEthels.push(id);
+      }
+    } else {
+      completedEthels = completedEthels.filter(x => x !== id);
+    }
+
+    applyCompletedColors();
+    return;
+  }
 });
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC", GREEN = "#22c55e";
