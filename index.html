@@ -293,8 +293,10 @@ let isLoggedIn = false;
 window.addEventListener("message", (event) => {
   if (event.data.type === "userData") {
   completedEthels = event.data.completed.map(String);
+  completedEthelsData = event.data.completedData || [];
   isLoggedIn = !!event.data.loggedIn;
   console.log("Completed from Wix:", completedEthels);
+  console.log("Completed data from Wix:", completedEthelsData);
   console.log("Logged in from Wix:", isLoggedIn);
   applyCompletedColors();
 }
