@@ -9,18 +9,36 @@
   <style>
 
   .completion-popup{
+  display:block;
+  width:calc(100% - 0px);
+  max-width:100%;
+  box-sizing:border-box;
+  background:#fff;
+  border-radius:12px;
+  padding:8px 12px;
+  margin:0 0 6px 0;
+  box-shadow:0 6px 20px rgba(0,0,0,0.25);
+  text-align:center;
+}
+
+.popup-stack{
+  width:100%;
+  box-sizing:border-box;
+}
+
+.popup-card{
+  width:100%;
+}
+
+.completion-popup{
   width:100%;
   box-sizing:border-box;
   background:#fff;
   border-radius:12px;
   padding:8px 12px;
-  margin-bottom:6px;
+  margin:0 0 6px 0;
   box-shadow:0 6px 20px rgba(0,0,0,0.25);
   text-align:center;
-}
-
-.popup-card{
-  width:100%;
 }
 
 .completion-date{
@@ -2444,22 +2462,25 @@ function buildPopupHtml(e, locked){
     ${completionOrder ? `<div class="completion-order">${completionOrder}</div>` : ``}
   </div>` : "";
 
-  return `${completionPopup}<div class="popup-card">
-  ${completeBtn}${eyeBtn}${flyBtn}${closeBtn}
-  <div class="img-wrap"><img src="${imageCache[e.id]?.src||e.image}" alt="${e.displayName}" /></div>
-  <div class="popup-body">
-    <div class="popup-heading">${e.displayName}</div>
-    <div class="specs">
-      <div class="stats-group">
-        <div class="spec-row">${icons.height}<span class="spec-value">${e.height}m</span></div>
-        <div class="spec-row">${icons.grid}<span class="spec-value">${e.gridRef}</span></div>
-        ${e.routeDist ? `<div class="spec-row">${icons.dist}<span class="spec-value">${e.routeDist}</span></div>` : ""}
-        ${e.routeTime ? `<div class="spec-row">${icons.clock}<span class="spec-value">${e.routeTime}</span></div>` : ""}
+  return `<div class="popup-stack">
+  ${completionPopup}
+  <div class="popup-card">
+    ${completeBtn}${eyeBtn}${flyBtn}${closeBtn}
+    <div class="img-wrap"><img src="${imageCache[e.id]?.src||e.image}" alt="${e.displayName}" /></div>
+    <div class="popup-body">
+      <div class="popup-heading">${e.displayName}</div>
+      <div class="specs">
+        <div class="stats-group">
+          <div class="spec-row">${icons.height}<span class="spec-value">${e.height}m</span></div>
+          <div class="spec-row">${icons.grid}<span class="spec-value">${e.gridRef}</span></div>
+          ${e.routeDist ? `<div class="spec-row">${icons.dist}<span class="spec-value">${e.routeDist}</span></div>` : ""}
+          ${e.routeTime ? `<div class="spec-row">${icons.clock}<span class="spec-value">${e.routeTime}</span></div>` : ""}
+        </div>
+        <div class="links-group">${dirLink}${osLink}${atLink}${kmLink}${buyLink}</div>
       </div>
-      <div class="links-group">${dirLink}${osLink}${atLink}${kmLink}${buyLink}</div>
     </div>
+    ${note}
   </div>
-  ${note}
 </div>`;
 }
 
