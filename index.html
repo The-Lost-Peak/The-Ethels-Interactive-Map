@@ -2301,12 +2301,14 @@ const ETHELS = [
   }
 ];
 
-  function syncPopupWidths(){
-  const stack = document.querySelector('.popup-stack');
-  if(!stack) return;
+ function syncPopupWidths(){
+  const popups = document.querySelectorAll('.mapboxgl-popup');
+  if(!popups.length) return;
 
-  const card = stack.querySelector('.popup-card');
-  const top = stack.querySelector('.completion-popup');
+  const lastPopup = popups[popups.length - 1];
+
+  const card = lastPopup.querySelector('.popup-card');
+  const top = lastPopup.querySelector('.completion-popup');
 
   if(!card || !top) return;
 
