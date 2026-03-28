@@ -19,10 +19,18 @@
   font-family:Inter,system-ui,sans-serif;
 }
 .completion-date{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
   font-size:12px;
   font-weight:700;
   color:#1E1E1E;
-  margin-bottom:2px;
+}
+
+.completion-icon{
+  width:16px;
+  height:16px;
 }
 
 .completion-order{
@@ -2430,7 +2438,17 @@ function buildPopupHtml(e, locked){
   const dirLink = `<div class="spec-row">${icons.dir}<a class="popup-link" href="${e.googleMaps}" target="_blank" rel="noopener">Directions ↗</a></div>`;
 
   const completion = getCompletionData(e.id);
-  const completionDate = completion?.date;
+  const completionPopup = locked && isCompletedEthel(e.id) ? `
+  <div class="completion-popup">
+    ${completionDate ? `
+      <div class="completion-date">
+        <img src="https://the-lost-peak.github.io/The-Ethels-Interactive-Map/Icons/completed%20date.png" class="completion-icon">
+        <span>${completionDate}</span>
+      </div>
+    ` : ``}
+    ${completionOrder ? `<div class="completion-order">${completionOrder}</div>` : ``}
+  </div>
+` : "";
   const completionOrder = completion?.order;
 
   const completionPopup = locked && isCompletedEthel(e.id) ? `
