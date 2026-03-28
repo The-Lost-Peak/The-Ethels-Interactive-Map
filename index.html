@@ -382,9 +382,11 @@ window.addEventListener("message", (event) => {
       delete lockedPopups[id];
 
       const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
-        .setLngLat([e.lng, e.lat])
-        .setHTML(buildPopupHtml(e, true))
-        .addTo(map);
+  .setLngLat([e.lng, e.lat])
+  .setHTML(buildPopupHtml(e, true))
+  .addTo(map);
+
+setTimeout(syncPopupWidths, 0);
 
       lockedPopups[id] = p;
       setMarkerColor(id, BLUE);
@@ -2299,6 +2301,18 @@ const ETHELS = [
   }
 ];
 
+  function syncPopupWidths(){
+  const stack = document.querySelector('.popup-stack');
+  if(!stack) return;
+
+  const card = stack.querySelector('.popup-card');
+  const top = stack.querySelector('.completion-popup');
+
+  if(!card || !top) return;
+
+  const width = card.getBoundingClientRect().width;
+  top.style.width = width + 'px';
+}
 const imageCache = {};
 function preloadImages() {
   ETHELS.forEach(e => {
