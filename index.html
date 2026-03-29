@@ -2510,8 +2510,8 @@ function lockEthel(e){
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
   const pt = map.project([e.lng, e.lat]);
-  const adjustedCenter = map.unproject([pt.x + 10, pt.y - 50]);
-  const fsAdjustedCenter = map.unproject([pt.x + 34, pt.y - 50]);
+  const adjustedCenter = map.unproject([pt.x + 80, pt.y - 50]);
+  const fsAdjustedCenter = map.unproject([pt.x + 100, pt.y - 50]);
   map.panTo((isMobile && isFullscreen) ? fsAdjustedCenter : (isMobile ? adjustedCenter : [e.lng, e.lat]), {duration:300});
   const p=new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
     .setLngLat([e.lng,e.lat]).setHTML(buildPopupHtml(e,true)).addTo(map);
