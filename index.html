@@ -2517,7 +2517,7 @@ function lockEthel(e){
     ? fsAdjustedCenter
     : (isMobile
         ? adjustedCenter
-        : map.unproject([pt.x + 60, pt.y])   // ← THIS is the ONLY change
+        : map.unproject([pt.x + 40, pt.y])   // ← THIS is the ONLY change
       ),
   {duration:300}
 );
