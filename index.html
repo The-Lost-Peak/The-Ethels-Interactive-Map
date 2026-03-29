@@ -2567,19 +2567,7 @@ function toggleComplete(id, evt){
   applyCompletedColors();
 
   if (lockedId === idStr) {
-    const e = ETHELS.find(x => String(x.id) === idStr);
-    if (e && lockedPopups[idStr]) {
-      lockedPopups[idStr].remove();
-      delete lockedPopups[idStr];
-
-      const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
-        .setLngLat([e.lng, e.lat])
-        .setHTML(buildPopupHtml(e, true))
-        .addTo(map);
-
-      lockedPopups[idStr] = p;
-      setMarkerColor(idStr, BLUE);
-    }
+    setMarkerColor(idStr, BLUE);
   }
 
   window.parent.postMessage({
