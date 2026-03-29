@@ -27,6 +27,7 @@
   font-weight:700;
   color:#1E1E1E;
   white-space:nowrap;
+  flex-wrap:nowrap;
 }
 
 .completion-icon{
@@ -38,6 +39,7 @@
   font-size:11px;
   font-weight:700;
   color:#1E1E1E;
+  white-space:nowrap;
 }
     html, body { margin:0; height:100% }
     #map { position:absolute; inset:0 }
@@ -2444,13 +2446,11 @@ const completionOrder = completion?.order;
 
 const completionPopup = locked && isCompletedEthel(e.id) ? `
   <div class="completion-popup">
-    ${completionDate ? `
-      <div class="completion-date">
-        <img src="https://the-lost-peak.github.io/The-Ethels-Interactive-Map/Icons/completed%20date.png" class="completion-icon">
-        <span>${completionDate}</span>
-      </div>
-    ` : ``}
-    ${completionOrder ? `<div class="completion-order">${completionOrder}</div>` : ``}
+    <div class="completion-date">
+      ${completionDate ? `<img src="https://the-lost-peak.github.io/The-Ethels-Interactive-Map/Icons/completed%20date.png" class="completion-icon">` : ``}
+      ${completionDate ? `<span>${completionDate}</span>` : ``}
+      ${completionOrder ? `<span class="completion-order">${completionOrder}</span>` : ``}
+    </div>
   </div>
 ` : "";
 
