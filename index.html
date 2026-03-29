@@ -2437,7 +2437,10 @@ function buildPopupHtml(e, locked){
   const dirLink = `<div class="spec-row">${icons.dir}<a class="popup-link" href="${e.googleMaps}" target="_blank" rel="noopener">Directions ↗</a></div>`;
 
   const completion = getCompletionData(e.id);
-  const completionPopup = locked && isCompletedEthel(e.id) ? `
+const completionDate = completion?.date;
+const completionOrder = completion?.order;
+
+const completionPopup = locked && isCompletedEthel(e.id) ? `
   <div class="completion-popup">
     ${completionDate ? `
       <div class="completion-date">
@@ -2448,13 +2451,6 @@ function buildPopupHtml(e, locked){
     ${completionOrder ? `<div class="completion-order">${completionOrder}</div>` : ``}
   </div>
 ` : "";
-  const completionOrder = completion?.order;
-
-  const completionPopup = locked && isCompletedEthel(e.id) ? `
-  <div class="completion-popup">
-    ${completionDate ? `<div class="completion-date">Completed: ${completionDate}</div>` : ``}
-    ${completionOrder ? `<div class="completion-order">${completionOrder}</div>` : ``}
-  </div>` : "";
 
   return `${completionPopup}<div class="popup-card">
   ${completeBtn}${eyeBtn}${flyBtn}${closeBtn}
