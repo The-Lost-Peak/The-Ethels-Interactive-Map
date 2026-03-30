@@ -2977,7 +2977,11 @@ document.addEventListener("webkitfullscreenchange", updateFsIcons);
 (function(){
   const iosParams = new URLSearchParams(location.search);
   const iosFS = isIOS() && iosParams.get("fs")==="1";
-  function iosOpen(){ const url=new URL(location.href); url.searchParams.set("fs","1"); url.searchParams.delete("embed"); window.open(url.toString(),"_blank"); }
+  function iosOpen(){
+  const url = new URL(location.href);
+  url.searchParams.set("fs","1");
+  window.open(url.toString(), "_blank");
+}
 
   const mapBtn = document.getElementById("map-btn-fullscreen");
   const fvBtn  = document.getElementById("fv-btn-fullscreen");
