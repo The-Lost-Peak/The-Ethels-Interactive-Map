@@ -326,33 +326,40 @@ let completedEthelsData = [];
 let isLoggedIn = false;
 
 window.addEventListener("message", (event) => {
-  if (event.data.type === "userData") {
-  completedEthels = event.data.completed.map(String);
-  completedEthelsData = event.data.completedData || [];
-  isLoggedIn = !!event.data.loggedIn;
-  console.log("Completed from Wix:", completedEthels);
-  console.log("Completed data from Wix:", completedEthelsData);
-  console.log("Logged in from Wix:", isLoggedIn);
-  applyCompletedColors();
 
-  if (lockedId && lockedPopups[lockedId]) {
-    const e = ETHELS.find(x => String(x.id) === String(lockedId));
-    if (e) {
-      lockedPopups[lockedId].remove();
-      delete lockedPopups[lockedId];
-
-      const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
-        .setLngLat([e.lng, e.lat])
-        .setHTML(buildPopupHtml(e, true))
-        .addTo(map);
-
-      lockedPopups[lockedId] = p;
-      setMarkerColor(lockedId, BLUE);
-    }
+  // Fullscreen child tab: relay messages to the original tab
+  if (window.opener && window.opener !== window) {
+    window.opener.postMessage(event.data, "*");
+    return;
   }
 
-  return;
-}
+  if (event.data.type === "userData") {
+    completedEthels = event.data.completed.map(String);
+    completedEthelsData = event.data.completedData || [];
+    isLoggedIn = !!event.data.loggedIn;
+    console.log("Completed from Wix:", completedEthels);
+    console.log("Completed data from Wix:", completedEthelsData);
+    console.log("Logged in from Wix:", isLoggedIn);
+    applyCompletedColors();
+
+    if (lockedId && lockedPopups[lockedId]) {
+      const e = ETHELS.find(x => String(x.id) === String(lockedId));
+      if (e) {
+        lockedPopups[lockedId].remove();
+        delete lockedPopups[lockedId];
+
+        const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
+          .setLngLat([e.lng, e.lat])
+          .setHTML(buildPopupHtml(e, true))
+          .addTo(map);
+
+        lockedPopups[lockedId] = p;
+        setMarkerColor(lockedId, BLUE);
+      }
+    }
+
+    return;
+  }
 
   if (event.data.type === "toggleResult") {
   const id = String(event.data.ethelId);
