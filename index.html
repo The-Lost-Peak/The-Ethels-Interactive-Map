@@ -327,12 +327,6 @@ let isLoggedIn = false;
 
 window.addEventListener("message", (event) => {
 
-  // Fullscreen child tab: relay messages to the original tab
-  if (window.opener && window.opener !== window) {
-    window.opener.postMessage(event.data, "*");
-    return;
-  }
-
   if (event.data.type === "userData") {
     completedEthels = event.data.completed.map(String);
     completedEthelsData = event.data.completedData || [];
