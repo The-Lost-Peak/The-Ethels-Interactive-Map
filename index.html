@@ -326,14 +326,21 @@ let completedEthelsData = [];
 let isLoggedIn = false;
 
 window.addEventListener("message", (event) => {
+  if (!event.data || !event.data.type) return;
 
   if (event.data.type === "userData") {
-    completedEthels = event.data.completed.map(String);
+    if (window.openedChild && !window.openedChild.closed) {
+      window.openedChild.postMessage(event.data, "*");
+    }
+
+    completedEthels = (event.data.completed || []).map(String);
     completedEthelsData = event.data.completedData || [];
     isLoggedIn = !!event.data.loggedIn;
+
     console.log("Completed from Wix:", completedEthels);
     console.log("Completed data from Wix:", completedEthelsData);
     console.log("Logged in from Wix:", isLoggedIn);
+
     applyCompletedColors();
 
     if (lockedId && lockedPopups[lockedId]) {
@@ -342,7 +349,7 @@ window.addEventListener("message", (event) => {
         lockedPopups[lockedId].remove();
         delete lockedPopups[lockedId];
 
-        const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
+        const p = new mapboxgl.Popup({ offset: 22, closeButton: false, closeOnClick: false, anchor: "bottom" })
           .setLngLat([e.lng, e.lat])
           .setHTML(buildPopupHtml(e, true))
           .addTo(map);
@@ -356,42 +363,47 @@ window.addEventListener("message", (event) => {
   }
 
   if (event.data.type === "toggleResult") {
-  const id = String(event.data.ethelId);
-
-  if (event.data.completed) {
-    if (!completedEthels.includes(id)) {
-      completedEthels.push(id);
+    if (window.openedChild && !window.openedChild.closed) {
+      window.openedChild.postMessage(event.data, "*");
     }
-  } else {
-    completedEthels = completedEthels.filter(x => x !== id);
-  }
 
-  applyCompletedColors();
+    const id = String(event.data.ethelId);
 
-  if (lockedId === id && lockedPopups[id]) {
-    const e = ETHELS.find(x => String(x.id) === id);
-    if (e) {
-      lockedPopups[id].remove();
-      delete lockedPopups[id];
-
-      const p = new mapboxgl.Popup({offset:22,closeButton:false,closeOnClick:false,anchor:"bottom"})
-        .setLngLat([e.lng, e.lat])
-        .setHTML(buildPopupHtml(e, true))
-        .addTo(map);
-
-      lockedPopups[id] = p;
-      setMarkerColor(id, BLUE);
+    if (event.data.completed) {
+      if (!completedEthels.includes(id)) completedEthels.push(id);
+    } else {
+      completedEthels = completedEthels.filter(x => x !== id);
     }
-  }
 
-  return;
-}
+    applyCompletedColors();
+
+    if (lockedId === id && lockedPopups[id]) {
+      const e = ETHELS.find(x => String(x.id) === id);
+      if (e) {
+        lockedPopups[id].remove();
+        delete lockedPopups[id];
+
+        const p = new mapboxgl.Popup({ offset: 22, closeButton: false, closeOnClick: false, anchor: "bottom" })
+          .setLngLat([e.lng, e.lat])
+          .setHTML(buildPopupHtml(e, true))
+          .addTo(map);
+
+        lockedPopups[id] = p;
+        setMarkerColor(id, BLUE);
+      }
+    }
+
+    return;
+  }
 });
-if (window.opener && window.opener !== window) {
-  window.opener.postMessage({ type: "wrapperReady" }, "*");
-} else {
-  window.parent.postMessage({ type: "wrapperReady" }, "*");
+  
+function requestUserDataRefresh() {
+  const relayTarget = (window.opener && window.opener !== window) ? window.opener : window.parent;
+  relayTarget.postMessage({ type: "wrapperReady" }, "*");
 }
+
+requestUserDataRefresh();
+  
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC", GREEN = "#22c55e";
 const ETHELS = [
@@ -2984,18 +2996,24 @@ document.addEventListener("webkitfullscreenchange", updateFsIcons);
 (function(){
   const iosParams = new URLSearchParams(location.search);
   const iosFS = isIOS() && iosParams.get("fs")==="1";
+
   function iosOpen(){
-  const url = new URL(location.href);
-  url.searchParams.set("fs","1");
-  window.open(url.toString(), "_blank");
-}
+    const url = new URL(location.href);
+    url.searchParams.set("fs","1");
+    window.openedChild = window.open(url.toString(), "_blank");
+  }
 
   const mapBtn = document.getElementById("map-btn-fullscreen");
   const fvBtn  = document.getElementById("fv-btn-fullscreen");
 
   if(isIOS()){
-    if(iosFS){ mapBtn.style.display="none"; if(fvBtn) fvBtn.style.display="none"; }
-    else { mapBtn.onclick = iosOpen; if(fvBtn) fvBtn.onclick = iosOpen; }
+    if(iosFS){
+      mapBtn.style.display = "none";
+      if(fvBtn) fvBtn.style.display = "none";
+    } else {
+      mapBtn.onclick = iosOpen;
+      if(fvBtn) fvBtn.onclick = iosOpen;
+    }
   } else {
     mapBtn.onclick = fsToggle;
     if(fvBtn) fvBtn.onclick = fsToggle;
