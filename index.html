@@ -335,6 +335,16 @@ window.addEventListener("message", (event) => {
     return;
   }
 
+    if (event.data.type === "loginRequired") {
+    window.parent.postMessage({ type: "loginRequired" }, "*");
+    return;
+  }
+
+  if (event.data.type === "toggleEthel") {
+    window.parent.postMessage(event.data, "*");
+    return;
+  }
+
   if (event.data.type === "userData") {
     if (window.openedChild && !window.openedChild.closed) {
       window.openedChild.postMessage(event.data, "*");
