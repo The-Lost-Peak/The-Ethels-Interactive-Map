@@ -412,6 +412,7 @@ window.addEventListener("message", (event) => {
     }
 
     applyCompletedColors();
+    applyCompletionFilter();
 
     if (lockedId === id && lockedPopups[id]) {
       const e = ETHELS.find(x => String(x.id) === id);
@@ -2352,6 +2353,7 @@ function preloadImages() {
     imageCache[e.id] = img;
     img.src = e.image;
   });
+  applyCompletionFilter();
 }
 
 const map = new mapboxgl.Map({
