@@ -315,6 +315,11 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 </div>
 <div id="search-container">
   <input id="search-input" type="text" placeholder="Search Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
+  <select id="completion-filter">
+  <option value="all">All</option>
+  <option value="complete">Complete</option>
+  <option value="incomplete">Incomplete</option>
+</select>
   <div id="search-results"></div>
 </div>
 </div>
@@ -3091,6 +3096,10 @@ searchInput.addEventListener("keydown",e=>{
       }, "*");
     }
   });
+  document.getElementById("completion-filter").addEventListener("change", (e) => {
+  currentCompletionFilter = e.target.value;
+  applyCompletionFilter();
+});
 </script>
 </body>
 </html>
