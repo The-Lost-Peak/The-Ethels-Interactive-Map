@@ -333,6 +333,15 @@ function markerMatchesFilter(id) {
 
   return true;
 }
+  function applyCompletionFilter() {
+  Object.entries(markerEls).forEach(([id, el]) => {
+    el.style.display = markerMatchesFilter(id) ? "" : "none";
+  });
+
+  if (lockedId && !markerMatchesFilter(lockedId)) {
+    closeLocked();
+  }
+}
 let completedEthelsData = [];
 let isLoggedIn = false;
 
