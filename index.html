@@ -2680,19 +2680,20 @@ map.on("load", ()=>{
         lockEthel(e);
       });
     }
-    });
-applyCompletionFilter();
-  });
-  map.on("click",()=>{ if(!isMobile) closeLocked(); });
-  const mob=window.innerWidth<600;
-  map.fitBounds(bounds,{padding:mob?30:80,maxZoom:11});
+        });
 
-  // Load GPX routes in parallel
-  (async()=>{
-    await Promise.all(ETHELS.map(async e=>{
-      try{ const line=await loadGpx(e.gpx); if(line) addRoute(e,line); }catch(_){}
-    }));
-  })();
+    applyCompletionFilter();
+
+    map.on("click",()=>{ if(!isMobile) closeLocked(); });
+    const mob=window.innerWidth<600;
+    map.fitBounds(bounds,{padding:mob?30:80,maxZoom:11});
+
+    // Load GPX routes in parallel
+    (async()=>{
+      await Promise.all(ETHELS.map(async e=>{
+        try{ const line=await loadGpx(e.gpx); if(line) addRoute(e,line); }catch(_){}
+      }));
+    })();
 });
 
 
