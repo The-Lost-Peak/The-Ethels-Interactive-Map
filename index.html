@@ -325,6 +325,14 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 <script>
 let completedEthels = [];
 let currentCompletionFilter = "all";
+function markerMatchesFilter(id) {
+  const isComplete = completedEthels.includes(String(id));
+
+  if (currentCompletionFilter === "complete") return isComplete;
+  if (currentCompletionFilter === "incomplete") return !isComplete;
+
+  return true;
+}
 let completedEthelsData = [];
 let isLoggedIn = false;
 
