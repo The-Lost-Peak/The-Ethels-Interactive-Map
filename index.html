@@ -377,6 +377,7 @@ window.addEventListener("message", (event) => {
     console.log("Logged in from Wix:", isLoggedIn);
 
     applyCompletedColors();
+    applyCompletionFilter();
 
     if (lockedId && lockedPopups[lockedId]) {
       const e = ETHELS.find(x => String(x.id) === String(lockedId));
