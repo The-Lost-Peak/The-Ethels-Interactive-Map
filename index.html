@@ -2660,6 +2660,8 @@ map.on("load", ()=>{
         lockEthel(e);
       });
     }
+    });
+applyCompletionFilter();
   });
   map.on("click",()=>{ if(!isMobile) closeLocked(); });
   const mob=window.innerWidth<600;
