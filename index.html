@@ -47,8 +47,32 @@
     #map { position:absolute; inset:0 }
 
     #search-container {
-      position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:10; width:280px;
-    }
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:420px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+    @media(min-width:768px){
+  #search-container {
+    flex-direction:row;
+    align-items:center;
+    max-width:520px;
+  }
+
+  #search-input {
+    flex:1;
+  }
+
+  #completion-filter {
+    width:160px;
+    margin-top:0;
+  }
+}
     #search-input {
       width:100%; box-sizing:border-box; padding:10px 16px; border-radius:8px; border:none;
       background:#fff; font-family:Inter,system-ui,sans-serif; font-size:13px; font-weight:500;
