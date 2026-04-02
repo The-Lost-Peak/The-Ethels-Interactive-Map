@@ -139,21 +139,21 @@
   bottom:14px;
   transform:translateX(-50%);
   z-index:20;
-  width:min(720px, calc(100% - 40px));
+  width:min(576px, calc(100% - 40px)); /* 720 → 576 */
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:10px 14px;
+  gap:10px; /* 12 → 10 */
+  padding:8px 11px; /* 10/14 → scaled */
   border-radius:999px;
   background:rgba(0,0,0,.55);
   box-shadow:0 4px 16px rgba(0,0,0,.28);
 }
 
 #progress-count {
-  min-width:54px;
+  min-width:43px; /* 54 → 43 */
   text-align:right;
   font-family:Inter,system-ui,sans-serif;
-  font-size:16px;
+  font-size:13px; /* 16 → 13 */
   font-weight:800;
   color:#fff;
   line-height:1;
@@ -161,7 +161,7 @@
 
 #progress-bar {
   flex:1;
-  height:16px;
+  height:13px; /* 16 → 13 */
   background:rgba(255,255,255,.98);
   border-radius:999px;
   overflow:hidden;
