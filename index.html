@@ -2615,7 +2615,7 @@ function lockEthel(e){
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
   const pt = map.project([e.lng, e.lat]);
-  const adjustedCenter = map.unproject([pt.x + 10, pt.y - 81]);
+  const adjustedCenter = map.unproject([pt.x + 10, pt.y - 80]);
   const fsAdjustedCenter = map.unproject([pt.x + 34, pt.y - 50]);
   map.panTo(
   (isMobile && isFullscreen)
