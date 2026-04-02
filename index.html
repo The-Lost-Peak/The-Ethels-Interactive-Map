@@ -327,6 +327,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
   <svg id="fsIconExpand" viewBox="0 0 24 24" style="display:block"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
   <svg id="fsIconCollapse" viewBox="0 0 24 24" style="display:none"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
 </button>
+
 <div id="flyover-overlay">
   <div class="fv-ui fv-ui-left">
     <button id="fvBtnToggle" class="fv-btn" title="Play / Pause">
@@ -342,6 +343,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       <svg id="fvIconCamFree" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="#fff"/><line x1="12" y1="2" x2="12" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="22" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="12" x2="6" y2="12" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="12" x2="22" y2="12" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
   </div>
+
   <div class="fv-ui fv-ui-right">
     <button id="fvBtnZoomIn" class="fv-btn" title="Zoom in">
       <svg class="active" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="#fff" stroke-width="2" fill="none"/><line x1="11" y1="8" x2="11" y2="14" stroke="#fff" stroke-width="2"/><line x1="8" y1="11" x2="14" y2="11" stroke="#fff" stroke-width="2"/><line x1="16" y1="16" x2="21" y2="21" stroke="#fff" stroke-width="2"/></svg>
@@ -356,21 +358,31 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       <div class="fv-speed-panel"><input id="fvSpeed" class="fv-speed-slider" type="range" min="0.1" max="5" step="0.05" value="0.35"></div>
     </div>
   </div>
+
   <button id="fvBtnReturn" class="fv-btn" title="Return to map">Return to Map</button>
   <button id="fv-btn-fullscreen" class="fs-btn" title="Fullscreen" style="pointer-events:auto">
     <svg id="fvFsIconExpand" viewBox="0 0 24 24" style="display:block"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
     <svg id="fvFsIconCollapse" viewBox="0 0 24 24" style="display:none"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
   </button>
 </div>
-  <div id="login-toast">Log in on the other tab</div>
+
+<div id="login-toast">Log in on the other tab</div>
+
 <div id="search-container">
   <input id="search-input" type="text" placeholder="Search Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
   <select id="completion-filter">
-  <option value="all">All</option>
-  <option value="complete">Complete</option>
-  <option value="incomplete">Incomplete</option>
-</select>
+    <option value="all">All</option>
+    <option value="complete">Complete</option>
+    <option value="incomplete">Incomplete</option>
+  </select>
   <div id="search-results"></div>
+</div>
+
+<div id="progress-wrap">
+  <div id="progress-count">0/95</div>
+  <div id="progress-bar">
+    <div id="progress-fill"></div>
+  </div>
 </div>
 </div>
 
