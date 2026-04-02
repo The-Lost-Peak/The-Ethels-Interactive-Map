@@ -133,6 +133,45 @@
       text-transform:capitalize;
     }
 
+    #progress-wrap {
+  position:absolute;
+  left:50%;
+  bottom:14px;
+  transform:translateX(-50%);
+  z-index:20;
+  width:min(520px, calc(100% - 28px));
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+#progress-count {
+  min-width:44px;
+  text-align:right;
+  font-family:Inter,system-ui,sans-serif;
+  font-size:12px;
+  font-weight:700;
+  color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.45);
+}
+
+#progress-bar {
+  flex:1;
+  height:10px;
+  background:#fff;
+  border-radius:999px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+
+#progress-fill {
+  width:0%;
+  height:100%;
+  background:#22c55e;
+  border-radius:999px;
+  transition:width .25s ease;
+}
+
     .popup-card {
       display:flex; align-items:stretch; background:#fff; border-radius:12px;
       overflow:hidden; width:fit-content; height:185px; position:relative; gap:0;
@@ -2499,6 +2538,20 @@ function applyCompletedColors(){
     if (lockedId === e.id) return;
     setMarkerColor(e.id, isCompletedEthel(e.id) ? GREEN : RED);
   });
+  updateProgressBar();
+}
+
+function updateProgressBar(){
+  const total = 95;
+  const completed = completedEthels.length;
+
+  const percent = (completed / total) * 100;
+
+  const fill = document.getElementById("progress-fill");
+  const count = document.getElementById("progress-count");
+
+  if(fill) fill.style.width = percent + "%";
+  if(count) count.textContent = `${completed}/${total}`;
 }
 
 async function loadGpx(url){
@@ -2754,6 +2807,7 @@ map.on("load", ()=>{
         });
 
     applyCompletionFilter();
+    updateProgressBar();
 
     map.on("click",()=>{ if(!isMobile) closeLocked(); });
     const mob=window.innerWidth<600;
