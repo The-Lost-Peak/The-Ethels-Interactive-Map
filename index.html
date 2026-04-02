@@ -380,6 +380,10 @@ let isLoggedIn = false;
 
 window.addEventListener("message", (event) => {
   if (!event.data || !event.data.type) return;
+  if (event.data.type === "loginSuccess") {
+  requestUserDataRefresh();
+  return;
+}
 
   if (event.data.type === "wrapperReady") {
     window.parent.postMessage({ type: "wrapperReady" }, "*");
