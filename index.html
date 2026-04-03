@@ -176,6 +176,30 @@
   transition:width .25s ease;
 }
 
+@media (max-width: 767px) {
+  body:not(.fs-mode) #progress-wrap {
+    bottom: 34px;
+    width: calc(100% - 80px);
+    padding: 6px 8px;
+    gap: 8px;
+  }
+
+  body:not(.fs-mode) #progress-count {
+    min-width: 34px;
+    font-size: 11px;
+  }
+
+  body:not(.fs-mode) #progress-bar {
+    height: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  body.fs-mode #progress-wrap {
+    bottom: 34px;
+  }
+}
+
     .popup-card {
       display:flex; align-items:stretch; background:#fff; border-radius:12px;
       overflow:hidden; width:fit-content; height:185px; position:relative; gap:0;
