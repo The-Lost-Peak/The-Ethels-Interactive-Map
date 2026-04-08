@@ -2772,25 +2772,26 @@ function lockEthel(e){
 
 function toggleComplete(id, evt){
   if(evt) evt.stopPropagation();
+  alert("toggleComplete fired");
 
   console.log("TOGGLE CLICKED:", id, "loggedIn:", isLoggedIn);
 
   let relayTarget = window.parent;
 
-if (window.opener && !window.opener.closed) {
-  relayTarget = window.opener;
-}
-
-  if(!isLoggedIn){
-  console.log("SENDING LOGIN REQUIRED");
-
-  if (isMobile && isFullscreen && isIOS()) {
-    showLoginToast("Log in on the other tab");
+  if (window.opener && !window.opener.closed) {
+    relayTarget = window.opener;
   }
 
-  relayTarget.postMessage({ type: "loginRequired" }, "*");
-  return;
-}
+  if(!isLoggedIn){
+    console.log("SENDING LOGIN REQUIRED");
+
+    if (isMobile && isFullscreen && isIOS()) {
+      showLoginToast("Log in on the other tab");
+    }
+
+    relayTarget.postMessage({ type: "loginRequired" }, "*");
+    return;
+  }
 
   const idStr = String(id);
   const wasCompleted = completedEthels.includes(idStr);
