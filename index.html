@@ -89,6 +89,27 @@
       overflow:hidden; max-height:280px; overflow-y:auto;
     }
     #search-results.visible { display:block; }
+    #login-toast {
+  display:none;
+  position:absolute;
+  left:50%;
+  bottom:110px;
+  transform:translateX(-50%);
+  z-index:30;
+  background:rgba(30,30,30,0.92);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:8px;
+  font-family:Inter,system-ui,sans-serif;
+  font-size:12px;
+  font-weight:600;
+  box-shadow:0 4px 16px rgba(0,0,0,.28);
+  white-space:nowrap;
+}
+
+#login-toast.show {
+  display:block;
+}
     .search-item {
       padding:9px 16px; font-family:Inter,system-ui,sans-serif; font-size:12px; font-weight:500;
       color:#1E1E1E; cursor:pointer; border-bottom:1px solid #f0f0f0;
@@ -111,6 +132,74 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif !important;
       text-transform:capitalize;
     }
+
+    #progress-wrap {
+  position:absolute;
+  left:50%;
+  bottom:14px;
+  transform:translateX(-50%);
+  z-index:20;
+  width:min(576px, calc(100% - 40px)); /* 720 → 576 */
+  display:flex;
+  align-items:center;
+  gap:10px; /* 12 → 10 */
+  padding:8px 11px; /* 10/14 → scaled */
+  border-radius:999px;
+  background:rgba(0,0,0,.55);
+  box-shadow:0 4px 16px rgba(0,0,0,.28);
+}
+
+#progress-count {
+  min-width:43px; /* 54 → 43 */
+  text-align:right;
+  font-family:Inter,system-ui,sans-serif;
+  font-size:13px; /* 16 → 13 */
+  font-weight:800;
+  color:#fff;
+  line-height:1;
+}
+
+#progress-bar {
+  flex:1;
+  height:13px; /* 16 → 13 */
+  background:rgba(255,255,255,.98);
+  border-radius:999px;
+  overflow:hidden;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.18);
+}
+
+#progress-fill {
+  width:0%;
+  height:100%;
+  background:#22c55e;
+  border-radius:999px;
+  transition:width .25s ease;
+}
+
+@media (max-width: 767px) {
+  body:not(.fs-mode) #progress-wrap {
+    bottom: 34px;
+    width: calc(100% - 90px);
+    padding: 6px 8px;
+    gap: 8px;
+    left: 41%;
+  }
+
+  body:not(.fs-mode) #progress-count {
+    min-width: 34px;
+    font-size: 11px;
+  }
+
+  body:not(.fs-mode) #progress-bar {
+    height: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  body.fs-mode #progress-wrap {
+    bottom: 54px;
+  }
+}
 
     .popup-card {
       display:flex; align-items:stretch; background:#fff; border-radius:12px;
@@ -306,6 +395,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
   <svg id="fsIconExpand" viewBox="0 0 24 24" style="display:block"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
   <svg id="fsIconCollapse" viewBox="0 0 24 24" style="display:none"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
 </button>
+
 <div id="flyover-overlay">
   <div class="fv-ui fv-ui-left">
     <button id="fvBtnToggle" class="fv-btn" title="Play / Pause">
@@ -321,6 +411,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       <svg id="fvIconCamFree" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="#fff"/><line x1="12" y1="2" x2="12" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="22" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="2" y1="12" x2="6" y2="12" stroke="#fff" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="12" x2="22" y2="12" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
   </div>
+
   <div class="fv-ui fv-ui-right">
     <button id="fvBtnZoomIn" class="fv-btn" title="Zoom in">
       <svg class="active" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="#fff" stroke-width="2" fill="none"/><line x1="11" y1="8" x2="11" y2="14" stroke="#fff" stroke-width="2"/><line x1="8" y1="11" x2="14" y2="11" stroke="#fff" stroke-width="2"/><line x1="16" y1="16" x2="21" y2="21" stroke="#fff" stroke-width="2"/></svg>
@@ -335,20 +426,31 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       <div class="fv-speed-panel"><input id="fvSpeed" class="fv-speed-slider" type="range" min="0.1" max="5" step="0.05" value="0.35"></div>
     </div>
   </div>
+
   <button id="fvBtnReturn" class="fv-btn" title="Return to map">Return to Map</button>
   <button id="fv-btn-fullscreen" class="fs-btn" title="Fullscreen" style="pointer-events:auto">
     <svg id="fvFsIconExpand" viewBox="0 0 24 24" style="display:block"><polyline points="4,9 4,4 9,4"/><polyline points="20,9 20,4 15,4"/><polyline points="4,15 4,20 9,20"/><polyline points="20,15 20,20 15,20"/></svg>
     <svg id="fvFsIconCollapse" viewBox="0 0 24 24" style="display:none"><polyline points="9,4 4,4 4,9"/><polyline points="15,4 20,4 20,9"/><polyline points="9,20 4,20 4,15"/><polyline points="15,20 20,20 20,15"/></svg>
   </button>
 </div>
+
+<div id="login-toast">Log in on the other tab</div>
+
 <div id="search-container">
   <input id="search-input" type="text" placeholder="Search Ethels..." autocomplete="off" autocorrect="off" spellcheck="false" />
   <select id="completion-filter">
-  <option value="all">All</option>
-  <option value="complete">Complete</option>
-  <option value="incomplete">Incomplete</option>
-</select>
+    <option value="all">All</option>
+    <option value="complete">Complete</option>
+    <option value="incomplete">Incomplete</option>
+  </select>
   <div id="search-results"></div>
+</div>
+
+<div id="progress-wrap">
+  <div id="progress-count">0/95</div>
+  <div id="progress-bar">
+    <div id="progress-fill"></div>
+  </div>
 </div>
 </div>
 
@@ -380,6 +482,10 @@ let isLoggedIn = false;
 
 window.addEventListener("message", (event) => {
   if (!event.data || !event.data.type) return;
+  if (event.data.type === "loginSuccess") {
+  requestUserDataRefresh();
+  return;
+}
 
   if (event.data.type === "wrapperReady") {
     window.parent.postMessage({ type: "wrapperReady" }, "*");
@@ -470,6 +576,21 @@ window.addEventListener("message", (event) => {
 function requestUserDataRefresh() {
   const relayTarget = (window.opener && window.opener !== window) ? window.opener : window.parent;
   relayTarget.postMessage({ type: "wrapperReady" }, "*");
+}
+
+let loginToastTimer = null;
+
+function showLoginToast(message = "Log in on the other tab") {
+  const toast = document.getElementById("login-toast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  if (loginToastTimer) clearTimeout(loginToastTimer);
+  loginToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2200);
 }
 
 requestUserDataRefresh();
@@ -2446,6 +2567,20 @@ function applyCompletedColors(){
     if (lockedId === e.id) return;
     setMarkerColor(e.id, isCompletedEthel(e.id) ? GREEN : RED);
   });
+  updateProgressBar();
+}
+
+function updateProgressBar(){
+  const total = 95;
+  const completed = completedEthels.length;
+
+  const percent = (completed / total) * 100;
+
+  const fill = document.getElementById("progress-fill");
+  const count = document.getElementById("progress-count");
+
+  if(fill) fill.style.width = percent + "%";
+  if(count) count.textContent = `${completed}/${total}`;
 }
 
 async function loadGpx(url){
@@ -2532,7 +2667,7 @@ const icons = {
 
 function buildPopupHtml(e, locked){
   const closeBtn = locked ? `<button class="close-btn" onclick="closeLocked(event)">&#x2715;</button>` : "";
-  const completeBtn = `<button class="eye-btn" style="left:6px;background:${isCompletedEthel(e.id) ? '#00c853' : 'rgba(0,0,0,.5)'}" onclick="toggleComplete('${e.id}', event)" title="${isLoggedIn ? (isCompletedEthel(e.id) ? 'Mark Ethel as incomplete' : 'Mark Ethel as complete') : 'Mark Ethel as complete (sign in required)'}">
+  const completeBtn = `<button class="eye-btn" style="left:6px;background:${isCompletedEthel(e.id) ? '#00c853' : 'rgba(0,0,0,.5)'}" onclick="toggleComplete('${e.id}')" title="${isLoggedIn ? (isCompletedEthel(e.id) ? 'Mark Ethel as incomplete' : 'Mark Ethel as complete') : 'Mark Ethel as complete (sign in required)'}">
   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${isCompletedEthel(e.id) ? 'white' : '#9e9e9e'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="20 6 9 17 4 12"></polyline>
   </svg>
@@ -2615,14 +2750,14 @@ function lockEthel(e){
   if(lockedId===e.id && !infoHiddenIds.has(e.id)){ closeLocked(); return; }
   lockedId=e.id; setMarkerColor(e.id,BLUE); showRoute(e.id);
   const pt = map.project([e.lng, e.lat]);
-  const adjustedCenter = map.unproject([pt.x + 10, pt.y - 50]);
+  const adjustedCenter = map.unproject([pt.x + 10, pt.y - 80]);
   const fsAdjustedCenter = map.unproject([pt.x + 34, pt.y - 50]);
   map.panTo(
   (isMobile && isFullscreen)
     ? fsAdjustedCenter
     : (isMobile
         ? adjustedCenter
-        : map.unproject([pt.x + 40, pt.y])   // ← THIS is the ONLY change
+        : map.unproject([pt.x + 40, pt.y - 50])  
       ),
   {duration:300}
 );
@@ -2639,10 +2774,15 @@ function toggleComplete(id, evt){
   const relayTarget = (window.opener && window.opener !== window) ? window.opener : window.parent;
 
   if(!isLoggedIn){
-    console.log("SENDING LOGIN REQUIRED");
-    relayTarget.postMessage({ type: "loginRequired" }, "*");
-    return;
+  console.log("SENDING LOGIN REQUIRED");
+
+  if (isMobile && isFullscreen && isIOS()) {
+    showLoginToast("Log in on the other tab");
   }
+
+  relayTarget.postMessage({ type: "loginRequired" }, "*");
+  return;
+}
 
   const idStr = String(id);
   const wasCompleted = completedEthels.includes(idStr);
@@ -2696,6 +2836,7 @@ map.on("load", ()=>{
         });
 
     applyCompletionFilter();
+    updateProgressBar();
 
     map.on("click",()=>{ if(!isMobile) closeLocked(); });
     const mob=window.innerWidth<600;
