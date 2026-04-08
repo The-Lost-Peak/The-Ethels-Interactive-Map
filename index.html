@@ -176,31 +176,6 @@
   transition:width .25s ease;
 }
 
-@media (max-width: 767px) {
-  body:not(.fs-mode) #progress-wrap {
-    bottom: 34px;
-    width: calc(100% - 90px);
-    padding: 6px 8px;
-    gap: 8px;
-    left: 41%;
-  }
-
-  body:not(.fs-mode) #progress-count {
-    min-width: 34px;
-    font-size: 11px;
-  }
-
-  body:not(.fs-mode) #progress-bar {
-    height: 10px;
-  }
-}
-
-@media (max-width: 767px) {
-  body.fs-mode #progress-wrap {
-    bottom: 54px;
-  }
-}
-
     .popup-card {
       display:flex; align-items:stretch; background:#fff; border-radius:12px;
       overflow:hidden; width:fit-content; height:185px; position:relative; gap:0;
@@ -2667,7 +2642,7 @@ const icons = {
 
 function buildPopupHtml(e, locked){
   const closeBtn = locked ? `<button class="close-btn" onclick="closeLocked(event)">&#x2715;</button>` : "";
-  const completeBtn = `<button class="eye-btn" style="left:6px;background:${isCompletedEthel(e.id) ? '#00c853' : 'rgba(0,0,0,.5)'}" onclick="toggleComplete('${e.id}')" title="${isLoggedIn ? (isCompletedEthel(e.id) ? 'Mark Ethel as incomplete' : 'Mark Ethel as complete') : 'Mark Ethel as complete (sign in required)'}">
+  const completeBtn = `<button class="eye-btn" style="left:6px;background:${isCompletedEthel(e.id) ? '#00c853' : 'rgba(0,0,0,.5)'}" onclick="toggleComplete('${e.id}', event)" title="${isLoggedIn ? (isCompletedEthel(e.id) ? 'Mark Ethel as incomplete' : 'Mark Ethel as complete') : 'Mark Ethel as complete (sign in required)'}">
   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${isCompletedEthel(e.id) ? 'white' : '#9e9e9e'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="20 6 9 17 4 12"></polyline>
   </svg>
