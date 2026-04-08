@@ -574,7 +574,11 @@ window.addEventListener("message", (event) => {
 });
   
 function requestUserDataRefresh() {
-  const relayTarget = (window.opener && window.opener !== window) ? window.opener : window.parent;
+  let relayTarget = window.parent;
+
+if (window.opener && !window.opener.closed) {
+  relayTarget = window.opener;
+}
   relayTarget.postMessage({ type: "wrapperReady" }, "*");
 }
 
@@ -2715,7 +2719,6 @@ const completionPopup = locked && isCompletedEthel(e.id) ? `
 
 window.closeLocked = function(evt){
   if(evt) evt.stopPropagation();
-  alert("toggleComplete fired");
   if(lockedId!==null){
     const id = lockedId;
     hideRoute(id);
@@ -2772,7 +2775,11 @@ function toggleComplete(id, evt){
 
   console.log("TOGGLE CLICKED:", id, "loggedIn:", isLoggedIn);
 
-  const relayTarget = (window.opener && window.opener !== window) ? window.opener : window.parent;
+  let relayTarget = window.parent;
+
+if (window.opener && !window.opener.closed) {
+  relayTarget = window.opener;
+}
 
   if(!isLoggedIn){
   console.log("SENDING LOGIN REQUIRED");
