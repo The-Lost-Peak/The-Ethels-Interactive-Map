@@ -458,7 +458,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
 <script src="https://unpkg.com/@tmcw/togeojson@5.8.0/dist/togeojson.umd.js"></script>
 <script>
-let completedEthels = [];
+
 let currentCompletionFilter = "all";
 function markerMatchesFilter(id) {
   const isComplete = completedEthels.includes(String(id));
@@ -477,9 +477,12 @@ function markerMatchesFilter(id) {
     closeLocked();
   }
 }
+  
+let isLoggedIn = null;
+let hasUserData = false;
+let completedEthels = [];
 let completedEthelsData = [];
-let isLoggedIn = false;
-
+  
 window.addEventListener("message", (event) => {
   if (!event.data || !event.data.type) return;
   if (event.data.type === "loginSuccess") {
@@ -509,6 +512,7 @@ window.addEventListener("message", (event) => {
 
     completedEthels = (event.data.completed || []).map(String);
     completedEthelsData = event.data.completedData || [];
+    hasUserData = true;
     isLoggedIn = !!event.data.loggedIn;
 
     console.log("Completed from Wix:", completedEthels);
@@ -597,7 +601,33 @@ function showLoginToast(message = "Log in on the other tab") {
   }, 2200);
 }
 
-requestUserDataRefresh();
+function startHandshake() {
+  const send = () => {
+    if (hasUserData) return;
+
+    let relayTarget = window.parent;
+
+    if (window.opener && !window.opener.closed) {
+      relayTarget = window.opener;
+    }
+
+    console.log("HANDSHAKE SEND wrapperReady");
+
+    relayTarget.postMessage({ type: "wrapperReady" }, "*");
+  };
+
+  send();
+
+  const interval = setInterval(() => {
+    if (hasUserData) {
+      clearInterval(interval);
+    } else {
+      send();
+    }
+  }, 400);
+}
+
+startHandshake();
   
 mapboxgl.accessToken = "pk.eyJ1IjoicmVtbWlhZ2JlYmkiLCJhIjoiY21odHRrYTQzMTk0bjJqcjE1b2xhZ2FraSJ9.nTCz33gX0gQt3T4A6VD0oQ";
 const RED = "#EC2629", BLUE = "#3899EC", GREEN = "#22c55e";
