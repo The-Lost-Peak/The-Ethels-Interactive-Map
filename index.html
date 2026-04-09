@@ -2812,16 +2812,18 @@ function toggleComplete(id, evt){
     relayTarget = window.opener;
   }
 
-  if(!isLoggedIn){
-    console.log("SENDING LOGIN REQUIRED");
+  if (isLoggedIn === null) {
+  return;
+}
 
-    if (isMobile && isFullscreen && isIOS()) {
-      showLoginToast("Log in on the other tab");
-    }
-
-    relayTarget.postMessage({ type: "loginRequired" }, "*");
-    return;
+if (isLoggedIn === false) {
+  if (isMobile && isFullscreen && isIOS()) {
+    showLoginToast("Log in on the other tab");
   }
+
+  relayTarget.postMessage({ type: "loginRequired" }, "*");
+  return;
+}
 
   const idStr = String(id);
   const wasCompleted = completedEthels.includes(idStr);
