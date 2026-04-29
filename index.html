@@ -3068,7 +3068,8 @@ window.startFlyover = function(id, evt) {
   Object.keys(lockedPopups).forEach(k => { lockedPopups[k].remove(); delete lockedPopups[k]; });
   lockedId = null;
   document.getElementById("search-container").style.display = "none";
-  document.getElementById("map-btn-fullscreen").style.display = "none";
+document.getElementById("map-btn-fullscreen").style.display = "none";
+document.getElementById("progress-wrap").style.display = "none";
   document.getElementById("fvIconPlay").classList.remove("active");
   document.getElementById("fvIconPause").classList.add("active");
   document.getElementById("fvIconCamFollow").classList.add("active");
@@ -3151,7 +3152,8 @@ function stopFlyover() {
   if (flyoverAnimId) { cancelAnimationFrame(flyoverAnimId); flyoverAnimId = null; }
   document.getElementById("flyover-overlay").classList.remove("active");
   document.getElementById("search-container").style.display = "";
-  document.getElementById("map-btn-fullscreen").style.display = "";
+document.getElementById("map-btn-fullscreen").style.display = "";
+document.getElementById("progress-wrap").style.display = "";
   ["mousedown","touchstart","dragstart","rotatestart","zoomstart","pitchstart"].forEach(ev => {
     map.off(ev, onFlyoverInteract);
   });
