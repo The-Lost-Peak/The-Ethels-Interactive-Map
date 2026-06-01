@@ -392,7 +392,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       position:absolute;
       inset:0;
       z-index:450;
-      display:flex;
+      display:none;
       align-items:center;
       justify-content:center;
       pointer-events:none;
@@ -403,6 +403,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
     }
 
     #badge-unlock-overlay.show {
+      display:flex;
       pointer-events:none;
       opacity:1;
       visibility:visible;
@@ -693,34 +694,55 @@ function showBadgeUnlockSequence(badges, index) {
 
   if (!overlay || !img || !title || !subtitle) return;
 
+  if (badgeUnlockTimer) clearTimeout(badgeUnlockTimer);
+
+  overlay.style.display = "flex";
+  overlay.style.pointerEvents = "none";
+
   img.src = badge.image;
   img.alt = badge.title;
   title.textContent = badge.title;
   subtitle.textContent = badge.subtitle;
 
-  overlay.classList.add("show");
+  requestAnimationFrame(() => {
+    overlay.classList.add("show");
+  });
 
-  if (badgeUnlockTimer) clearTimeout(badgeUnlockTimer);
   badgeUnlockTimer = setTimeout(() => {
     hideBadgeUnlock();
 
     if (index + 1 < badges.length) {
       badgeUnlockTimer = setTimeout(() => {
         showBadgeUnlockSequence(badges, index + 1);
-      }, 250);
+      }, 350);
     }
   }, 8000);
 }
 
 function hideBadgeUnlock() {
   const overlay = document.getElementById("badge-unlock-overlay");
+  const img = document.getElementById("badge-unlock-img");
   if (!overlay) return;
+
   overlay.classList.remove("show");
+  overlay.style.pointerEvents = "none";
+
+  setTimeout(() => {
+    if (overlay.classList.contains("show")) return;
+    overlay.style.display = "none";
+    if (img) {
+      img.removeAttribute("src");
+      img.alt = "";
+    }
+  }, 320);
 }
 
 document.addEventListener("click", (event) => {
   const closeBtn = event.target.closest("#badge-unlock-close");
   if (!closeBtn) return;
+
+  event.preventDefault();
+  event.stopPropagation();
 
   if (badgeUnlockTimer) clearTimeout(badgeUnlockTimer);
   badgeUnlockTimer = null;
