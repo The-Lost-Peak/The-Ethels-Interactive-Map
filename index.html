@@ -397,14 +397,17 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       justify-content:center;
       pointer-events:none;
       opacity:0;
+      visibility:hidden;
       transform:scale(.92);
-      transition:opacity .28s ease, transform .28s ease;
+      transition:opacity .28s ease, transform .28s ease, visibility 0s linear .28s;
     }
 
     #badge-unlock-overlay.show {
-      pointer-events:auto;
+      pointer-events:none;
       opacity:1;
+      visibility:visible;
       transform:scale(1);
+      transition:opacity .28s ease, transform .28s ease, visibility 0s;
     }
 
     .badge-unlock-card {
@@ -418,6 +421,10 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       font-family:Inter,system-ui,sans-serif;
       border:3px solid #fff;
       position:relative;
+      pointer-events:none;
+    }
+
+    #badge-unlock-overlay.show .badge-unlock-card {
       pointer-events:auto;
     }
 
@@ -463,6 +470,9 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       display:block;
       margin:0 auto 10px;
       filter:drop-shadow(0 8px 14px rgba(0,0,0,.22));
+      pointer-events:none;
+      user-select:none;
+      -webkit-user-drag:none;
     }
 
     .badge-unlock-title {
@@ -496,7 +506,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 <div id="badge-unlock-overlay" aria-live="polite">
   <div class="badge-unlock-card">
     <button id="badge-unlock-close" class="badge-unlock-close" type="button" aria-label="Close badge">×</button>
-    <img id="badge-unlock-img" class="badge-unlock-img" src="" alt="" />
+    <img id="badge-unlock-img" class="badge-unlock-img" src="" alt="" draggable="false" />
     <div id="badge-unlock-title" class="badge-unlock-title">Badge Unlocked</div>
     <div id="badge-unlock-subtitle" class="badge-unlock-subtitle"></div>
   </div>
