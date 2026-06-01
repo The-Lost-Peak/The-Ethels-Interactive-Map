@@ -402,6 +402,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
     }
 
     #badge-unlock-overlay.show {
+      pointer-events:auto;
       opacity:1;
       transform:scale(1);
     }
@@ -416,6 +417,43 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
       text-align:center;
       font-family:Inter,system-ui,sans-serif;
       border:3px solid #fff;
+      position:relative;
+      pointer-events:auto;
+    }
+
+    .badge-unlock-close {
+      position:absolute;
+      top:8px;
+      right:8px;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      border:none;
+      background:rgba(0,0,0,.55);
+      color:#fff;
+      cursor:pointer;
+      font-size:18px;
+      line-height:22px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      outline:none;
+      box-shadow:none;
+      font-family:Inter,system-ui,sans-serif;
+    }
+
+    .badge-unlock-close:hover {
+      background:rgba(0,0,0,.78);
+    }
+
+    .badge-unlock-close:focus,
+    .badge-unlock-close:active,
+    .badge-unlock-close:focus-visible {
+      outline:none;
+      box-shadow:none;
+      border:none;
     }
 
     .badge-unlock-img {
@@ -457,6 +495,7 @@ body:not(.fs-mode) .popup-note{width:115px!important;font-size:9px!important;}
 
 <div id="badge-unlock-overlay" aria-live="polite">
   <div class="badge-unlock-card">
+    <button id="badge-unlock-close" class="badge-unlock-close" type="button" aria-label="Close badge">×</button>
     <img id="badge-unlock-img" class="badge-unlock-img" src="" alt="" />
     <div id="badge-unlock-title" class="badge-unlock-title">Badge Unlocked</div>
     <div id="badge-unlock-subtitle" class="badge-unlock-subtitle"></div>
@@ -653,15 +692,30 @@ function showBadgeUnlockSequence(badges, index) {
 
   if (badgeUnlockTimer) clearTimeout(badgeUnlockTimer);
   badgeUnlockTimer = setTimeout(() => {
-    overlay.classList.remove("show");
+    hideBadgeUnlock();
 
     if (index + 1 < badges.length) {
       badgeUnlockTimer = setTimeout(() => {
         showBadgeUnlockSequence(badges, index + 1);
       }, 250);
     }
-  }, 3000);
+  }, 8000);
 }
+
+function hideBadgeUnlock() {
+  const overlay = document.getElementById("badge-unlock-overlay");
+  if (!overlay) return;
+  overlay.classList.remove("show");
+}
+
+document.addEventListener("click", (event) => {
+  const closeBtn = event.target.closest("#badge-unlock-close");
+  if (!closeBtn) return;
+
+  if (badgeUnlockTimer) clearTimeout(badgeUnlockTimer);
+  badgeUnlockTimer = null;
+  hideBadgeUnlock();
+});
 
 
   
