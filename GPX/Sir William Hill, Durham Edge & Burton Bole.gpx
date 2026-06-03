@@ -8,32 +8,38 @@ xmlns:os="https://ordnancesurvey.co.uk/public/schema/route/0.1">
     <metadata>
         <name>Sir William Hill, Durham Edge &amp; Burton Bole (Ethels) - Circular (www.thelostpeak.co.uk)</name>
         <desc></desc>
-        <bounds minlat="53.2888670" minlon="-1.7293200" maxlat="53.3237700" maxlon="-1.6778800"/>
+        <bounds minlat="53.2863900" minlon="-1.7293200" maxlat="53.3237700" maxlon="-1.6744400"/>
         <extensions>
             <os:version>2.0</os:version>
-            <os:point lat="53.2888670" lon="-1.6877150" type="start"/>
-            <os:point lat="53.2888670" lon="-1.6877150" type="end"/>
+            <os:point lat="53.2870700" lon="-1.6763000" type="start"/>
+            <os:point lat="53.2870600" lon="-1.6762700" type="end"/>
             <os:activity>ON_FOOT_WALKING</os:activity>
             <os:difficulty>MODERATE</os:difficulty>
             <os:paths/>
-            <os:distance>16557.4225158</os:distance>
-            <os:elevation_ascent>470.9900000</os:elevation_ascent>
+            <os:distance>17339.9100320</os:distance>
+            <os:elevation_ascent>526.7100000</os:elevation_ascent>
+            <os:route_type>SINGLE</os:route_type>
         </extensions>
     </metadata>
-    <wpt lat="53.2888670" lon="-1.6877150"/>
-    <wpt lat="53.2901800" lon="-1.6914500"/>
-    <wpt lat="53.2904400" lon="-1.6944700"/>
-    <wpt lat="53.2922700" lon="-1.6951500"/>
-    <wpt lat="53.2923400" lon="-1.6911700"/>
-    <wpt lat="53.2926400" lon="-1.6861300"/>
-    <wpt lat="53.2930100" lon="-1.6848900"/>
-    <wpt lat="53.2936900" lon="-1.6849500"/>
-    <wpt lat="53.2937000" lon="-1.6860800"/>
-    <wpt lat="53.2948500" lon="-1.6866900"/>
-    <wpt lat="53.2961500" lon="-1.6863500"/>
-    <wpt lat="53.2971600" lon="-1.6778800"/>
-    <wpt lat="53.2976600" lon="-1.6780700"/>
-    <wpt lat="53.2971600" lon="-1.6779000"/>
+    <wpt lat="53.2870700" lon="-1.6763000"/>
+    <wpt lat="53.2873000" lon="-1.6775300"/>
+    <wpt lat="53.2869500" lon="-1.6775300"/>
+    <wpt lat="53.2864100" lon="-1.6780500"/>
+    <wpt lat="53.2870900" lon="-1.6800100"/>
+    <wpt lat="53.2891100" lon="-1.6809800"/>
+    <wpt lat="53.2890300" lon="-1.6813900"/>
+    <wpt lat="53.2893200" lon="-1.6814100"/>
+    <wpt lat="53.2895100" lon="-1.6809300"/>
+    <wpt lat="53.2915100" lon="-1.6816400"/>
+    <wpt lat="53.2920700" lon="-1.6805000"/>
+    <wpt lat="53.2927700" lon="-1.6798900"/>
+    <wpt lat="53.2924500" lon="-1.6787900"/>
+    <wpt lat="53.2928500" lon="-1.6785600"/>
+    <wpt lat="53.2918300" lon="-1.6760200"/>
+    <wpt lat="53.2917800" lon="-1.6755300"/>
+    <wpt lat="53.2976300" lon="-1.6744400"/>
+    <wpt lat="53.2974000" lon="-1.6782000"/>
+    <wpt lat="53.2971200" lon="-1.6784500"/>
     <wpt lat="53.2959300" lon="-1.6874300"/>
     <wpt lat="53.2970600" lon="-1.6954000"/>
     <wpt lat="53.2978400" lon="-1.6997300"/>
@@ -105,28 +111,48 @@ xmlns:os="https://ordnancesurvey.co.uk/public/schema/route/0.1">
     <wpt lat="53.2938400" lon="-1.6963200"/>
     <wpt lat="53.2932100" lon="-1.6947400"/>
     <wpt lat="53.2919800" lon="-1.6980700"/>
-    <wpt lat="53.2904100" lon="-1.6944300"/>
-    <wpt lat="53.2902100" lon="-1.6915300"/>
-    <wpt lat="53.2888670" lon="-1.6877150"/>
+    <wpt lat="53.2901400" lon="-1.6945400"/>
+    <wpt lat="53.2901200" lon="-1.6915600"/>
+    <wpt lat="53.2890600" lon="-1.6892500"/>
+    <wpt lat="53.2880500" lon="-1.6845500"/>
+    <wpt lat="53.2874800" lon="-1.6831200"/>
+    <wpt lat="53.2870900" lon="-1.6800200"/>
+    <wpt lat="53.2863900" lon="-1.6780400"/>
+    <wpt lat="53.2869400" lon="-1.6775700"/>
+    <wpt lat="53.2873000" lon="-1.6775400"/>
+    <wpt lat="53.2870600" lon="-1.6762700"/>
     <trk>
         <name>Sir William Hill, Durham Edge &amp; Burton Bole (Ethels) - Circular (www.thelostpeak.co.uk)</name>
         <trkseg>
-            <trkpt lat="53.2888670" lon="-1.6877150"/>
-            <trkpt lat="53.2901800" lon="-1.6914500"/>
-            <trkpt lat="53.2904400" lon="-1.6944700"/>
-            <trkpt lat="53.2916300" lon="-1.6948000"/>
-            <trkpt lat="53.2922700" lon="-1.6951500"/>
-            <trkpt lat="53.2923400" lon="-1.6911700"/>
-            <trkpt lat="53.2926400" lon="-1.6861300"/>
-            <trkpt lat="53.2930100" lon="-1.6848900"/>
-            <trkpt lat="53.2936900" lon="-1.6849500"/>
-            <trkpt lat="53.2937000" lon="-1.6860800"/>
-            <trkpt lat="53.2948500" lon="-1.6866900"/>
+            <trkpt lat="53.2870700" lon="-1.6763000"/>
+            <trkpt lat="53.2873000" lon="-1.6775300"/>
+            <trkpt lat="53.2869500" lon="-1.6775300"/>
+            <trkpt lat="53.2864100" lon="-1.6780500"/>
+            <trkpt lat="53.2868300" lon="-1.6790700"/>
+            <trkpt lat="53.2870900" lon="-1.6800100"/>
+            <trkpt lat="53.2873800" lon="-1.6802900"/>
+            <trkpt lat="53.2877900" lon="-1.6804700"/>
+            <trkpt lat="53.2883100" lon="-1.6807500"/>
+            <trkpt lat="53.2891100" lon="-1.6809800"/>
+            <trkpt lat="53.2890300" lon="-1.6813900"/>
+            <trkpt lat="53.2891400" lon="-1.6813400"/>
+            <trkpt lat="53.2893200" lon="-1.6814100"/>
+            <trkpt lat="53.2895100" lon="-1.6809300"/>
+            <trkpt lat="53.2900900" lon="-1.6811800"/>
+            <trkpt lat="53.2915100" lon="-1.6816400"/>
+            <trkpt lat="53.2920700" lon="-1.6805000"/>
+            <trkpt lat="53.2927700" lon="-1.6798900"/>
+            <trkpt lat="53.2924500" lon="-1.6787900"/>
+            <trkpt lat="53.2928500" lon="-1.6785600"/>
+            <trkpt lat="53.2918300" lon="-1.6760200"/>
+            <trkpt lat="53.2917800" lon="-1.6755300"/>
+            <trkpt lat="53.2976300" lon="-1.6744400"/>
+            <trkpt lat="53.2974000" lon="-1.6782000"/>
+            <trkpt lat="53.2971200" lon="-1.6784500"/>
+            <trkpt lat="53.2968700" lon="-1.6807800"/>
             <trkpt lat="53.2961500" lon="-1.6863500"/>
-            <trkpt lat="53.2971600" lon="-1.6778800"/>
-            <trkpt lat="53.2976600" lon="-1.6780700"/>
-            <trkpt lat="53.2971600" lon="-1.6779000"/>
             <trkpt lat="53.2959300" lon="-1.6874300"/>
+            <trkpt lat="53.2960100" lon="-1.6877300"/>
             <trkpt lat="53.2970600" lon="-1.6954000"/>
             <trkpt lat="53.2974000" lon="-1.6971700"/>
             <trkpt lat="53.2975600" lon="-1.6984500"/>
@@ -219,9 +245,22 @@ xmlns:os="https://ordnancesurvey.co.uk/public/schema/route/0.1">
             <trkpt lat="53.2938400" lon="-1.6963200"/>
             <trkpt lat="53.2932100" lon="-1.6947400"/>
             <trkpt lat="53.2919800" lon="-1.6980700"/>
-            <trkpt lat="53.2904100" lon="-1.6944300"/>
-            <trkpt lat="53.2902100" lon="-1.6915300"/>
-            <trkpt lat="53.2888670" lon="-1.6877150"/>
+            <trkpt lat="53.2901400" lon="-1.6945400"/>
+            <trkpt lat="53.2901200" lon="-1.6915600"/>
+            <trkpt lat="53.2890600" lon="-1.6892500"/>
+            <trkpt lat="53.2885700" lon="-1.6868900"/>
+            <trkpt lat="53.2880500" lon="-1.6845500"/>
+            <trkpt lat="53.2874800" lon="-1.6831200"/>
+            <trkpt lat="53.2872800" lon="-1.6817900"/>
+            <trkpt lat="53.2873200" lon="-1.6814900"/>
+            <trkpt lat="53.2871900" lon="-1.6813200"/>
+            <trkpt lat="53.2871200" lon="-1.6802800"/>
+            <trkpt lat="53.2870900" lon="-1.6800200"/>
+            <trkpt lat="53.2868400" lon="-1.6790800"/>
+            <trkpt lat="53.2863900" lon="-1.6780400"/>
+            <trkpt lat="53.2869400" lon="-1.6775700"/>
+            <trkpt lat="53.2873000" lon="-1.6775400"/>
+            <trkpt lat="53.2870600" lon="-1.6762700"/>
         </trkseg>
     </trk>
 </gpx>
