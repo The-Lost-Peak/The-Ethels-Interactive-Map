@@ -194,7 +194,7 @@ applyCompletionFilter()
 }
 const filtersResetButton=document.getElementById("filters-reset");
 filtersResetButton&&filtersResetButton.addEventListener("click",(e=>{e.preventDefault(),e.stopPropagation(),resetAllFilters()}));
-document.querySelectorAll('input[name="completion-status"]').forEach((e=>{e.addEventListener("change",(()=>{e.checked&&(currentCompletionFilter=e.value,applyCompletionFilter())}))})),initFiltersDropdown(),initRouteFilterControls(),protectFilterControlsOnMobile(),makeSingleSlidersMobileSafe()/* ---- Live location (via Wix parent, polled every 5s) ---- */
+document.querySelectorAll('input[name="completion-status"]').forEach((e=>{e.addEventListener("change",(()=>{e.checked&&(currentCompletionFilter=e.value,applyCompletionFilter())}))})),initFiltersDropdown(),initRouteFilterControls(),protectFilterControlsOnMobile(),makeSingleSlidersMobileSafe();/* ---- Live location (via Wix parent, polled every 5s) ---- */
 const LOC_INTERVAL_MS = 5000;      // gap after each reply
 const LOC_TIMEOUT_MS  = 8000;      // give up on a silent request
 let locActive = false;             // are we tracking?
