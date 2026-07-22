@@ -1,0 +1,43 @@
+name: Enrich GPX Elevation
+
+on:
+  push:
+    paths:
+      - 'GPX/**.gpx'
+  workflow_dispatch:   # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write       # allows the workflow to commit the enriched files back
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install pngjs
+
+      - name: Enrich changed GPX files with elevation
+        env:
+          MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+          GPX_DIR: GPX
+        run: node enrich-elevation.mjs
+
+      - name: Commit enriched files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain GPX)" ]; then
+            git add GPX
+            git commit -m "Auto-enrich GPX elevation [skip ci]"
+            git push
+          else
+            echo "No elevation changes to commit."
+          fi
