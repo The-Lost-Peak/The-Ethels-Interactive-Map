@@ -1,0 +1,9 @@
+{
+  "name": "ethel-elevation-enricher",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  }
+}
