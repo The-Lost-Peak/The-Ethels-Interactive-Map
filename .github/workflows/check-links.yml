@@ -1,0 +1,21 @@
+name: Check Ethel Links
+
+on:
+  workflow_dispatch:        # run manually from the Actions tab
+  schedule:
+    - cron: '0 6 1 * *'     # 06:00 on the 1st of each month — catches link-rot
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check all popup links
+        run: node check-links.mjs index.html
